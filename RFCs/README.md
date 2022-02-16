@@ -71,7 +71,7 @@ Thank you for being here, we're really happy you decided to create a RFC.
 
 Before you contribute to the project please make sure to read all items below.
 
-* [Contributing Guide](https://github.com/Platzi-Master-C9/knowledge-base/RFCs/CONTRIBUTING.md)
+* [Contributing Guide](https://github.com/Platzi-Master-C9/knowledge-base/blob/main/RFCs/CONTRIBUTING.md)
 * [Request For Comments additional resources](https://platziteam.notion.site/Request-for-comments-RFC-52ff9f80e16a4b7da582ca48c30cfb1e)
 
 ## Inspiration
