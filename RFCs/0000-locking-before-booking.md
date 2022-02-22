@@ -4,63 +4,59 @@
 
 # Summary
 
-Brief explanation of the feature.
+This RFC is intended to define the strategy that will be followed in order to create a feature that locks a place 
+a user selects before to book it and sets an amount of time before blocking (if payment is completed) or 
+releasing it (if payment is not completed) from locking.
 
 # Basic example
 
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
+A user wants to book a place inside the booking system, so after check in and checkout dates would have been selected,
+the booking system has to lock the place on that period of time to avoid double bookings or potencial confict with overbooking
 
 # Motivation
 
-Why are we doing this? What use cases does it support? What is the expected
-outcome?
+This feature is intended to improve the user experience by preventing conflicts with booking dates when a somebody has already selected 
+a perioid of time that gets in conflict with dates that another user is trying to select.
 
-Please focus on explaining the motivation so that if this RFC is not accepted,
-the motivation could be used to develop alternative solutions. In other words,
-enumerate the constraints you are trying to solve without coupling them too
-closely to the solution you have in mind.
+It doesn't have to be the exact same dates to have a conflict, it could be just a couple of days or day.
+
+Although this feature gives, the first user that picks dates, the opportunity to complete the process of booking, that doesn't mean that
+place will be locked forever. In order to give an opportunity to other users a timer must be put before the place will be released from locking.
+
+Dates will be locked when place is either booked or about to be booked.
+
 
 # Detailed design
 
-This is the bulk of the RFC. Explain the design in enough detail for somebody
-familiar with React to understand, and for somebody familiar with the
-implementation to implement. This should get into specifics and corner-cases,
-and include examples of how the feature is used. Any new terminology should be
-defined here.
+Since we are using React to develop this feature, the useState hook can be used using different states such as:
+
+-Available: When the place isn't booked.
+-Locked: When an user has selected check in and checkout dates but the booking isn't completed.
+-Booked: When an user has completed the booking process and payment is verified.
+
+When a place is locked, the system must show to the user that is in a booking process a timer with, lets say 5 minutes, to complete the booking
+otherwise the place will be available and other users could try to book the place, and the user who hadn't completed the booking process 
+will be returned to searching results.
+
+[WIP]
 
 # Drawbacks
 
-Why should we *not* do this? Please consider:
-
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people React
-- integration of this feature with other existing and planned features
-- cost of migrating existing React applications (is it a breaking change?)
-
-There are tradeoffs to choosing any path. Attempt to identify them here.
+[WIP]
 
 # Alternatives
 
-What other designs have been considered? What is the impact of not doing this?
+-Could use redux to manage the different states in which a place could be put in
+-In the data base could exist a field, such as a check box that will be checked once the user select both dates, and it will be unchecked either timer 
+runs out or the place is booked
 
 # Adoption strategy
 
-If we implement this proposal, how will existing C9 developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+[WIP]
 
 # How we teach this
 
-What names and terminology work best for these concepts and why? How is this
-idea best presented? As a continuation of existing C9 projects patterns?
-
-Would the acceptance of this proposal mean the C9 documentation must be
-re-organized or altered? Does it change how C9 is taught to new developers
-at any level?
-
-How should this feature be taught to existing C9 developers?
+[WIP]
 
 # Unresolved questions
 
