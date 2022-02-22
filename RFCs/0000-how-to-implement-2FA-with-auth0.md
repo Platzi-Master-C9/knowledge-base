@@ -2,9 +2,9 @@
 - Members: (fill me with the names of the RFC creators)
 - RFC PR: (leave this empty)
 
-# Summary
+# Summary (WIP)
 
-Brief explanation of the feature.
+<!-- Brief explanation of the feature.
 
 # Basic example
 
@@ -65,4 +65,4 @@ How should this feature be taught to existing C9 developers?
 # Unresolved questions
 
 Optional, but suggested for first drafts. What parts of the design are still
-TBD?
+TBD? -->
