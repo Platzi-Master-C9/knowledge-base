@@ -61,3 +61,20 @@ AKITA | No
 Mobx | No
 
 *In case we decide to use GraphQL, it is recommended to use Relay as State Management
+
+# Adoption strategy
+First of all, the technical necessity of the tool is evaluated, if the impact on the states of the components its difficult to implement, we need to use a complete solution such as Redux, Recoil, etc. In case it is not strictly necessary, other solutions will be approached taking into account the % of knowledge within the team and the ease of implementation, as in the case of the State Management that are specific to React. It is also worth that it is possible to make use of several solutions depending on the complexity of each component.The chosen tool can be implemented initially in the cases mentioned in Detailed design.
+
+# How we teach this
+In case the people who have not used any STATE MANAGEMENT are in the minority, resources (readings or Platzi courses) will be provided to acquire skills in this tool, making its adoption gradually, and in case it is accepted for the project, it should be coordinated with all the members. State Management will be used indiscriminately in many components of the application
+
+# Unresolved questions
+- Which C9 members have had experience using STATE MANAGEMENT tools and which ones?
+
+- Who has no experience with the use of the tool?
+
+- Could we use several tools for state management depending on the complexity of each component?
+
+- Will the state management we choose only be used in places or in the whole application?
+
+- How to teach it, does it apply only to state management or the context that comes with the framework used?
