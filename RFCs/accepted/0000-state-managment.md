@@ -55,6 +55,7 @@ NGXS | Angular
 Context | React
 Relay* | React
 Hooks | React
+React Query | React
 Vuex | Vue
 **Redux** | **No**
 AKITA | No
