@@ -10,6 +10,15 @@ Generate QR code to visualize the digital ticket from booking.
 
 # Basic example
 
+This example is with JS:
+
+var QRCode = require('qrcode')
+
+QRCode.toString('htttps//:google.com',{type:'terminal'}, function (err, url) {
+  console.log(url)
+})
+
+
 # Motivation
 
 Sharing information about the client's booking for they or their guests. 
