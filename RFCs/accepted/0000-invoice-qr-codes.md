@@ -1,3 +1,5 @@
+[WIP]
+
 - Start Date: 2022-02-19
 - Members: Paulina Ignacio, Edwin Páez
 - RFC PR: 
@@ -61,17 +63,14 @@ this a breaking change? Can we write a codemod? Should we coordinate with
 other projects or libraries? -->
 
 # How we teach this
+ 
+"The quick response, or QR, Code is a two-dimensional version of the Barcode able to convey a wide variety of information almost instantly with the scan of a mobile device. 
 
-<!-- What names and terminology work best for these concepts and why? How is this
-idea best presented? As a continuation of existing C9 projects patterns?
+Able to store up to 7089 digits or 4296 characters, including punctuation marks and special characters, the Code can equally encode words and phrases such as internet addresses. One thing to always keep in mind, especially when it comes to designing the Static QR Codes aesthetic is that the more data is added, the more the size increases and its structure becomes more complex. 
 
-Would the acceptance of this proposal mean the C9 documentation must be
-re-organized or altered? Does it change how C9 is taught to new developers
-at any level?
+Even when damaged, the QR Code’s structure data keys include duplications. It is thanks to these redundancies that allow up to 30% of the Code structure to take damage without affecting its readability on scanners, ."
 
-How should this feature be taught to existing C9 developers? -->
-
-¿Cómo funcionan los QR Codes?
+"The anatomy of a QR Code: Positioning detection markers, Alignment markings, Timing pattern, Version information, Format information, Data and error correction keys and Quiet zone." 
 
 # Unresolved questions
 
