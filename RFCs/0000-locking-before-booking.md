@@ -1,6 +1,6 @@
-- Start Date: (fill me in with today's date, YYYY-MM-DD)
-- Members: (fill me with the names of the RFC creators)
-- RFC PR: (leave this empty)
+- Start Date: 2022-02-21
+- Members: Rodrigo Cabrera and Alexander Acosta
+- RFC PR: 
 
 # Summary
 
