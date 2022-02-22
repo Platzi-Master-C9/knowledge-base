@@ -48,7 +48,7 @@ Add a lot of complexity to a simple task, reload the entire page to change a sin
 
 # Alternatives
 
-State Management Tool  | Specific Framework
+**State Management Tool**  | **Specific Framework**
 ------------- | -------------
 NGRX | Angular
 NGXS | Angular
