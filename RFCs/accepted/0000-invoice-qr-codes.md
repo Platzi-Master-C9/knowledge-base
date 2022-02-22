@@ -15,7 +15,7 @@ Omit this section if it's not applicable. -->
 
 Sharing information about the client's booking for they or their guests. 
 In case, the client or the person who booked decide to go with others. 
-Therefore, when the person who scan the QR code would obtain the booking information (date, hour, location, telepone, e-mail, etc.)
+Therefore, when the person who scan the QR code would obtain the booking information (date, hour, location, phone, e-mail, etc.)
 
 # Detailed design
 
@@ -24,6 +24,8 @@ familiar with React to understand, and for somebody familiar with the
 implementation to implement. This should get into specifics and corner-cases,
 and include examples of how the feature is used. Any new terminology should be
 defined here. -->
+
+Cuál, cómo, y por qué implementamos
 
 # Drawbacks
 
@@ -37,22 +39,26 @@ defined here. -->
 
 There are tradeoffs to choosing any path. Attempt to identify them here. -->
 
+¿Qué podría salir mal?
+
 # Alternatives
 
 <!-- What other designs have been considered? What is the impact of not doing this? -->
 
+Share booking information by email.
 Enviar la información de la reserva por medio de correo electrónico.
+
+Podemos facilitar la implementación de esta funcionalidad por medio de librerias como
+1. [qrcode](https://www.npmjs.com/package/qrcode)
+2. [qrcode-with-logos](https://www.npmjs.com/package/qrcode-with-logos)
+3. [easyqrcodejs](https://www.npmjs.com/package/easyqrcodejs)
+4. [react-qr-code](https://www.npmjs.com/package/react-qr-code)
 
 # Adoption strategy
 
 <!-- If we implement this proposal, how will existing C9 developers adopt it? Is
 this a breaking change? Can we write a codemod? Should we coordinate with
 other projects or libraries? -->
-
-Podemos facilitar la implementación de esta funcionalidad por medio de librerias como
-1. [qrcode](https://www.npmjs.com/package/qrcode)
-2. [qrcode-with-logos](https://www.npmjs.com/package/qrcode-with-logos)
-3. [easyqrcodejs](https://www.npmjs.com/package/easyqrcodejs)
 
 # How we teach this
 
@@ -64,6 +70,8 @@ re-organized or altered? Does it change how C9 is taught to new developers
 at any level?
 
 How should this feature be taught to existing C9 developers? -->
+
+¿Cómo funcionan los QR Codes?
 
 # Unresolved questions
 
