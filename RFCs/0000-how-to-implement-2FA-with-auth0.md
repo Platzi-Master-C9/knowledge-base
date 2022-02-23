@@ -6,6 +6,7 @@
 
 - Priorizar 2FA con correo electrónico
 - En caso de incrementar el scope del proyecto, agregar 2FA por SMS
+
 <!-- # Basic example
 
 If the proposal involves a new or changed API, include a basic code example.
@@ -26,11 +27,21 @@ defined here. -->
 
 # Drawbacks
 
-- Desventajas de usar email para 2FA
+Even considering having a reduced scope for the sake of MVP, email 2FA implementation has some disadvantages:
+
+- **Failing of being delivered:** there are some scenarios where e-mails can be failed to be delivered. Events like email going to spam, being bounced by server, having a delay in delivery can cause some issues. This could be solved with giving enough time to users to add the 2FA code (to mitigate the impact of delay in delivery) and recommending users to check for spam folder just in case (to avoid the fact that email going to spam can cause problems).
+- **Security:** emails can be intercepted by 3rd parties and tokens compromised.
+- **Redundancy:** it's possible that if a 3rd party gains access to user's account, they _can_ gain access to user's email as well, and thus easily get the token.
 
 # Alternatives
 
-- SMS (Ventajas y desventajas)
+Another alternative we highly encourage to use if scope can be increased is adding a **SMS 2FA**, it has some advantages like being user friendly, having a low cost of setup and maintenance, and being widely available.
+
+However, it has some disadvantages we took into consideration to decide we should prioritize email 2FA:
+
+- **Connectivity:** cell signal, reception and country availability are required to receive tokens. This last point is important because in the case one of our target countries is not available, it'd harm project's reach.
+- **Security:** SMS messages can be intercepted by 3rd parties.
+- **Hardware:** physical device required so if phone is lost or stolen the user cannot authenticate.
 
 <!-- # Adoption strategy
 
