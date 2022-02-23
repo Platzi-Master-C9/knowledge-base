@@ -62,6 +62,14 @@ AKITA | No
 Mobx | No
 
 *In case we decide to use GraphQL, it is recommended to use Relay as State Management
+Suggested Options
+
+## Suggested Options
+
+- Hooks, we have the possibility of implementing them from the React code itself for the components that require state updating and it is not very complex to access them.
+- Redux, which has been on the market for several years, uses javascript to create an object called store, from which our states will be managed (update, create, delete, etc.) in order to make the changes more predictable and traceable.
+- React Query, abstracts away the actions/reducers/sagas or thunks framework so that our components can interact with the library in a more linear way, with the benefit of writing less code.
+- New technologies that offer short implementation solutions with respect to State Management and that do not add much complexity to the project, the trade off would be that it would not take so long in the market (Jotai, Rematch, Zustand).
 
 # Adoption strategy
 First of all, the technical necessity of the tool is evaluated, if the impact on the states of the components its difficult to implement, we need to use a complete solution such as Redux, Recoil, etc. In case it is not strictly necessary, other solutions will be approached taking into account the % of knowledge within the team and the ease of implementation, as in the case of the State Management that are specific to React. It is also worth that it is possible to make use of several solutions depending on the complexity of each component.The chosen tool can be implemented initially in the cases mentioned in Detailed design.
