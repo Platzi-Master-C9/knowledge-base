@@ -1,74 +1,68 @@
-- Start Date: 2022-02-22
-- Members: Carlos Henao and Angel Vazquez
-- RFC PR: ( )
+- Start Date: (fill me in with today's date, YYYY-MM-DD)
+- Members: (fill me with the names of the RFC creators)
+- RFC PR: (leave this empty)
 
 # Summary
 
-Choosing the appropriate tool for "state management" that allows managing the flow of information (reading, writing, editing and deleting) considering the following factors:
-- App size.
-- Library and/or framework used: React, Angular, Vue, Svelte…
-- Knowledge of the team that will develop and maintain it.
+Brief explanation of the feature.
 
 # Basic example
 
-  Redux flow
-
-  ```mermaid
-    graph TD;
-        STORE-->PROVIDER;
-        PROVIDER-->CONTAINERS;
-        CONTAINERS-->COMPONENTS;
-        COMPONENTS-->COMPUTER;
-        COMPUTER-->ACTION;
-        ACTION-->REDUCERS;
-        REDUCERS-->STORE;
-  ```
+If the proposal involves a new or changed API, include a basic code example.
+Omit this section if it's not applicable.
 
 # Motivation
 
-Evaluate the use of State Management transversally in the components that need this tool, which require huge complexity and use a specific technology and which could be solved from the elements offered by React (Hooks or context API)
-Reach a consensus with the C9 team to see the feasibility of implementing a State Management and Which choose?
+Why are we doing this? What use cases does it support? What is the expected
+outcome?
+
+Please focus on explaining the motivation so that if this RFC is not accepted,
+the motivation could be used to develop alternative solutions. In other words,
+enumerate the constraints you are trying to solve without coupling them too
+closely to the solution you have in mind.
 
 # Detailed design
 
-Possible cases to State Management:
-
-- Favorite accommodation.
-Being able to show and remember the user's favorites ♥ in all possible lists that will display (search, map, full description).
-- User notifications.
-Show, remember and keep updated the notification counter of the user's Profile, throughout their navigation on the site.
-- Search an accommodation.
+This is the bulk of the RFC. Explain the design in enough detail for somebody
+familiar with React to understand, and for somebody familiar with the
+implementation to implement. This should get into specifics and corner-cases,
+and include examples of how the feature is used. Any new terminology should be
+defined here.
 
 # Drawbacks
 
-Cases in which this functionality should not be used:
-The complexity of the applications or the other functionalities that are added to the project can dispense with STATE MANAGEMENT either because the states do not require updating or because the component does not have much complexity and can be updated efficiently with the hooks.
-In this case we will not be able to use the context API since it updates the entire application to change a state, generating delays
-Add a lot of complexity to a simple task, reload the entire page to change a single state.
+Why should we *not* do this? Please consider:
+
+- implementation cost, both in term of code size and complexity
+- whether the proposed feature can be implemented in user space
+- the impact on teaching people React
+- integration of this feature with other existing and planned features
+- cost of migrating existing React applications (is it a breaking change?)
+
+There are tradeoffs to choosing any path. Attempt to identify them here.
 
 # Alternatives
 
-State Management Tool  | Specific Framework
-------------- | -------------
-NGRX | Angular
-NGXS | Angular
-Context | React
-Relay* | React
-Hooks | React
-Vuex | Vue
-**Redux** | **No**
-AKITA | No
-Mobx | No
-
-*In case we decide to use GraphQL, it is recommended to use Relay as State Management
+What other designs have been considered? What is the impact of not doing this?
 
 # Adoption strategy
 
-
+If we implement this proposal, how will existing C9 developers adopt it? Is
+this a breaking change? Can we write a codemod? Should we coordinate with
+other projects or libraries?
 
 # How we teach this
 
+What names and terminology work best for these concepts and why? How is this
+idea best presented? As a continuation of existing C9 projects patterns?
 
+Would the acceptance of this proposal mean the C9 documentation must be
+re-organized or altered? Does it change how C9 is taught to new developers
+at any level?
+
+How should this feature be taught to existing C9 developers?
 
 # Unresolved questions
 
+Optional, but suggested for first drafts. What parts of the design are still
+TBD?
