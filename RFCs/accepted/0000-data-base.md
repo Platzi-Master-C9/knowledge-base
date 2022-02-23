@@ -29,13 +29,25 @@ The booking system obligatory requires a database that save the places data. The
 
 # Detailed design
 
+Places schema has some models, atributes and relations taken from the requeriments and the business logic. It is also made up thinking in the communication between the diferent squads.
 
+![Database schema](https://res.cloudinary.com/dvpcbukeh/image/upload/v1645622908/image_67172353_hqlavr.jpg)
 
-This is the bulk of the RFC. Explain the design in enough detail for somebody
-familiar with React to understand, and for somebody familiar with the
-implementation to implement. This should get into specifics and corner-cases,
-and include examples of how the feature is used. Any new terminology should be
-defined here.
+Some tables need an user_id. This atribute is taken from the User squad database.
+
+## data types and constraints
+
+![datatypes and constraints](https://res.cloudinary.com/dvpcbukeh/image/upload/v1645623035/InkedWhatsApp_Image_2022-02-19_at_4.16.10_PM_LI_bgdkvb.jpg)
+
+## flows
+
+### User and guest flow
+
+![user and guest flow](https://res.cloudinary.com/dvpcbukeh/image/upload/v1645620892/user_guest_flow_iwqvaz.png)
+
+### host flow
+
+![host flow](https://res.cloudinary.com/dvpcbukeh/image/upload/v1645620892/host_flow_aljumt.png)
 
 # Drawbacks
 
