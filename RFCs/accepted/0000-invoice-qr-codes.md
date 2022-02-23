@@ -12,12 +12,13 @@ Generate QR code to visualize the digital ticket from booking.
 
 This example is with JS:
 
-var QRCode = require('qrcode')
+var qrCode = require('qrcode')
 
-QRCode.toString('htttps//:google.com',{type:'terminal'}, function (err, url) {
+import * as qrCode from 'qrcode'
+
+qrCode.toString('htttps//:google.com',{type:'terminal'}, function (err, url) {
   console.log(url)
 })
-
 
 # Motivation
 
@@ -27,13 +28,15 @@ Therefore, when the person who scan the QR code would obtain the booking informa
 
 # Detailed design
 
-[WIP]
-Cuál, cómo, y por qué implementamos
+We decide to implement the library called qrcode, (https://www.npmjs.com/package/qrcode).
+
+The principal reasons are: this library have a several suport from the comunity and its funtions allow you personalise the QR. You could change colors, download a image, size, etc. 
 
 # Drawbacks
 
-[WIP]
-¿Qué podría salir mal?
+Sending a e-mail with a QR code it could be redundant. Because if this QR code take you to the booking information it would be better if the e-mail contain it.
+
+The QR code will be more useful if we implement this part for payment with a diffetent person or another guest.
 
 # Alternatives
 
