@@ -15,10 +15,9 @@ Omit this section if it's not applicable. -->
 
 The growth of internet and its systems has required more security for users and his identities, therefore techniques have been created like 2FA consisting of requiring a user to verify their identity in two unique ways before they are granted access to the system.
 
-Two Factor Authentication gives the user and system administrator a peace of mind as it ensures that even if the users password is compromised the account cannot be accessed without also knowing not only the method used as the second factor but also having access to the second factor such as a dynamically generated.
+Two Factor Authentication gives the user and system administrator an extra security layer as it ensures that even if the users password is compromised the account cannot be accessed without also knowing not only the method used as the second factor but also having access to the second factor such as a dynamically generated.
 
-
-In this case we sugest implement  **Email Token** in tha begining of life for the application becouse is easyer for the user and provides necesary confidence.
+In this case we sugest implement **Email Token** in this phase of the project because it offers certain advantages over SMS 2FA like being user friendly and being inexpensive to mantain and setting up.
 
 <!-- # Detailed design
 
@@ -65,6 +64,7 @@ How should this feature be taught to existing C9 developers? -->
 
 # Unresolved questions
 
-- Detaile design
-- Adoption strategy
-- How we teach this?
+- How to implement this feature?
+- Which should be the adoption strategy for this feature?
+- How should this idea be presented for C9?
+- Should we consider a third option for 2FA, like a phone call?
