@@ -1,11 +1,10 @@
-- Start Date: (fill me in with today's date, YYYY-MM-DD)
-- Members: (fill me with the names of the RFC creators)
+- Start Date: (2022-02-21)
+- Members: [Cristian Diaz](https://github.com/ItsCrisDiaz), [Saul Zamora](https://github.com/G-zeus)
 - RFC PR: (leave this empty)
 
 # Summary
 
-- Priorizar 2FA con correo electrónico
-- En caso de incrementar el scope del proyecto, agregar 2FA por SMS
+After evaluate types of **2FA**, it is proposed to implement **Email Token** as a priority over **SMS Token** . In case of project scope get bigger, **SMS Token** will be a priority too for more security in authentication of users.
 
 <!-- # Basic example
 
@@ -14,8 +13,12 @@ Omit this section if it's not applicable. -->
 
 # Motivation
 
-- Importancia de un 2FA?
-- ¿Por qué escogimos email para priorizar?
+The growth of internet and its systems has required more security for users and his identities, therefore techniques have been created like 2FA consisting of requiring a user to verify their identity in two unique ways before they are granted access to the system.
+
+Two Factor Authentication gives the user and system administrator a peace of mind as it ensures that even if the users password is compromised the account cannot be accessed without also knowing not only the method used as the second factor but also having access to the second factor such as a dynamically generated.
+
+
+In this case we sugest implement  **Email Token** in tha begining of life for the application becouse is easyer for the user and provides necesary confidence.
 
 <!-- # Detailed design
 
