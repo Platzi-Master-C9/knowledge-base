@@ -5,18 +5,11 @@
 
 # Summary
 
-Managing dates is a little tricky due to the different timezones between countries.
-It's important to declare how them will be treated during the development of the project.
-
-We'll propose how to solve this problem is creating the API from scratch to have all the control of users and
-the database.
+Managing dates is a little tricky due to the different timezones between countries. It's important to declare how them will be treated during the development of the project. We'll propose how to solve this problem is creating the API from scratch to have all the control of users and the database.
 
 # Motivation
 
-When we are developing a booking system, the essential part of it will be the processes which
-are supporting all the solutions to the problems. We believe the most important thing is to
-design and follow a guide to manage the cleanest way dates, so, in the future, when this system has to be
-implemented, there won't be any disruption and mismatches.
+When we are developing a booking system, the essential part of it will be the processes which are supporting all the solutions to the problems. We believe the most important thing is to design and follow a guide to manage the cleanest way dates, so, in the future, when this system has to be implemented, there won't be any disruption and mismatches.
 
 # Detailed design
 
@@ -42,18 +35,16 @@ myDateObj.toUTCString(); // "Sat, 13 Jun 2020 18:30:00 GMT"
 
 # Alternatives
 
-If we are having some trouble creating the system from zero, there is a web app and API called Booking.js (PONER LINK), which it's objective is to
-simplify all the development and encapsulate it on a dashboard.
+If we are having some trouble creating the system from zero, there is a web app and API called Booking.js (PONER LINK), which it's objective is to simplify all the development and encapsulate it on a dashboard.
 
 # Adoption strategy
 
-It is important to make this a library so any project can use it depending on its structure, making the development
-this way will help to understand and to improve code constantly. This system must be in constant communication with other
-teams. We propose this as a SDK.
-Our team could use this with a library managed by any package manager that could let them use the latest version we develop.
+It is important to make this a library so any project can use it depending on its structure, making the development this way will help to understand and to improve code constantly. This system must be in constant communication with other teams. We propose this as a SDK. Our team could use this with a library managed by any package manager that could let them use the latest version we develop.
+If we adopt this process we have to give the time of the user browser in a standard format to send at database, and trasnform this date at the host time zone, in the same way show the disponibility in host time zone.
+
+
+
 
 # How we teach this
 
-This have to be taught to existing C9 developers because it will be made from scratch by our booking squad, so the other developers
-would need to know how to use the library. The C9 documentation now should include all the information about this SDK, so it'll be
-easier to anyone in the team to work with this (when we refer as anyone in the team, that person should be part of the booking squad).
+This have to be taught to existing C9 developers because it will be made from scratch by our booking squad, so the other developers would need to know how to use the library. The C9 documentation now should include all the information about this SDK, so it'll be easier to anyone in the team to work with this (when we refer as anyone in the team, that person should be part of the booking squad).
