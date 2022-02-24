@@ -3,24 +3,25 @@
 - RFC PR: 
 
 # Summary
-
+In this document we describe the Message Broker proposal for processing asynchronous notifications from the Booking System, we fundamentally answer the following questions: what providers are there? How do they work? What should the flow be? reception of an event? How will we persist the history of the events, NoSQL? SQL? We will talk about our motivations, why we want to implement it and what results we wait?, we will approach the details of the design, the drawbacks, we will list some market alternatives and we will describe the strategy that we will adopt for its implementation. 
 
 # Basic example
 
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
 When make an order in an online shop, the system genre the guide of send, for report to his buyers the information of his order and when will arrive. If the system has many orders these accumulate. In occasions, these orders should validate and sent in a specific order. The messages brokers, allow make these process asynchronous, for don't affect the process of buy.
+
 # Motivation
 
-Why are we doing this? What use cases does it support? What is the expected
-outcome?
-
-Please focus on explaining the motivation so that if this RFC is not accepted,
-the motivation could be used to develop alternative solutions. In other words,
-enumerate the constraints you are trying to solve without coupling them too
-closely to the solution you have in mind.
+We need to ensure the reception of messages in short response times, establishing the priority of sending and simplifying the writing of the code.
 
 # Detailed design
+What is a message broker?
+They are a technology that allows interdependent systems, applications and services to communicate with each other and exchange information even if they were written in another programming language or implemented on different platforms. Specifically, it performs this function by translating messages between formal messaging protocols.
+
+Message brokers are message-oriented middleware (MOM) software modules. It has the ability to validate, store, route and deliver messages to the right destinations, allowing senders to send messages without knowing where receivers are, whether they are active or not. They are based on a component called a message queue that stores and sorts messages in the exact order in which they were transmitted and remains in the queue until the applications that consume them acknowledge receipt and can process them.
+
+
+
+
 
 This is the bulk of the RFC. Explain the design in enough detail for somebody
 familiar with React to understand, and for somebody familiar with the
@@ -42,24 +43,47 @@ There are tradeoffs to choosing any path. Attempt to identify them here.
 
 # Alternatives
 
-What other designs have been considered? What is the impact of not doing this?
-RabbitMQ implements the application layer messaging protocol AMQP (Advanced Message Queuing Protocol), which is focused on the communication of asynchronous messages with guaranteed delivery, through message receipt confirmations from the broker to the producer and from the consumers to the broker.
+1. **Celery**
+
+Is a distributed task manager develop in python. Is a tool of disponibility and load high and also recommended when we consider that the load is going to increase progressively and we are going to incorporate new machines little by little to our initial cluster.
+Celery is similar to RabbitMQ and Apache Kafka but much easier to implement.
+
+**Advantages**
+- Scalability.
+- Efficiency.
+- Guaranteed transaction order.
+- Failure resistance.
+- Enduring spikes in messages.
+- Designed in one of the most powerful languages.
+
+2. **RabbitMQ** 
+
+The software Open source more widespread. It is easy to use, supports many development platforms, and multiple servers can be combined into one logical broker.
+Implements the application layer messaging protocol AMQP (Advanced Message Queuing Protocol), which is focused on the communication of asynchronous messages with guaranteed delivery, through message receipt confirmations from the broker to the producer and from the consumers to the broker.
+
+**Advantages**
+- It is a software that adapts very well to Cloud environments.
+- Fast message delivery.
+- High availability.
+- Reliability.
+- Ease of scaling out the solution.
+- 
+**Disadvantages**
+- Performance is an order of magnitude lower than other tools.
+
 # Adoption strategy
 
-If we implement this proposal, how will existing C9 developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+The objective is to choose a tool that is more suitable for what is needed, is easy to implement and is coupled to the other components. It is important to emphasize the advantages it offers and the benefits of the application. It must be a solution with high availability, performance and understanding, to build trust in the team and facilitate its adaptation.
 
 # How we teach this
 
-What names and terminology work best for these concepts and why? How is this
-idea best presented? As a continuation of existing C9 projects patterns?
+Initially we must teach the basic concepts of how a messages broker tasks, taking into account that there are different roles in the team. It is important to use appropriate language, so that it is easier to understand.
 
-Would the acceptance of this proposal mean the C9 documentation must be
-re-organized or altered? Does it change how C9 is taught to new developers
-at any level?
+**Messages brokers:** It is an intermediate program that is responsible for receiving messages in a queue and ensures that the recipient receives it following a series of criteria, such as priority, order of arrival, among others.
 
 How should this feature be taught to existing C9 developers?
+**Queue:** Data structure that contains a sequence of elements, which have an identifier. It has an injection operation and an extraction operation.
+
 
 # Unresolved questions
 
