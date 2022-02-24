@@ -3,14 +3,7 @@
 - RFC PR: 
 
 # Summary
-En este docuento describimos la propuesta de Message Broker para el procesamiento 
-asincrono de notificaciones del Booking System, respondemos fundamentalmente las  
-sigientes preguntas ¿qué proveedores hay? ¿Cómo funcionan? ¿Cúal debe ser el flujo de 
-recepción de un evento? ¿Como persisitiremos el history de los eventos, NoSQL? ¿SQL?
-Hablaremos de nuestras motivaciones ¿por que queremos implementarlo y que resultados
-esperamos?,abordaremos los dettalles del diseño, los drawbacks, enlistaremos algunas 
-alternativas del mercado y describiremos la estrategia que adoptaremos para su
-implementación. 
+In this document we describe the Message Broker proposal for processing asynchronous notifications from the Booking System, we fundamentally answer the following questions: what providers are there? How do they work? What should the flow be? reception of an event? How will we persist the history of the events, NoSQL? SQL? We will talk about our motivations, why we want to implement it and what results we wait?, we will approach the details of the design, the drawbacks, we will list some market alternatives and we will describe the strategy that we will adopt for its implementation. 
 
 # Basic example
 
