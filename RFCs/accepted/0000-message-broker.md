@@ -3,12 +3,17 @@
 - RFC PR: 
 
 # Summary
-
+En este docuento describimos la propuesta de Message Broker para el procesamiento 
+asincrono de notificaciones del Booking System, respondemos fundamentalmente las  
+sigientes preguntas ¿qué proveedores hay? ¿Cómo funcionan? ¿Cúal debe ser el flujo de 
+recepción de un evento? ¿Como persisitiremos el history de los eventos, NoSQL? ¿SQL?
+Hablaremos de nuestras motivaciones ¿por que queremos implementarlo y que resultados
+esperamos?,abordaremos los dettalles del diseño, los drawbacks, enlistaremos algunas 
+alternativas del mercado y describiremos la estrategia que adoptaremos para su
+implementación. 
 
 # Basic example
 
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
 When make an order in an online shop, the system genre the guide of send, for report to his buyers the information of his order and when will arrive. If the system has many orders these accumulate. In occasions, these orders should validate and sent in a specific order. The messages brokers, allow make these process asynchronous, for don't affect the process of buy.
 # Motivation
 

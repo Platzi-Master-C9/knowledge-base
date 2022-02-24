@@ -3,12 +3,9 @@
 - RFC PR: (leave this empty)
 
 # Summary
+Sumary
 
-Brief explanation of the feature.
-
-# Basic example
-
-If the proposal involves a new or changed API, include a basic code example.
+# basic code example.
 Omit this section if it's not applicable.
 
 # Motivation
