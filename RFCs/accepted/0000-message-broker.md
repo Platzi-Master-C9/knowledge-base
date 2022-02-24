@@ -19,6 +19,14 @@ enumerate the constraints you are trying to solve without coupling them too
 closely to the solution you have in mind.
 
 # Detailed design
+What is a message broker?
+They are a technology that allows interdependent systems, applications and services to communicate with each other and exchange information even if they were written in another programming language or implemented on different platforms. Specifically, it performs this function by translating messages between formal messaging protocols.
+
+Message brokers are message-oriented middleware (MOM) software modules. It has the ability to validate, store, route and deliver messages to the right destinations, allowing senders to send messages without knowing where receivers are, whether they are active or not. They are based on a component called a message queue that stores and sorts messages in the exact order in which they were transmitted and remains in the queue until the applications that consume them acknowledge receipt and can process them.
+
+
+
+
 
 This is the bulk of the RFC. Explain the design in enough detail for somebody
 familiar with React to understand, and for somebody familiar with the
