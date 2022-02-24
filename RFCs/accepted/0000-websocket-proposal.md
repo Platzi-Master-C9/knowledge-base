@@ -33,13 +33,224 @@ Use of API that implements the requests corresponding to the business logic, inc
 
 ![](https://i.imgur.com/RLG0xqC.png)
 
+### API REST
+The API Rest would be responsible of the CRUD operations of the messaging system.
+
+#### Endpoints
+##### List Chat Rooms
+This endpoint returns the list of chats of a user.
+
+- **HTTP Method**: GET
+- **URL**: https://example.com/api/v1/chats
+- **Content Type**: application/json
+- **Authorization**: Bearer Token (JWT)
+
+###### Response 200 (Ok)
+It returns the list of chat rooms paginated to 10 elements and ordered by the most recent activity.
+
+**Response Example**
+```typescript
+{
+ current: 1,
+ total: 1,
+ results: [
+   {
+     id: string,
+     members: string[] | number[],
+     created_at: Date,
+     last_message: {
+       id: string | number,
+       room_id: string,
+       from: string | number,
+       body: string,
+       created_at: Date
+     }
+   }
+ ]
+}
+```
+
+###### Response 401 (Unauthorized)
+This response represents a deny of service due to invalid or missing credentials.
+
+**Response Example**
+```typescript
+{
+  detail: string,
+}
+```
+
+###### Create chat room
+This endpoint will create a new chat room. When the user creates a new chat room, the host user will receive a notification about the new convesation.
+
+- **HTTP Method:** POST
+- **URL:** https://example.com/api/v1/chats
+- **Content Type:** application/json
+- **Authorization:** Bearer Token (JWT)
+- **Request Body:**
+```typescript
+{
+  host_id: string | number,
+}
+```
+
+###### Response 201 (Created)
+After creating a new chat room (if not exists) it will return registered information.
+
+**Response Example:**
+```typescript
+{
+ id: string | number,
+ members: string[] | number[],
+ created_at: Date,
+}
+```
+
+###### Response 400 (Bad request)
+This response will be send when there are errors in the request data.
+
+**Response Example:**
+```typescript
+{
+ errors: [
+   {
+     location: ‘body’ | ‘headers’ | ‘query’ | ‘params’,
+     msg: string,
+     param: string,
+   },
+ ],
+}
+```
+
+###### Response 401 (Unauthorized)
+This response represents a deny of service due to invalid or missing credentials.
+
+**Response Example**
+```typescript
+{
+  detail: string,
+}
+```
+
+##### List chat messages.
+This endpoint will return the list of messages that belongs to a specific chat room.
+
+- **HTTP Method:** GET
+- **URL:** https://example.com/api/v1/chats/:id/messages/ 
+- **Content Type:** application/json
+- **Authorization:** Bearer Token (JWT)
+
+###### Response 200 (Ok)
+List of messages paginated to 10 elements.
+
+**Response Example:** 
+```typescript
+{
+ current: 1,
+ total: 1,
+ results: [
+   {
+     id: string | number,
+     from: string | number,
+     body: string,
+     created_at: Date
+   }
+ ]
+}
+```
+
+###### Response 404 (Not found)
+This response will be send if the chat room does not exists.
+
+**Response Example:**
+```typescript
+{
+  detail: string,
+}
+```
+
+###### Response 401 (Unauthorized)
+This response represents a deny of service due to invalid or missing credentials.
+
+**Response Example**
+```typescript
+{
+  detail: string,
+}
+```
+
+##### Create a new message
+This endpoint will create a new message into a specific conversation.
+
+- **HTTP Method:** POST
+- **URL:** https://example.com/api/v1/chats/:id/messages
+- **Content Type:** application/json
+- **Authorization:** Bearer Token (JWT)
+- **Request Body:**
+```typescript
+{
+  message: String,
+}
+```
+
+###### Response 201 (Created)
+This request will be send when the message has been successfully created.
+
+**Response Example:**
+```typescript
+{
+ id: string | number,
+ room_id: string,
+ from: string | number,
+ body: string,
+ created_at: Date
+}
+```
+
+###### Response 400 (Bad request)
+This response will be send when there are errors in the request data.
+
+**Response Example:**
+```typescript
+{
+ errors: [
+   {
+     location: ‘body’ | ‘headers’ | ‘query’ | ‘params’,
+     msg: string,
+     param: string,
+   },
+ ],
+}
+```
+###### Response 404 (Not found)
+This response will be send when the chat room does not exists.
+```typescript
+{
+  detail: string,
+}
+```
+
+###### Response 401 (Unauthorized)
+This response represents a deny of service due to invalid or missing credentials.
+
+**Response Example**
+```typescript
+{
+  detail: string,
+}
+```
+
 # Drawbacks
 
-This decision directly influences the existing data creation in our database.
+- This decision directly influences the existing data creation in our database.
+- Socket-io requires to use a specific client library in order to work, this library will increase the bundle size of the applicaon in around 80KB.
 
 # Alternatives
 
-[websocket](https://github.com/theturtle32/WebSocket-Node/blob/HEAD/docs/index.md "websocket") library
+- Use [websocket](https://github.com/theturtle32/WebSocket-Node/blob/HEAD/docs/index.md "websocket")
+- Write our own websocket server using the native nodejs modules (`http` or  `net`)
+- Fetch the messages in the application using `setInterval`
+- Use a third-party service, such as twilio-chat or firebase.
 
 # Adoption strategy [newbie]
 
