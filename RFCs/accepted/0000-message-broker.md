@@ -14,14 +14,15 @@ When make an order in an online shop, the system genre the guide of send, for re
 We need to ensure the reception of messages in short response times, establishing the priority of sending and simplifying the writing of the code.
 
 # Detailed design
-What is a message broker?
+
+### What is a message broker?
 They are a technology that allows interdependent systems, applications and services to communicate with each other and exchange information even if they were written in another programming language or implemented on different platforms. Specifically, it performs this function by translating messages between formal messaging protocols.
 
 Message brokers are message-oriented middleware (MOM) software modules. It has the ability to validate, store, route and deliver messages to the right destinations, allowing senders to send messages without knowing where receivers are, whether they are active or not. They are based on a component called a message queue that stores and sorts messages in the exact order in which they were transmitted and remains in the queue until the applications that consume them acknowledge receipt and can process them.
 
 Message brokers use a type of asynchronous communication that guarantees that messages will be delivered once (and only once) in the correct order relative to other messages. This allows systems to continue operating even in the face of intermittent latency or connectivity issues common on public networks, thus preventing the loss of valuable data. To handle interactions between multiple message queues, they rely on queue managers, as well as services that provide data routing, message conversion, persistence, and client state management functions.
 
-Components of a Message Broker
+### Components of a Message Broker
 
 Producer: Refers to the endpoint that sends any type of data to the message broker.
 
@@ -31,13 +32,13 @@ Queue: Queues store messages until a consuming service processes them under the 
 
 Exchanger: In addition to queues, which tells the message broker to create some kind of pool, in which consumers can listen to messages they receive or producers can write to send messages.
 
-Message Broker Models
+### Message Broker Models
 
 They offer two basic message distribution patterns:
 
 Peer-to-Peer Messaging: Used in message queues with a one-to-one relationship between sender and recipient. Each message in the queue is sent to a single recipient and is consumed only once. In these systems, both senders and receivers need a guarantee that each payment will be sent once and only once.
 
-Use Cases of Message Brokers
+### Use Cases of Message Brokers
 
 They are widely used in software development. Some use cases are illustrated below:
 
@@ -47,15 +48,13 @@ They are widely used in software development. Some use cases are illustrated bel
 
 # Drawbacks
 
-Why should we *not* do this? Please consider:
+### ¿Cuales son las desventajas? 
 
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people React
-- integration of this feature with other existing and planned features
-- cost of migrating existing React applications (is it a breaking change?)
+So far we have described how a message broker works, in this section we will address the disadvantages of implementing such a system:
 
-There are tradeoffs to choosing any path. Attempt to identify them here.
+- We depend on a service from an external provider for which the financial side has to be evaluated
+- The team does not have previous experience in the use of message brokers, so they have to invest in learning
+
 
 # Alternatives
 
