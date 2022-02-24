@@ -21,12 +21,29 @@ Message brokers are message-oriented middleware (MOM) software modules. It has t
 
 Message brokers use a type of asynchronous communication that guarantees that messages will be delivered once (and only once) in the correct order relative to other messages. This allows systems to continue operating even in the face of intermittent latency or connectivity issues common on public networks, thus preventing the loss of valuable data. To handle interactions between multiple message queues, they rely on queue managers, as well as services that provide data routing, message conversion, persistence, and client state management functions.
 
+Components of a Message Broker
+
+Producer: Refers to the endpoint that sends any type of data to the message broker.
+
+Consumer: Refers to the endpoint that requests messages from the message broker and consumes them.
+
+Queue: Queues store messages until a consuming service processes them under the FIFO scheme, first in, first out.
+
+Exchanger: In addition to queues, which tells the message broker to create some kind of pool, in which consumers can listen to messages they receive or producers can write to send messages.
+
 Message Broker Models
+
 They offer two basic message distribution patterns:
 
 Peer-to-Peer Messaging: Used in message queues with a one-to-one relationship between sender and recipient. Each message in the queue is sent to a single recipient and is consumed only once. In these systems, both senders and receivers need a guarantee that each payment will be sent once and only once.
 
-Publish and Subscribe: The producer of each message publishes it to a topic, and various message consumers subscribe to topics about which they want to receive messages. All messages posted to a topic are distributed to all subscribed apps.
+Use Cases of Message Brokers
+
+They are widely used in software development. Some use cases are illustrated below:
+
+1. To develop a payment processing system, mesaage brokers ensure payment information is not lost or duplicated and provide proof of receipt.
+
+2. To send data to various applications without making direct use of their API
 
 # Drawbacks
 
