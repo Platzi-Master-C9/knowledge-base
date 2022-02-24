@@ -48,7 +48,7 @@ They are widely used in software development. Some use cases are illustrated bel
 
 # Drawbacks
 
-### ¿Cuales son las desventajas? 
+### What are the disadvantages?
 
 So far we have described how a message broker works, in this section we will address the disadvantages of implementing such a system:
 
@@ -117,10 +117,10 @@ Initially we must teach the basic concepts of how a messages broker tasks, takin
 
 # Unresolved questions
 
-What effect can the chosen alternative have on the notification systems (email type and push type)?
+- What effect can the chosen alternative have on the notification systems (email type and push type)?
 
-Is there a budget for the project or will it work with free software?
+- Is there a budget for the project or will it work with free software?
 
-What validations should be included when configuring the message broker tasks to establish the priority of the messaging response?
+- What validations should be included when configuring the message broker tasks to establish the priority of the messaging - response?
 
-What programming language is the best?
+- What programming language is the best?
