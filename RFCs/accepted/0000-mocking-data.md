@@ -1,25 +1,33 @@
-- Start Date: (fill me in with today's date, YYYY-MM-DD)
-- Members: (fill me with the names of the RFC creators)
+- Start Date: 2022-02-23
+- Members: Saúl Regalado
 - RFC PR: (leave this empty)
 
 # Summary
 
-Brief explanation of the feature.
+Use the faker.js library to mock data, since it has several properties that generate data similar to what is expected in everyday use of the system.
+
 
 # Basic example
 
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
+- faker.name.firstName() ---->  Cameron
+
+- faker.phone.phoneNumber() —-->  +1 291-299-0192
+
+- console.log(
+    faker.fake('{{name.lastName}}, {{name.firstName}} {{name.suffix}}')
+  );
+
+
 
 # Motivation
 
-Why are we doing this? What use cases does it support? What is the expected
-outcome?
+In order to guarantee the correct develope of all data processing, the need arises to test the implementations, with data as close as reality we can generate:
 
-Please focus on explaining the motivation so that if this RFC is not accepted,
-the motivation could be used to develop alternative solutions. In other words,
-enumerate the constraints you are trying to solve without coupling them too
-closely to the solution you have in mind.
+- Check if it is the expected data type.
+- The correct process is applied to each of the data.
+- Measure the performance of the application, if the process is applied effectively.
+
+
 
 # Detailed design
 
@@ -29,17 +37,11 @@ implementation to implement. This should get into specifics and corner-cases,
 and include examples of how the feature is used. Any new terminology should be
 defined here.
 
+
 # Drawbacks
 
-Why should we *not* do this? Please consider:
+Its implementation is limited solely to testing the development's ability to process the required information, however, with this proposal we cannot measure software performance
 
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people React
-- integration of this feature with other existing and planned features
-- cost of migrating existing React applications (is it a breaking change?)
-
-There are tradeoffs to choosing any path. Attempt to identify them here.
 
 # Alternatives
 
