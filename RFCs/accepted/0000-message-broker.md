@@ -118,5 +118,10 @@ Initially we must teach the basic concepts of how a messages broker tasks, takin
 
 # Unresolved questions
 
-Optional, but suggested for first drafts. What parts of the design are still
-TBD?
+What effect can the chosen alternative have on the notification systems (email type and push type)?
+
+Is there a budget for the project or will it work with free software?
+
+What validations should be included when configuring the message broker tasks to establish the priority of the messaging response?
+
+What programming language is the best?
