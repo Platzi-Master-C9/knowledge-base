@@ -74,6 +74,22 @@ Implements the application layer messaging protocol AMQP (Advanced Message Queui
 
 The objective is to choose a tool that is more suitable for what is needed, is easy to implement and is coupled to the other components. It is important to emphasize the advantages it offers and the benefits of the application. It must be a solution with high availability, performance and understanding, to build trust in the team and facilitate its adaptation.
 
+**If we implement this proposal, how will current C9 developers adopt it?**
+
+This solution is related to the push and email type notification processes, since the message broker is an intermediary program between the notification systems and it is important to determine its inputs and outputs.
+
+**Is this a sea change?**
+
+No, because it does not interfere with any system module and the alternative solutions are easy to implement and connect.
+
+**Can we write a codemod?**
+
+To automate some validations on the messaging that is received.
+
+**Should we coordinate with other projects or libraries?**
+
+Yes, with the push and email type notification equipment, since the message broker is the intermediary in sending and receiving messages.
+
 # How we teach this
 
 Initially we must teach the basic concepts of how a messages broker tasks, taking into account that there are different roles in the team. It is important to use appropriate language, so that it is easier to understand.
