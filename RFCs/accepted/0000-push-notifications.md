@@ -69,15 +69,13 @@ What is the expected outcome? The client will receive a notification with that i
 
 # Detailed design
 
-C4 Model Placement Diagram 
+Model C4 Placement Diagram
 
-![C4 Model Places!](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6e636099-4162-46db-b49a-232f34ac3cf4%2Fc4-notificationsTeam.png?table=block&id=52cfaea3-b036-400f-86ef-097f0efdacef&spaceId=ed752afe-7a09-4db1-a4e5-a1660f831484&width=2000&userId=53d4127d-f1f4-401c-8082-755f4372089c&cache=v2)
+![C4 Model Places](https://raw.githubusercontent.com/BrandonArgel/knowledge-base/main/c4-notificationsTeam.png)
 
-This is the bulk of the RFC. Explain the design in enough detail for somebody
-familiar with React to understand, and for somebody familiar with the
-implementation to implement. This should get into specifics and corner-cases,
-and include examples of how the feature is used. Any new terminology should be
-defined here.
+To implement this tool, we need the user to have an active login, later the implementation of the notifications will be done automatically depending on what the user is looking for and what is of interest to them.
+
+I think that in order to carry out the project we can use Server sent event (SSE) although we debate among ourselves that there is a disadvantage. [Server sent event (SSE)](https://javascript.info/server-sent-events)
 
 # Drawbacks
 
@@ -109,9 +107,9 @@ If we don't use this technique, we will have to implement a new logic using web 
 
 # Adoption strategy
 
-If we implement this proposal, how will existing C9 developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+The fact of the notifications has repercussions for some other teams of the project, I think it is essential that the front-end and the back-end work together to be able to do a good practice.
+
+An intelligent architecture and a correct communication will help that.
 
 # How we teach this
 
@@ -129,5 +127,10 @@ other projects or libraries?
 
 # Unresolved questions
 
-Optional, but suggested for first drafts. What parts of the design are still
-TBD?
+What development alternatives will be the most suitable?
+
+Will our team be able to implement it?
+
+How much will notifications affect other teams and parts of the project?
+
+What we will use to make the project safe and provide a good user experience
