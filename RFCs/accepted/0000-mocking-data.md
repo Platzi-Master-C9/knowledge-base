@@ -66,5 +66,4 @@ How should this feature be taught to existing C9 developers?
 
 # Unresolved questions
 
-Optional, but suggested for first drafts. What parts of the design are still
-TBD?
+How to measure application performance, this library does not give solutions for that need, so it is not a comprehensive solution. Something else must be sought to integrate that requirement
