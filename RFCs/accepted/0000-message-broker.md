@@ -24,15 +24,14 @@ They are a technology that allows interdependent systems, applications and servi
 
 Message brokers are message-oriented middleware (MOM) software modules. It has the ability to validate, store, route and deliver messages to the right destinations, allowing senders to send messages without knowing where receivers are, whether they are active or not. They are based on a component called a message queue that stores and sorts messages in the exact order in which they were transmitted and remains in the queue until the applications that consume them acknowledge receipt and can process them.
 
+Message brokers use a type of asynchronous communication that guarantees that messages will be delivered once (and only once) in the correct order relative to other messages. This allows systems to continue operating even in the face of intermittent latency or connectivity issues common on public networks, thus preventing the loss of valuable data. To handle interactions between multiple message queues, they rely on queue managers, as well as services that provide data routing, message conversion, persistence, and client state management functions.
 
+Message Broker Models
+They offer two basic message distribution patterns:
 
+Peer-to-Peer Messaging: Used in message queues with a one-to-one relationship between sender and recipient. Each message in the queue is sent to a single recipient and is consumed only once. In these systems, both senders and receivers need a guarantee that each payment will be sent once and only once.
 
-
-This is the bulk of the RFC. Explain the design in enough detail for somebody
-familiar with React to understand, and for somebody familiar with the
-implementation to implement. This should get into specifics and corner-cases,
-and include examples of how the feature is used. Any new terminology should be
-defined here.
+Publish and Subscribe: The producer of each message publishes it to a topic, and various message consumers subscribe to topics about which they want to receive messages. All messages posted to a topic are distributed to all subscribed apps.
 
 # Drawbacks
 
