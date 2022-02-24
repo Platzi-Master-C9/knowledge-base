@@ -34,8 +34,10 @@ implementation to implement. This should get into specifics and corner-cases,
 and include examples of how the feature is used. Any new terminology should be
 defined here.
 -->
-
-
+La información necesaria por sección es la siguiente:
+- Inicio de sesión:  vamos a necesitar un email y una contraseña (opcional, debido al inicio de sesión con redes sociales u otras plataformas)
+- Panel de admin, Usuarios: se necesita un nombre de usuario, email, número de télefono, país y ciudad de residencia, status (habilitado, no habilitado, ). Los siguientes son opcionales: Fecha de nacimiento, nacionalidad, dirección de residencia, foto.
+- Panel de admin, admins: mismos datos de un usuario regular más el perfil (esto no dice si es un un usuario regular, admin o superadmin)
 
 # Drawbacks
 
