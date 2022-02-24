@@ -81,7 +81,6 @@ Initially we must teach the basic concepts of how a messages broker tasks, takin
 
 **Messages brokers:** It is an intermediate program that is responsible for receiving messages in a queue and ensures that the recipient receives it following a series of criteria, such as priority, order of arrival, among others.
 
-How should this feature be taught to existing C9 developers?
 **Queue:** Data structure that contains a sequence of elements, which have an identifier. It has an injection operation and an extraction operation.
 
 
