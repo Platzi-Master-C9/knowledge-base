@@ -7,21 +7,12 @@
 Este RFC describe los datos, su esquema y tipo, que serán necesarios para panel de administración, el inicio de sesión y gestión de usuarios. 
 
 # Basic example
-<!--
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
--->
+
 N/A
 
 # Motivation
 
-Why are we doing this? What use cases does it support? What is the expected
-outcome?
-
-Please focus on explaining the motivation so that if this RFC is not accepted,
-the motivation could be used to develop alternative solutions. In other words,
-enumerate the constraints you are trying to solve without coupling them too
-closely to the solution you have in mind.
+Definir correctamente el tipo de información que se va a necesitar es la base para poder contruir cualquier solución de sofware, una vez tengamos claros estos parámetros, es posible comenzar a planer el tipo de arquitectura o las herramientas que se van a usar en el proyecto.
 
 # Detailed design
 
@@ -29,31 +20,43 @@ closely to the solution you have in mind.
 
 Solo tendrán la opción para crear nuevos admins y super admins y eso se hará por medio de invitaciones vía email (se pueden generar las invitaciones en la vista de admin management), la cual tendrá una opción (en forma de checkbox) para darle o no permisos de superadmin.
 
-- **Admin** → Puede validar, editar, eliminar y banear usuarios y alojamientos
-- **SuperAdmin** → Puede validar, editar, eliminar y banear usuarios y alojamientos. Además puede gestionar perfiles de admins y superadmins.
-- La opción para agregar admin solo estará habilitada para los super admins. Consultar endpoint para verificar si la sesión pertenece a un admin o un super admin y así habilitar o desabilidad la opción.
+- **Admin**: Puede validar, editar, eliminar y banear usuarios y alojamientos
+- **SuperAdmin**: Puede validar, editar, eliminar y banear usuarios y alojamientos. Además puede gestionar perfiles de admins y superadmins.
+- La opción para agregar admin solo estará habilitada para los super admins.
+- Habrá un endpoint de consultar para verificar si la sesión pertenece a un admin o un super admin y así habilitar o desabilidad la opción.
 
 
 ### Formas de crear perfiles de admin/super admin
 
 > Esta función solo está disponible para SUPERADMINS
 > 
-1. Enviado invitación vía email
-2. Dándole permisos de admin o super admin a un usuario existente desde la tabla de users management (podría ser una opción nativa de la tabla o desde el modal para editar al usuaro
+1. Enviando una invitación vía email
+2. Dándole permisos de admin o super admin a un usuario existente desde la tabla de users management (opción disponible desde la tabla de usuarios o desde el modal para editar al usuario)
 
 ## Estructura perfil de usuarios (pendiente)
 
 ## Validación de usuarios
 
-Se asignará un administrador por región geográfica que estará encargado de la validación de usuarios correspondientes a esa región. Aplicar sistema de notificación por correo.
+- Se asignará un administrador por región geográfica que estará encargado de la validación de usuarios correspondientes a esa región.
+- Se plicará el sistema de notificación por correo.
+- Se aplicara el sistema de notificación via mensaje de texto
 
-Si el usuario no está validado, se mostrará un ícono de alerta en la vista de tabla al lado de su foto y en la organización se les da prioridad (llevar al top de la tabla)
+- Si el usuario no está validado, se mostrará un ícono de alerta en la vista de tabla al lado de su foto
+- los usuarios no validados, tendran relevancia en el orden de la tabla de usuarios (apareceran en primer lugar)
 
 ## Manejo de usuarios
 
-**Datos** → Usuario válido/Usuario por validar. Nombre. Foto (si la tiene, si no un icono). Fecha de registro y ultima modificación (en la tabla solo mostrar ultima modificación)
+**Datos**
+- Usuario válido/Usuario por validar
+- Nombre de usuario
+- Foto
+- Fecha de registro y ultima modificación (en la tabla solo mostrar última modificación)
 
-**Acciones** → Banear, modificar, eliminar, Validar (si aplica)
+**Acciones**
+- Banear
+- modificar
+- eliminar
+- Validar (si aplica)
 
 ## Login de administradores
 
