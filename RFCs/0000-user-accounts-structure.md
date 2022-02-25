@@ -4,7 +4,7 @@
 
 # Summary
 
-Segregate responsibilities to generate clean architecture
+Segregate responsibilities (SRP) to generate clean architecture
 
 <!-- Brief explanation of the feature. -->
 
@@ -19,7 +19,7 @@ Omit this section if it's not applicable. -->
 
 # Motivation
 
-Maintaining an organized response to the requirements for adequate scalability and maintenance in the future
+Maintaining an organized response to the requirements for adequate scalability and maintenance in the future 
 
 <!-- Why are we doing this? What use cases does it support? What is the expected
 outcome?
@@ -32,19 +32,21 @@ closely to the solution you have in mind. -->
 # Detailed design
 
 My proposal for this project is to work with the following dependencies:<br>
--sequelizer (ORM)<br>
--joi (data schema validate)<br>
--@hapi/boom (error handler)
+- sequelizer (ORM)<br>
+- joi (data schema validate)<br>
+- @hapi/boom (error handler)
 
 separating each folder for each job to be done for example:<br>
--main<br>
---db<br>
---routes<br>
----userRoute.js<br>
---schemas<br>
----userSchema.js<br>
---services<br>
----userService.js
+```
+main
+├── db
+├── routes
+│   ├── userRoute.js
+├── schemas
+│   ├── userSchema.js
+├── services
+│   ├── userService.js
+```
 
 and incorporate use cases and new functions in each of the folders.
 
@@ -56,7 +58,7 @@ defined here. -->
 
 # Drawbacks
 
-
+Implementing this structure may hurt the initial deployment time.
 
 <!-- Why should we *not* do this? Please consider:
 
@@ -70,7 +72,7 @@ There are tradeoffs to choosing any path. Attempt to identify them here. -->
 
 # Alternatives
 
-to be defined
+Due to my lack of experience with other types of software architecture, please comment on different types of solving this problem.
 
 <!-- What other designs have been considered? What is the impact of not doing this? -->
 
@@ -82,7 +84,9 @@ To maintain the structure, the rule must be maintained that each responsibility 
 this a breaking change? Can we write a codemod? Should we coordinate with
 other projects or libraries? -->
 
-# How we teach this
+# How we teach this 
+
+I request information on how to implement a software structure, because I do not know the methods to do it.
 
 <!-- What names and terminology work best for these concepts and why? How is this
 idea best presented? As a continuation of existing C9 projects patterns?
@@ -95,7 +99,7 @@ How should this feature be taught to existing C9 developers? -->
 
 # Unresolved questions
 
-which fremworks will be used for the project and which database will be used
+What fremworks will be used for the project, what database will be used and how will testing be performed?
 
 <!-- Optional, but suggested for first drafts. What parts of the design are still
 TBD? -->
