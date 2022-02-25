@@ -1,6 +1,6 @@
-- Start Date: (fill me in with today's date, YYYY-MM-DD)
+- Start Date: 2022-02-24
 - Members: (fill me with the names of the RFC creators)
-- RFC PR: (leave this empty)
+- RFC PR:
 
 # Summary
 
