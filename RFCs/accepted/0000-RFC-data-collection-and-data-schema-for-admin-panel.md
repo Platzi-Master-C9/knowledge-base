@@ -53,28 +53,41 @@ Solo tendrán la opción para crear nuevos admins y super admins y eso se hará 
 - Fecha de registro y ultima modificación (en la tabla solo mostrar última modificación)
 
 **Acciones**
-- Banear
+- banear
 - modificar
 - eliminar
-- Validar (si aplica)
+- validar (si aplica)
 
 ## Login de administradores
 
-- Se debe tener una vista de inicio de sesión exclusiva para los dos tipos de admins → [bookingsystem.com/admin](http://bookingsystem.com/admin). Mi recomendación es que solo se pueda acceder por medio de la url para que los demás usuarios no tenga forma de verla.}
-- Datos para inicio de sesión → Email, contraseña. **Nice to have** ✨ → 2fa aut
+- Se debe tener una vista de inicio de sesión exclusiva para los dos tipos de admins → [bookingsystem.com/admin](http://bookingsystem.com/admin). Lo recomendado es que solo se pueda acceder por medio de la url para que los demás usuarios no tenga forma de verla.
 
-## Manejo de Admins y super admins
+**Datos para inicio de sesión**
+- email
+- contraseña
+- **Nice to have** ✨ → 2factor aut
 
-**Datos** → Tipo de perfil (admin/superadmin). Nombre. Foto (si la tiene, si no un icono). Fecha de registro y ultima modificación (en la tabla solo mostrar ultima modificación)
+## Manejo de Admins y Super admins
 
-**Acciones** → Modificar, eliminar
+**Datos**
+- tipo de perfil (admin/superadmin)
+- nombre
+- foto
+- fecha de registro y ultima modificación (en la tabla solo mostrar ultima modificación)
 
-**Nice to have** ✨ → Una vista de tabla aparte para gestionar las invitaciones pendientes de admins y super admins.
+**Acciones**
+- modificar
+- eliminar
+- **Nice to have** ✨ → Una tabla aparte para gestionar las invitaciones pendientes de admins y super admins
 
 ## Opciones de filtrado
 
-Las vitas de tablas deben ser capaz de filtrarse ya sea por fecha de creación, ultima modificación, nombre de usuario o nombre de admin, si estamos en la tabla de admins filtrar también por tipo de perfil
-
+Las vitas de tablas tienen filtros por:
+- fecha de creación
+- ultima modificación
+- nombre de usuario (para la tabla de usuarios)
+- nombre de admin (para la tabla de admins)
+- para el caso de la tabla de admins filtrar también por tipo de perfil
 
 ___________________________________________
 # Drawbacks
