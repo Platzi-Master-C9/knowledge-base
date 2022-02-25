@@ -1,103 +1,153 @@
-- Start Date: (fill me in with today's date, YYYY-MM-DD)
-- Members: (fill me with the names of the RFC creators)
+- Start Date: (2022-02-22)
+- Members: (Neisser Villa, Nahomi Conde)
 - RFC PR: (leave this empty)
 
 # Summary
-
-Brief explanation of the feature.
-
-# Basic example
-
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
+Implementation of MongoDB as the best database for handling high concurrency requests in the messaging system, considering the current budget, squad's previous knowledge and learning curve.
 
 # Motivation
+We need to choose the right database to build a messaging system to support massive requests for CRUD operations simultaneously in short times.
+We need to create a messaging system that allows CRUD operations from massive users simulataneously in short times. For that reason, a database that can handle high concurrency is needed. Although there will be a low demand at the begginning, this system should be able to scale when the demand increases. 
 
-Why are we doing this? What use cases does it support? What is the expected
-outcome?
+The use cases that we would have may be: 
+* Thousand of users sending messages simultaneously without any crash.
+* Thousands of operations per seconds without bottlenecks slowing down the system speed.
 
-Please focus on explaining the motivation so that if this RFC is not accepted,
-the motivation could be used to develop alternative solutions. In other words,
-enumerate the constraints you are trying to solve without coupling them too
-closely to the solution you have in mind.
+We hope that the application of this database will be very helpful in building a system that will allow scaling in the future.
 
 # Detailed design
+## Why MongoDB?
+We recommend MongoDB because it ensure consistency using locking and concurrency control to prevent clients from modifying the same data simultaneously. Writes to a single document occur either in full or not at all, and clients always see consistent data.
+The MongoDB server currently uses a thread per connection plus a number of internal threads.
 
-This is the bulk of the RFC. Explain the design in enough detail for somebody
-familiar with React to understand, and for somebody familiar with the
-implementation to implement. This should get into specifics and corner-cases,
-and include examples of how the feature is used. Any new terminology should be
-defined here.
+So, if you have 8 incoming requests, each of those will be handled by a separate connection thread. Your O/S will manage concurrent execution (distributing threads across available CPU cores). Individual operations (for example, a query or index build) will generally run on a single thread. Internal operations such as syncing changes to disk may take advantage of parallel threads if appropriate.
 
+In general, multithreading enables higher concurrency for multiple operations on a deployment rather than enabling a single operation to dominate all available resources. Long running read and write operations will also yield to allow other operations to interleave. [MongoDB. Concurrency](https://docs.mongodb.com/manual/faq/concurrency/)
+
+## How much it cost?
+[Mongo atlas](https://www.mongodb.com/pricing) provide a free tier that allow create database servers for learning and exploring MongoDB in a sandbox environment. This will be very usefull for our project considering the following features:
+
+* 512MB to 5GB of storage
+* Shared RAM
+* Upgrade to dedicated clusters for full functionality
+* No credit card required to start
+## Where we host it?
+The database will be hosted in [Mongo Atlas](https://www.mongodb.com/atlas/database). Each database will be created automatically in a shared cluster located in Ohio.
+
+## recommended schema
+Before implementing the logic, we recommend the following shema for the chat collection:
+```
+{
+  customerId: ObjectId, // User that want to book an apartement
+  hostId: ObjectId, // Apartment owner
+  bookingId: ObjectId, // Housing post
+  messages: [{
+      messageId: ObjectId,
+      message: string,
+      remitentId: ObjectId,
+      seen: [{
+          userId: ObjectId,
+          seenAt: Timespam // seen date
+      }],
+      createdAt: Timespam // message creation date
+  }],
+  createdAt: Timespam, // chat creation date
+  updatedAt: Timespam // Last update
+}
+```
+## Implementation example
+This is a basic implementation for mongoDB using mongoose framework.
+
+Mongoose installation
+```
+npm i mongoose o yarn add mongoose
+```
+Mongoose configuration
+```
+// lib/database.js
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise
+
+async function connect(uri) {
+    const options = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
+    await mongoose.connect(uri, options).then(
+        () => {
+            console.log("[database] connected to mongoDB")
+        },
+        (err) => {
+            console.error(err)
+        }
+    )
+}
+
+module.exports = connect
+```
+Schema configuration for chat
+```
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const chatCollection = new Schema({
+
+    customerId: [{ type : mongoose.ObjectId, required: true, ref: 'users' }],
+    hostId: [{ type : mongoose.ObjectId, required: true, ref: 'users' }],
+    bookingId: [{ type : mongoose.ObjectId, required: true, ref: 'users' }],
+    messages: [{
+            messageId: { type: mongoose.ObjectId, required: true },
+            message: { type: String, lowercase: true, trim: true },
+            remitent: { type : mongoose.ObjectId, required: true, ref: 'users' },
+            seen: [{ 
+                userId: {type : mongoose.ObjectId, required: true, ref: 'users'},
+                seen: { type: Date, default: Date.now }
+            }],
+            createdAt: { type: Date, default: Date.now }
+        }],
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
+});
+
+const chatModel = mongoose.model('chats', chatCollection)
+
+module.exports = {
+    chatModel
+}
+
+```
 # Drawbacks
-
 Why should we *not* do this? Please consider:
 
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people React
-- integration of this feature with other existing and planned features
-- cost of migrating existing React applications (is it a breaking change?)
+- Schemaless is a concept interpreted as lack of structure and storage control although, this versatility favors in agile development environments, do not standardize keys within the documents of a collection may involve unexpected behaviors in the application, therefore a base structure should be defined in their documents together with a strategy to control the changes that are made on them.
+- Atlas server have certain restrictions in its free tier, which can be a problem at the point where there are many active users in the application.
+- MongoDB has matured, and so have the resources for learning how to use the database. The docs, mailing lists and user forums are all at least three years old and are available in a number of languages. Additionally, there are community developed resources for getting started, including the Little MongoDB book. Mongo DB allows you to query and manipulate data in JSON format, therefore see all the data of an ej: user would be a very simple query.
 
 There are tradeoffs to choosing any path. Attempt to identify them here.
 
 # Alternatives
-
-What other designs have been considered? What is the impact of not doing this?
+Other interesting alteratives in the market may be the next ones: 
+1. [Redis](https://redis.io/documentation)
+2. [Firebase](https://firebase.google.com/docs?gclid=CjwKCAiA9tyQBhAIEiwA6tdCrNT2nRvZnn7DadS3dGRK3MYbon-y2_l_Kw-xWasQFEKmSLUhzUTKzRoC37gQAvD_BwE&gclsrc=aw.ds)
 
 # Adoption strategy
-
-If we implement this proposal, how will existing C9 developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+In order to adop this database, we need to:
+1. Create a mongo atlas account [Mongo Atlas](https://www.mongodb.com/atlas)
+2. Create a new database in a shared cluster
+3. Generate mongo string connection
+4. [Download Robo3T](https://robomongo.org/download)
+We need to create a setup file where we can conne
+This is not a breaking change because wi will implement it from scratch, so it wont need a codemod.
+This database must be coordinated with [mongoose](https://mongoosejs.com/docs) library, and other libraries like [joi](https://joi.dev/api/) which will allow us validate schemas.
 
 # How we teach this
+We can teach this by using the following resources:
 
-What names and terminology work best for these concepts and why? How is this
-idea best presented? As a continuation of existing C9 projects patterns?
-
-Would the acceptance of this proposal mean the C9 documentation must be
-re-organized or altered? Does it change how C9 is taught to new developers
-at any level?
-
-How should this feature be taught to existing C9 developers?
+[Curso basico de mongoDB](https://platzi.com/cursos/mongodb/)
+[Documentación oficial de mongo](https://docs.mongodb.com/)
+[Documentación de mongoose](https://mongoosejs.com/docs/api.html)
+[Curso Node.js: 52. Introducción a MongoDB - #jonmircha](https://www.youtube.com/watch?v=c0bjIo6OaeI)
+[Curso de Node.js [ #01 Fundamentos desde cero - Primeros Pasos ]](https://www.youtube.com/watch?v=mG4U9t5nWG8&list=PLPl81lqbj-4IEnmCXEJeEXPepr8gWtsl6)
 
 # Unresolved questions
-
-Optional, but suggested for first drafts. What parts of the design are still
-TBD?
-
-
-https://openwebinars.net/blog/mongodb-vs-redis/
-
-Hi team, I hope you had a great Monday. This is our sprint 0 and I want to set clear goals for the following two weeks (each sprint is 2 weeks long btw) so, we have been in a lot of sessions learning a lot (and panicking a little) in the last week, so based on some of that knowledge we need to accomplish the following:
-Read all the documentation related to the project in Notion and make any questions you may have. Make sure you understand what we are building.
-Based on the business rules we need to create the RFCs necessaries to the  domain this squad will cover…..
-Aquí tienen un recurso para estudiar sobre RFCs
-Remember, in a RFC we expose a problem and a possible solution. Start by learning about RFCs and create your own, identify features, things to solve. Tomorrow we will do pairs to work these RFCs, for now start by your own.
-Platzi on Notion
-Request for comments - RFC
-Descripción
-
-
- you are currently working in a specific RFC that’s great (I know some of you are) let me know and add them also to the repository as a WIP (follow this instructions). We may implement more RFCs on the future, remember is a tool for taking decisions, the most important part is the discussion this “requests” generates.
-Here is more information about the topics (in spanish so everyone gets it):
-Websocket technology proposal to use with nodejs
-El problema es: necesitamos mantener una conexión abierta y de rápida respuesta entre dos usuarios.
-How to keep privacy in chats.
-El problema es: es muy importante que las conversaciones privadas no puedan filtrarse o ser consultadas por nadie más que los participantes de la misma.
-¿Cómo encriptamos la información? ¿Cómo la guardamos en base de datos? ¿Qué esquema de datos deberías usar?
-What database is better to handle a high concurrency chat
-Recuerden los conceptos de ACID y BASE
-¿Qué es lo que más necesitamos aquí?
-Vamos a guardar cache?
-Usamos redis, usamos mongo?
-UI flow on how to uses the messaging system
-Take in consideration the current UI for messages.
-Toma en consideración las UIs que ya tenemos en figma para los mensajes.
-¿Cómo se integra este sistema con el resto de la aplicación? es algo como lo que vemos en linkedin?
-
-https://www.cometchat.com/blog/chat-application-architecture-and-system-design
-
-
-https://neo4j.com/blog/acid-vs-base-consistency-models-explained/
+Is it better to have a chat schema with nested messages? or is better separate chat collection from messages collection?
