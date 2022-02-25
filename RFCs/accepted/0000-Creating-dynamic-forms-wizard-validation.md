@@ -24,7 +24,7 @@ C4 Model Placement Diagram
  
 Dynamic Form Flow Chart
 
-![C4 Model Places!](https://raw.githubusercontent.com/JorgeTTor/rfc-forms/main/Flowchart-Validation.Form.jpeg)
+![Dynamic Form Diagram !](https://raw.githubusercontent.com/JorgeTTor/rfc-forms/main/Flowchart-Validation.Form.jpeg)
 
 Layer 2 Form Validation Diagram
 This form will guide the user through the whole registration accomodation process and besides the login information will ask for more information such as:
@@ -45,7 +45,7 @@ It will be very helpful to keep the information on hold until the user fulfills 
 There are another form design interaction patterns available to use like “Steps Left”, “Completenes Meter” or “Inline Help Box).
 
 
-# Adoption strategy/Users/Jorge/Documents/000-creating-dynamic-forms-with-validation-wizard/Creating-dynamic-forms-with-wizard-validation[WIP]
+# Adoption strategy
 If we implement this proposal, how will existing C9 developers adopt it? Is this a breaking change? Can we write a codemod? Should we coordinate with other projects or libraries?
 
 # How we teach this
