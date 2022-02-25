@@ -1,10 +1,10 @@
 - Start Date: 2022-02-24
-- Members: (fill me with the names of the RFC creators)
+- **Members**: Pedro Silva, Andrés Correa, Felipe Rodriguez, Mario Fuentes
 - RFC PR:
 
 # Summary
 
-Este RFC describe los datos, su esquema y tipo, que serán necesarios para panel de administración, el inicio de sesión y gestión de usuarios. 
+This RFC describes the data, its schema and type, that will be necessary for administration panel, login and user management. 
 
 # Basic example
 
@@ -12,118 +12,97 @@ N/A
 
 # Motivation
 
-Definir correctamente el tipo de información que se va a necesitar es la base para poder contruir cualquier solución de sofware, una vez tengamos claros estos parámetros, es posible comenzar a planer el tipo de arquitectura o las herramientas que se van a usar en el proyecto.
+Correctly defining the type of information that is going to be needed is the basis for being able to build any software solution. Once these parameters are clear, it is possible to start planning the type of architecture or the tools that are going to be used in the project.
 
 # Detailed design
 
 ## Perfiles de administradores
 
-Solo tendrán la opción para crear nuevos admins y super admins y eso se hará por medio de invitaciones vía email (se pueden generar las invitaciones en la vista de admin management), la cual tendrá una opción (en forma de checkbox) para darle o no permisos de superadmin.
+There will be 2 administrator profiles:
 
-- **Admin**: Puede validar, editar, eliminar y banear usuarios y alojamientos
-- **SuperAdmin**: Puede validar, editar, eliminar y banear usuarios y alojamientos. Además puede gestionar perfiles de admins y superadmins.
-- La opción para agregar admin solo estará habilitada para los super admins.
-- Habrá un endpoint de consultar para verificar si la sesión pertenece a un admin o un super admin y así habilitar o desabilidad la opción.
+- **Admin**: It can validate, edit, delete and ban users and places
+- **SuperAdmin**: It can validate, edit, delete and ban users and places. It can also manage profiles of admins and superadmins.
+
+- The option to add admin will only be available for super admins.
+- There will be an endpoint to verify if the session belongs to an admin or a super admin and then, enable or disable the option.
 
 
-### Formas de crear perfiles de admin/super admin
+### Ways to create admin/super admin profiles
 
-> Esta función solo está disponible para SUPERADMINS
+> This option is only available for **SUPERADMINS**
 > 
-1. Enviando una invitación vía email
-2. Dándole permisos de admin o super admin a un usuario existente desde la tabla de users management (opción disponible desde la tabla de usuarios o desde el modal para editar al usuario)
+1. Sending an invitation via email
+2. Giving admin or super admin permissions to an existing user from the users management table (option available from the users table or from the modal to edit the user)
 
-## Estructura perfil de usuarios (pendiente)
+## User profile structure `(pending)`
 
-## Validación de usuarios
+## User validation
 
-- Se asignará un administrador por región geográfica que estará encargado de la validación de usuarios correspondientes a esa región.
-- Se plicará el sistema de notificación por correo.
-- Se aplicara el sistema de notificación via mensaje de texto
+- There will be an administrator by geographical region who will be in charge of validating users corresponding to that region.
+- It will be used the notification via Email system
+- It will be used the notification via text message system
 
-- Si el usuario no está validado, se mostrará un ícono de alerta en la vista de tabla al lado de su foto
-- los usuarios no validados, tendran relevancia en el orden de la tabla de usuarios (apareceran en primer lugar)
+- If the user is not validated, an alert icon will be displayed in the table view next to their user picture
+- non-validated users will have relevance in the order of the users table (they will appear first)
 
-## Manejo de usuarios
+## User Management
 
-**Datos**
-- Usuario válido/Usuario por validar
-- Nombre de usuario
-- Foto
-- Fecha de registro y ultima modificación (en la tabla solo mostrar última modificación)
+**Data**
+- Valid user/User to be validated
+- User name
+- User picture
+- Date of registration and last modification (only show last modification in the table)
 
-**Acciones**
-- banear
-- modificar
-- eliminar
-- validar (si aplica)
+**Actions**
+- ban
+- edit
+- delete
+- validate (if applicable)
 
-## Login de administradores
+## Administrator login
 
-- Se debe tener una vista de inicio de sesión exclusiva para los dos tipos de admins → [bookingsystem.com/admin](http://bookingsystem.com/admin). Lo recomendado es que solo se pueda acceder por medio de la url para que los demás usuarios no tenga forma de verla.
+- It will have a unique login view for both types of administrators. for instance: → [bookingsystem.com/admin](http://bookingsystem.com/admin)
+- It is recommended that it can only be accessed through the url so that other users have no way of seeing it. (not links to it)
 
-**Datos para inicio de sesión**
+**Data for login**
 - email
-- contraseña
-- **Nice to have** ✨ → 2factor aut
+- password
+- **Nice to have** ✨ → 2factor Authentication
 
-## Manejo de Admins y Super admins
+## Admins and Super Admins Management
 
-**Datos**
-- tipo de perfil (admin/superadmin)
-- nombre
-- foto
-- fecha de registro y ultima modificación (en la tabla solo mostrar ultima modificación)
+**Data**
+- type of profile (admin/superadmin)
+- name
+- user picture
+- date of registration and last modification (only show last modification in the table)
 
-**Acciones**
-- modificar
-- eliminar
-- **Nice to have** ✨ → Una tabla aparte para gestionar las invitaciones pendientes de admins y super admins
+**Actions**
+- edit
+- delete
+- **Nice to have** ✨ → an addicional table to manage admins and super admins pending invitations
 
-## Opciones de filtrado
+## Filter Options
 
-Las vitas de tablas tienen filtros por:
-- fecha de creación
-- ultima modificación
-- nombre de usuario (para la tabla de usuarios)
-- nombre de admin (para la tabla de admins)
-- para el caso de la tabla de admins filtrar también por tipo de perfil
+The views have filters by:
+- date of creation
+- last modification
+- user name (for user table only)
+- admin name (for admin table only)
+- just for the admins table it is possible to filter by profile too
 
-___________________________________________
 # Drawbacks
 
-Why should we *not* do this? Please consider:
-
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people React
-- integration of this feature with other existing and planned features
-- cost of migrating existing React applications (is it a breaking change?)
-
-There are tradeoffs to choosing any path. Attempt to identify them here.
+N/A
 
 # Alternatives
 
-What other designs have been considered? What is the impact of not doing this?
+N/A
 
 # Adoption strategy
 
-If we implement this proposal, how will existing C9 developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+N/A
 
 # How we teach this
 
-What names and terminology work best for these concepts and why? How is this
-idea best presented? As a continuation of existing C9 projects patterns?
-
-Would the acceptance of this proposal mean the C9 documentation must be
-re-organized or altered? Does it change how C9 is taught to new developers
-at any level?
-
-How should this feature be taught to existing C9 developers?
-
-# Unresolved questions
-
-Optional, but suggested for first drafts. What parts of the design are still
-TBD?
+N/A
