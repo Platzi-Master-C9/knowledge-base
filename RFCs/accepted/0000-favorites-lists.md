@@ -7,11 +7,6 @@
 In this case we work with the favorites flow. The functionality its simple, when a logged in user sees a proprietary who like he can attach this to an existent list or create a new list to attach this.
 The user can access and manage all your lists and check the properties in any one of theirs.
 
-# Basic example
-
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
-
 # Motivation
 
 The users of this platform are searching its a solution to make a trip. With this lists they can get an accessible short list of their more relevant or interested properties and can use this to make a fast reservation on the property of your dreams.
@@ -42,10 +37,6 @@ Why should we _not_ do this? Please consider:
 
 There are tradeoffs to choosing any path. Attempt to identify them here.
 
-# Alternatives
-
-What other designs have been considered? What is the impact of not doing this?
-
 # Adoption strategy
 
 In this case we suggest make this function as a module what we can turn on/off if it's required. The module contains the heart icon, the pop ups and the create list, lists, and list content view.
@@ -62,8 +53,8 @@ To the old devs on the project this is a part of the product related directly wi
 
 # Unresolved questions
 
-Users can share their list to others?
-The lists take a taxonomy to filter or similar?
-The owner of a property have any notification when their property is posted in any user list?
-The favorite can be deprecated or have an end time, the favorite will disappear after this?
-if owner user deleted a property there disappeared to the list? The users with this property as their favorite take any notification about this?
+- [ ] Users can share their list to others?
+- [ ] The lists take a taxonomy to filter or similar?
+- [ ] The owner of a property have any notification when their property is posted in any user list?
+- [ ] The favorite can be deprecated or have an end time, the favorite will disappear after this?
+- [ ] if owner user deleted a property there disappeared to the list? The users with this property as their favorite take any notification about this?
