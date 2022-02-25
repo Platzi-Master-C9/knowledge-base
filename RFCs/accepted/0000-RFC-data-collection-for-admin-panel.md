@@ -1,20 +1,18 @@
-- Start Date: 2022-02-23
-- Members: Pedro Alejandro Silva Pérez, Mario Alberto Fuentes Villafañe, Jairo Andrés Correa Medina
-- RFC PR: 
+- Start Date: (fill me in with today's date, YYYY-MM-DD)
+- Members: (fill me with the names of the RFC creators)
+- RFC PR: (leave this empty)
 
 # Summary
 
-Levantamiento de datos para las necesidades de Panel de administración, Inicio de sesión y gestión de usuarios.
-el objetivo es definir el tipo, cantidad y estructura que tendran los datos necesario para el inicio de sesión en el panel de administración y la gestión de usuarios. 
-Esto incluye los campos necesarios para el inicio de sesión, y las columnas de las tablas. 
-
+Brief explanation of the feature.
 
 # Basic example
 
-N/A
+If the proposal involves a new or changed API, include a basic code example.
+Omit this section if it's not applicable.
 
 # Motivation
-<!--
+
 Why are we doing this? What use cases does it support? What is the expected
 outcome?
 
@@ -22,22 +20,14 @@ Please focus on explaining the motivation so that if this RFC is not accepted,
 the motivation could be used to develop alternative solutions. In other words,
 enumerate the constraints you are trying to solve without coupling them too
 closely to the solution you have in mind.
--->
-definir los tipos de datos y su estructura es escencial para el resto del proceso
-una vez se esté hecho, es posible continuar con el resto del proceso. 
 
 # Detailed design
-<!--
+
 This is the bulk of the RFC. Explain the design in enough detail for somebody
 familiar with React to understand, and for somebody familiar with the
 implementation to implement. This should get into specifics and corner-cases,
 and include examples of how the feature is used. Any new terminology should be
 defined here.
--->
-La información necesaria por sección es la siguiente:
-- Inicio de sesión:  vamos a necesitar un email y una contraseña (opcional, debido al inicio de sesión con redes sociales u otras plataformas)
-- Panel de admin, Usuarios: se necesita un nombre de usuario, email, número de télefono, país y ciudad de residencia, status (habilitado, no habilitado, ). Los siguientes son opcionales: Fecha de nacimiento, nacionalidad, dirección de residencia, foto.
-- Panel de admin, admins: mismos datos de un usuario regular más el perfil (esto no dice si es un un usuario regular, admin o superadmin)
 
 # Drawbacks
 
