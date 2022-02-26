@@ -34,7 +34,40 @@ There will be 2 administrator profiles:
 1. Sending an invitation via email
 2. Giving admin or super admin permissions to an existing user from the users management table (option available from the users table or from the modal to edit the user)
 
-<!--## User profile structure `(pending)`-->
+## User profile structure 
+
+### Profile User:
+
+- ID = int (Primary key - Required)
+- Name, Last Na : String
+- Gender = (famele,masculine)
+- Email :  only mail format @
+- IDentification: Dni, Passport = str
+- Cellphone : Int (Optional)
+- Rol: (Admin, SuperAdmin)
+- Country :  str (optional)
+- Password: 8 character
+- Check : Boolean (True or False)
+- Validate : Boolean(True or False)
+- Type : (guest or host)
+- Birthday : date (optional)
+
+### ERD - User_Profile
+
+![](https://rare-impala-2c3.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F168b4952-a2b4-49d0-955d-de6f18b6290a%2FUntitled.png?table=block&id=d635e84b-a38d-4bd0-95ff-60e6c556c3a2&spaceId=e2f2a10e-d731-451c-9ab0-489a2ba13306&width=2000&userId=&cache=v2)
+
+
+### API
+
+**Endpoints:** 
+
+- to view profile information / GET
+- to create Profile: / POST
+- to update profile / PUT
+
+![](https://rare-impala-2c3.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7f70d8cc-98d2-4221-87c7-07ddb0e26221%2FAPI_PROFILE_USER.png?table=block&id=1958fc70-7013-482b-a3e7-1f04bbdcfb4b&spaceId=e2f2a10e-d731-451c-9ab0-489a2ba13306&width=2000&userId=&cache=v2)
+
+________________________________________________________
 
 ## User validation
 
@@ -61,7 +94,7 @@ There will be 2 administrator profiles:
 
 ## Administrator login
 
-- It will have a unique login view for both types of administrators. for instance: → [bookingsystem.com/admin](http://bookingsystem.com/admin)
+- It will have a unique login view for both types of administrators. For instance: → [bookingsystem.com/admin](http://bookingsystem.com/admin)
 - It is recommended that it can only be accessed through the url so that other users have no way of seeing it. (not links to it)
 
 **Data for login**
