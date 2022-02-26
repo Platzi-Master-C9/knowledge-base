@@ -34,7 +34,7 @@ There will be 2 administrator profiles:
 1. Sending an invitation via email
 2. Giving admin or super admin permissions to an existing user from the users management table (option available from the users table or from the modal to edit the user)
 
-## User profile structure `(pending)`
+<!--## User profile structure `(pending)`-->
 
 ## User validation
 
