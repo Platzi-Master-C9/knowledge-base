@@ -4,56 +4,61 @@
 
 # Summary
 
-Aruitecture Database Design fo Account User process
-
-# Basic example
-
-Why are we doing this?
-
-This is necessary because we need to 
+Aruitecture Database Design for Account User process
 
 # Motivation
 
+## Why are we doing this? 
+We are doing a schema because users from our Booking need to fill in their basic information and our booking system can storage that information.
 
+## What use cases does it support? 
+Huge and success systems have had a well organized schema and applied the CAP theorem to select what Database is necessary for their project.
+
+## What is the expected outcome? 
+Having users personal information organized in a schema will help us to build a well structured database. It also will help us to scalate our product easily. We also expected that the Database chose by us is going to be enough to support the needs of our booking system.
 
 # Detailed design
 
-![image](https://user-images.githubusercontent.com/4333910/155566540-120b738a-937d-4003-8292-fea89c6de3ce.png)
+![image](https://user-images.githubusercontent.com/4333910/155854840-5a6fd58e-9cf5-49bb-9d4f-2cd2fea1fb59.png)
+
+We decided our database should be CA (Consistensy and Availability) . First, Consistensy our users have to be able to see the same data no matter which node they connect to on the system. Second, Availability because our users have to see their data whenever thay woudl like to.
+
+We decide to follow a relational BD due to we have identifiers in the previous schema that we allows to do a relation between tables, and we can use the SQL language for manipulating data.
+
+We bet on PostgreSQL as the relational database management system (RDBMS) in our project considering the following table of comparisons between the three most popular MySQL, PostgreSQL and SQL Server.
+
+![image](https://user-images.githubusercontent.com/4333910/155855217-de363fe7-cbe9-43a0-a8d5-ada7e8cb7387.png)
+
+Our goal is to prioritize flexibility, cost-effectiveness and innovation, so our choice is an open source solution like PostgresSQL or MYSQL, but PostgreSQL excels at data querying and offers clear organization and temporary tables if we want to have a complex process, it also supports JSON. files which, being able to index these files, allows us to communicate with external data sources
+
 
 # Drawbacks
 
-Why should we *not* do this? Please consider:
+## Why should we *not* do this? Please consider:
 
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people React
-- integration of this feature with other existing and planned features
-- cost of migrating existing React applications (is it a breaking change?)
+- Official Support
 
-There are tradeoffs to choosing any path. Attempt to identify them here.
+- PostgreSQL is not good when it comes to performance in compairisión with the another ones.
 
 # Alternatives
 
-What other designs have been considered? What is the impact of not doing this?
+MYSQL it can be a good option due to performance on inserts and updates
 
 # Adoption strategy
 
-If we implement this proposal, how will existing C9 developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+It's necessary to understood the basic concepts in SQL Languajes like Joins and Querys 
 
 # How we teach this
 
-What names and terminology work best for these concepts and why? How is this
-idea best presented? As a continuation of existing C9 projects patterns?
+## What names and terminology work best for these concepts and why?
 
-Would the acceptance of this proposal mean the C9 documentation must be
-re-organized or altered? Does it change how C9 is taught to new developers
-at any level?
+Schema = Show database using graphics, this way make it easy to understand how is data organized without looking at the code.
 
-How should this feature be taught to existing C9 developers?
+CAP theorem = The best proven way to select databases for projects. It gives you the exact answer of why you really need for your project (Consistency, Availability, Partition Tolerance)
+
+## How is this idea best presented? 
+It could be present in a short meeting. One of us could explain it.
 
 # Unresolved questions
 
-Optional, but suggested for first drafts. What parts of the design are still
-TBD?
+This document doesn't include what Management Tools we are goint to use with PostgreSQL 
