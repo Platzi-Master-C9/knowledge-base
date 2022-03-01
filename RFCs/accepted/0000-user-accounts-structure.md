@@ -118,12 +118,24 @@ and incorporate use cases and new functions in each of the folders.
     - `gender`: "field is not a ('male', 'famele', 'not difined') options",
     - `gender`: "field is null"
     - `phoneNumber`: "field is null"
+- Example:
+```json
+{
+  "detail": [
+    {
+      "loc": ["body", {element}],
+      "msg": {Condition},
+      "type": "value_error"
+    }
+  ]
+}
+```
 
 #### **View User**
 
 - URL: `/user/{user_id}`
 - Method: `GET`
-- Params:
+- Params: (to request additional information)
     - `email`
     - `phone`
     - `addres`
@@ -225,16 +237,82 @@ and incorporate use cases and new functions in each of the folders.
 - Example:
 
 ```json
-
+{
+    "id": "1",
+    "firstName": "",
+    "secondName": "",
+    "firstSurname": "",
+    "secondSurname": "",
+    "gender": "",
+    "email": "123@email.com",
+    "avatar": "url(image)",
+    "phoneNumber": "",
+    "addres":{
+        "country":"",
+        "citie":"",
+        "addres":"",
+    },
+    "identification": {
+        "nationality": "",
+        "idOfNationality":""
+    },
+    "passport":"",
+}
 ```
 *Error Response*
+
+- Code: `422 UNPROCESSABLE ENTITY`
+- Conditions:
+    - `email`: "field is longer than 200 characters"
+    - `email`: "field is null"
+    - `email`: "email already used"
+    - `firstName`: "field is loger than 50 characters"
+    - `firstName`: "fiel is null"
+    - `secondName`: "field is loger than 50 characters"
+    - `firstSurname`: "field is loger than 50 characters"
+    - `firstSurname`: "fiel is null"
+    - `secondSurname`: "field is loger than 50 characters"
+    - `birthDate`: "field is not a date format"
+    - `birthDate`: "field is null"
+    - `gender`: "field is not a ('male', 'famele', 'not difined') options",
+    - `gender`: "field is null"
+    - `phoneNumber`: "field is null"
+    - `avatar`: "field is not a url"
+    - `addres-country`: field is loger than 50 characters"
+    - `addres-citie`: field is loger than 50 characters"
+    - `addres-addres`: field is loger than 200 characters"
+    - `identification-nationality`: field is loger than 50 characters"
+    - `identification-idOfNationality`: field is loger than 50 characters"
+    - `passport`: field is loger than 50 characters"
+
+- Example:
+```json
+{
+    "the entity cannot be processed",
+    "detail": [
+    {
+      "loc": ["body", {entity}],
+      "msg": {Condition},
+      "type": "value_error"
+    }
+  ]
+}
+```
 
 - Code: `401 UNAUTHORIZED`
 - Conditions: Invalid token.
 - Example:
 ```json
 {
-  "detail": "Invalid Token."
+    "detail": "Invalid Token."
+}
+```
+- Code: `404 NOT FOUND`
+- Conditions: If the provided ID doesn't exist on the database.
+- Example:
+```json
+{
+    "detail": "User not found."
 }
 ```
 
