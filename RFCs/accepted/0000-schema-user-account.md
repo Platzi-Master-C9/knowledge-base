@@ -19,7 +19,7 @@ Having users personal information organized in a schema will help us to build a 
 
 # Detailed design
 
-![image](https://user-images.githubusercontent.com/4333910/155854840-5a6fd58e-9cf5-49bb-9d4f-2cd2fea1fb59.png)
+![image](https://user-images.githubusercontent.com/4333910/156262140-4d3c777c-f9ba-4d16-b767-f0629e89b769.png)
 
 We decided our database should be CA (Consistensy and Availability) . First, Consistensy our users have to be able to see the same data no matter which node they connect to on the system. Second, Availability because our users have to see their data whenever thay woudl like to.
 
