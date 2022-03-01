@@ -16,28 +16,15 @@ As part of data monitoring, we need to give practical information about the app 
 
 # Detailed design
 
-Deliver practical data viz in accordance with the C9 team. For this purpose we are going to use libraries that can be embedded in the app. When the displayed metrics are defined we will define the respective visualization.
-The options are:
-
-- Visx: JS components library for airbnb.
-- streamlit.io: Python library.
-- Nivo: JS components library.
 
 # Drawbacks
 
-For this topic we are going to discuss about the language the library is build.
-
-In the case of visx and nivo, both are built in JS and works with react and D3. Drawbacks for this:
-
-- The knowledge base for this squad apparently is more suited to use Python tecnologies and could be a time to master the libraries.
-
-In the case of Streamlit, drawbacks are:
-
-- The app will be developed in JS and this feature is in Python.
+The main drawback for this library is that the squad is mainly python-oriented, and the adoption inside the squad could take time. 
+Other drawbaks related with the first one are that this libraries use react and this is also not well known by almost everyone.
 
 # Alternatives
 
-There are plenty of alternative libraries for this purpose but this 3 options were the most mentioned in the first meetings.
+One of the alternatives could be some libraries in Python like Streamlit.io. 
 
 # Adoption strategy
 
@@ -50,4 +37,5 @@ This feature will be named data and metrics visualization and the respective rea
 
 # Unresolved questions
 
-Almost everything in this feature is TBD.
+We need to know what metrics we are going to provide to the rest of the teams and the format they are going to 
+
