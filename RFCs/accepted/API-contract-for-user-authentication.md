@@ -1,33 +1,40 @@
 - Start Date: 2022-02-22
 - Members: Jesus Velazquez & Sebastian Gonzalez
-- RFC PR: (leave this empty)
+- RFC PR:
 
 # Summary
 
-WIP
+Definition of api contract, endpoints, documentation of the apis and the necessary structure to have a good communication between front and back
 
 # Basic example
 
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
+The idea is to have a collection in postman with the necessary documentation of the flow and the apis, something like this
+
+<img src="https://assets.postman.com/postman-docs/documentation-view-schema-docs-v9-12.jpg" alt="Postman collection documentation" />
 
 # Motivation
 
-Why are we doing this? What use cases does it support? What is the expected
-outcome?
+Having a clear idea of what needs to be done, where you are going to start from and where you want to go is much simpler and more agile by creating documentation, being clear about the flows that are needed, the possible dependencies and the life cycle that will have every solution.
 
-Please focus on explaining the motivation so that if this RFC is not accepted,
-the motivation could be used to develop alternative solutions. In other words,
-enumerate the constraints you are trying to solve without coupling them too
-closely to the solution you have in mind.
+Having this clear and within everyone's reach, it is much easier to develop what is required and makes it easier to understand and integrate it for those who need to use it.
 
 # Detailed design
 
-This is the bulk of the RFC. Explain the design in enough detail for somebody
-familiar with React to understand, and for somebody familiar with the
-implementation to implement. This should get into specifics and corner-cases,
-and include examples of how the feature is used. Any new terminology should be
-defined here.
+- ## Why it's important to create a Sequence Diagram?
+    It is important for the team to know what the development flow is like, what should be done first, what happens if something fails in any chain of APIs, how to act against possible multiple responses. know who is going to need the information, if the user must send or receive data, if a flow goes to an external provider or not.
+
+  Having all this clear and defined avoids having gaps of ignorance between the members of the squad, being more agile and effective in the development of the requirement.
+
+  A good way to create Sequence Diagram is to use UML, defining who interacts in the whole flow, user, database, Auth0, Api rests, etc, for example
+  
+  <img src='https://www.researchgate.net/profile/Kun-Ma-7/publication/272823002/figure/fig3/AS:294789619699714@1447294730609/Sequence-Diagram-of-Interaction-with-Our-OAuth2-authorization-RESTful-Feed-Sharing-Service.png' alt='api sequence diagram flow' />
+
+- ## What technology do we use to document our APIs?
+  Have a document or file with all the clear information on how to use / manipulate the apis, what parameters it receives, what method is POST?, GET? , DELETE ?, what headers do you need, do you need to receive a body, what will be its possible responses, the response codes that are expected to be obtained. all this is important for those who are going to use, modify or interact with the API's.
+  
+  Una opcion muy util es tener una coleccion en postman, no solo para almacenar y poder usar apis, sino que ademas se puede documentar aqui tanto la documentacion como cada uno de los servicios que estan dentro de ella, esto le permite al frontend  por ejemplo ver cual es el orden de llamado de las apis, que recibe y responde cada una y probarla ahi mismo. 
+  
+  <img src='https://assets.postman.com/postman-docs/documentation-pane-v9.jpg' alt='api documentation example i n postman' />
 
 # Drawbacks
 
