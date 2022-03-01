@@ -19,7 +19,11 @@ Separating business logic as services, adapters and framworks and database as fo
 - `/user/{user_id}` **GET** - user info
 - `/user/{user_id}` **PATCH** - update user info
 - `/user/{user_id}` **DELETE** - dalete user
-- `/user/{user_id}/bookmark/` **GET** - list user favorite places
+- `/user/{user_id}/bookmark/` **POST** - Create list favorite places
+- `/user/{user_id}/bookmarks/` **GET** - list user favorite places
+- `/user/{user_id}/bookmark/{bookmark_id}` **GET** - favorite places details
+- `/user/{user_id}/bookmark/{bookmark_id}` **PATCH** - update favorite places
+- `/user/{user_id}/bookmark/{bookmark_id}` **DELETE** - Delete list favorite places
 
 
 
@@ -119,6 +123,13 @@ and incorporate use cases and new functions in each of the folders.
 
 - URL: `/user/{user_id}`
 - Method: `GET`
+- Params:
+    - `email`
+    - `phone`
+    - `addres`
+    - `identification`
+    - `passport`
+    - `favorite`
 - Auth required: YES
 - Use: view the user information
 
@@ -126,17 +137,54 @@ and incorporate use cases and new functions in each of the folders.
 
 - Code: `200 OK`
 - Example:
-
 ```json
+{
+    "id": "1",
+    "firstName": "",
+    "secondName": "",
+    "firstSurname": "",
+    "secondSurname": "",
+    "gender": "",
+    "email": "123@email.com",
+    "avatar": "url(image)",
+    "phoneNumber": "",
+    "addres":{
+        "country":"",
+        "citie":"",
+        "addres":"",
+    },
+    "identification": {
+        "nationality": "",
+        "idOfNationality":""
+    },
+    "passport":"",
+    "favorites": {
+        "idFavorite1": "1",
+        "idFavorite2": "2",
+        "idFavorite3": "3",
+        ...
+    }
 
+}
 ```
 *Error Response*
 
-- Code: `400`
+- Code: `401 UNAUTHORIZED`
+- Conditions: Invalid token.
 - Example:
-
 ```json
+{
+  "detail": "Invalid Token."
+}
+```
 
+- Code: `404 NOT FOUND`
+- Conditions: If the provided ID doesn't exist on the database.
+- Example:
+```json
+{
+  "detail": "User not found."
+}
 ```
 
 #### **Update User**
@@ -145,6 +193,31 @@ and incorporate use cases and new functions in each of the folders.
 - Method: `PATCH`
 - Auth required: YES
 - Use: Update the user information
+- Json structure:
+```json
+{
+    "email": "varchar(200) NOT NULL UNIQUE",
+    "firstName": "varchar(50) NOT NULL",
+    "secondName": "varchar(50)",
+    "firstSurname": "varchar(50) NOT NULL",
+    "seconsName": "varchar(50)",
+    "gender": "enum('male', 'famele', 'not difined') NOT NULL",
+    "phoneNumber": "varchar() NOT NULL",
+    "avatar": "url(image)",
+    "phoneNumber": "varchar(20)",
+    "addres":{
+        "country":"varchar(50)",
+        "citie":"varchar(50)",
+        "addres":"varchar(200)",
+    },
+    "identification": {
+        "nationality": "varchar(50)",
+        "idOfNationality":"varchar(50)"
+    },
+    "passport":"varchar(50)",
+}
+```
+
 
 *Sucess Response*
 
@@ -155,6 +228,15 @@ and incorporate use cases and new functions in each of the folders.
 
 ```
 *Error Response*
+
+- Code: `401 UNAUTHORIZED`
+- Conditions: Invalid token.
+- Example:
+```json
+{
+  "detail": "Invalid Token."
+}
+```
 
 - Code: `400`
 - Example:
@@ -175,9 +257,20 @@ and incorporate use cases and new functions in each of the folders.
 - Example:
 
 ```json
-
+{
+    "user has been deleted"
+}
 ```
 *Error Response*
+
+- Code: `401 UNAUTHORIZED`
+- Conditions: Invalid token.
+- Example:
+```json
+{
+  "detail": "Invalid Token."
+}
+```
 
 - Code: `400`
 - Example:
@@ -188,6 +281,7 @@ and incorporate use cases and new functions in each of the folders.
 
 ### **User favorites**
 #### **Create list favorite**
+#### **View list favorite**
 #### **Update list favorite**
 #### **Delete list favorite**
 #### **Add place a list favorite**
