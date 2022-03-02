@@ -31,7 +31,7 @@ The booking system obligatory requires a database that save the places data. The
 
 Places schema has some models, atributes and relations taken from the requeriments and the business logic. It is also made up thinking in the communication between the diferent squads.
 
-![Database schema](https://res.cloudinary.com/dvpcbukeh/image/upload/v1645637600/schema_rql8zb.png)
+![Database schema](https://res.cloudinary.com/dvpcbukeh/image/upload/v1646241412/schema_DB_jmptw2.png)
 
 Some tables need an user_id. This atribute is taken from the User squad database.
 
@@ -69,4 +69,12 @@ The next step is to learn MySQL basics watching the 13-39 classes of the same co
 The last step is to learn about NPM libraries 'mysql2' and 'sequalize' for managing the database from Node.js.
 
 # Unresolved questions
+
+## Why MySQL over PosgreSQL?
+
+PosgreSQL offers a lot of features that could be very useful, but it brings complexity to the project and it is too robust for our data needs.
+
+The main reason why we chose MySQL over PosgreSQL is that the first offers a much better time to market due to its ease to implementation and it is more learning friendly. 
+
+It is also ideal for our requirements because the data schema we proposed here is not as complex as for using PosgreSQL or another object-relational database.
 
