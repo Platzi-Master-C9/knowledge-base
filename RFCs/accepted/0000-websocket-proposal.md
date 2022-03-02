@@ -241,7 +241,7 @@ This response represents a deny of service due to invalid or missing credentials
 ```
 
 ### Websockets
-The websocket service will implement a pub-sub pattern in order to increase the scalability of the websocket service with redis.
+The websocket service will implement a pub-sub pattern with redis in order to increase the scalability.
 
 #### Architecture
 ![ws-architecture](https://user-images.githubusercontent.com/28733681/156296987-265aa672-c484-4f73-aeca-77b279a3d4d8.png)
