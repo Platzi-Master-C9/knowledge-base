@@ -10,6 +10,9 @@
 
 After several evaluations and research, the best way to manage a chat system is through websockets, in this RFC the implementation of the socket-IO library is proposed.
 
+For this implementation, issues such as the consistency of the data in front of the data participant were evaluated, so also in this RFC the use of a Pub/Sub is proposed for the consistent distribution of the data. For this reason, we considered the use of a Pub/Sub service for consistent data distribution. 
+Redis Enterprise Cloud - Flexible plan which would adjust for the uncertain amount of requests, and meets our objective.
+
 
 # Basic example
 
@@ -24,6 +27,8 @@ With the use of this library, we can:
 
 - Maintain an open communication between the host and a user.
 - Manage in the best way a chat through WebSockets to avoid the use of multiple requests between users and avoid the use of resources.
+- In order to achieve data consistency we implemented the idea of using a pub-sub pattern, this with the use of a provider that adjusts to the amount of requests that we could have.
+- In terms of consistency it allows us to have the data correctly even if our application lives in different servers where the participation of this pub-sub would be to consistently distribute the information.
 
 # Detailed design
 
@@ -246,6 +251,15 @@ The websocket service will implement a pub-sub pattern with redis in order to in
 #### Architecture
 ![ws-architecture](https://user-images.githubusercontent.com/28733681/156296987-265aa672-c484-4f73-aeca-77b279a3d4d8.png)
 
+### **Session store**
+
+Redis as an in-memory data store with high availability and persistence is a popular choice among application developers to store and manage [session data](https://aws.amazon.com/blogs/developer/elasticache-as-an-asp-net-session-store/) for internet-scale applications. Redis provides the sub-millisecond latency, scale, and resiliency required to manage session data such as user profiles, credentials, session state, and user-specific personalization.
+
+### **Chat, messaging, and queues**
+
+Redis supports Pub/Sub with pattern matching and a variety of data structures such as lists, sorted sets, and hashes. This allows Redis to support high performance [chat rooms](https://aws.amazon.com/blogs/database/how-to-build-a-chat-application-with-amazon-elasticache-for-redis/), real-time comment streams, social media feeds and server intercommunication. The Redis List data structure makes it easy to implement a lightweight queue. Lists offer atomic operations as well as blocking capabilities, making them suitable for a variety of applications that require a reliable message broker or a circular list.
+
+
 #### Events
 ##### New message
 This event will allow users to receive updates about chat messages in real-time. The websocket server will send this event to the user with the message description attached to it.
@@ -281,12 +295,15 @@ This event will notify users that a new conversation has been initialized. This 
 - This decision directly influences the existing data creation in our database.
 - Socket-io requires to use a specific client library in order to work, this library will increase the bundle size of the application in around 80KB.
 - Team members have not previous experience using redis with socket-io.
+- If the number of requests is not defined, the cost of consuming services from external providers would increase significantly.
 
 # Alternatives
 - Use [websocket](https://github.com/theturtle32/WebSocket-Node/blob/HEAD/docs/index.md "websocket")
 - Write our own websocket server using the native nodejs modules (`http` or  `net`)
 - Fetch the messages in the application using `setInterval`
 - Use a third-party service, such as twilio-chat or firebase.
+- Use a third-party service, such as [Pubnub](https://www.pubnub.com)
+- To use a managed database service provider, there are a variety of managed database service providers available.
 
 # Adoption strategy [newbie]
 - Team members should learn about redis, the pub-sub pattern, and how to handle sticky sessions with socket-io.
@@ -297,4 +314,6 @@ This event will notify users that a new conversation has been initialized. This 
 # Unresolved questions
 - Websocket events could in order to fit with order RFCs proposals.
 - The data structure could change to fit with any database requirement proposed in other RFCs.
-- Relationship of websocket connection to external booking system notification system
+- Relationship of websocket connection to external booking system notification system.
+- What is the stipulated number of active users, or monthly requests, since it is understood that in order to use an external managed database service you need to foresee the above in order to choose a plan accordingly.
+
