@@ -8,7 +8,7 @@
 
 **c9-messaging-system-squad**
 
-After several evaluations and research, the best way to manage a chat system is through websockets, in this RFC the implementation of the socket.IO library is proposed.
+After several evaluations and research, the best way to manage a chat system is through websockets, in this RFC the implementation of the socket-IO library is proposed.
 
 
 # Basic example
@@ -240,27 +240,61 @@ This response represents a deny of service due to invalid or missing credentials
 }
 ```
 
-# Drawbacks
+### Websockets
+The websocket service will implement a pub-sub pattern in order to increase the scalability of the websocket service with redis.
 
+#### Architecture
+![ws-architecture](https://user-images.githubusercontent.com/28733681/156296987-265aa672-c484-4f73-aeca-77b279a3d4d8.png)
+
+#### Events
+##### New message
+This event will allow users to receive updates about chat messages in real-time. The websocket server will send this event to the user with the message description attached to it.
+
+- **Event emitter:** Server
+- **Event name:** new_message
+- **Payload:**
+```typescript
+{
+ id: string | number,
+ room_id: string,
+ from: string | number,
+ body: string,
+ created_at: Date
+}
+```
+
+##### New conversation
+This event will notify users that a new conversation has been initialized. This event will be sent by the websocket server to the host user involved in the conversation.
+
+- **Event emitter:** Server
+- **Event name:** new_chat
+- **Payload:**
+```typescript
+{
+ id: string | number,
+ members: string[] | number[],
+ created_at: Date,
+}
+```
+
+# Drawbacks
 - This decision directly influences the existing data creation in our database.
-- Socket-io requires to use a specific client library in order to work, this library will increase the bundle size of the applicaon in around 80KB.
+- Socket-io requires to use a specific client library in order to work, this library will increase the bundle size of the application in around 80KB.
+- Team members have not previous experience using redis with socket-io.
 
 # Alternatives
-
 - Use [websocket](https://github.com/theturtle32/WebSocket-Node/blob/HEAD/docs/index.md "websocket")
 - Write our own websocket server using the native nodejs modules (`http` or  `net`)
 - Fetch the messages in the application using `setInterval`
 - Use a third-party service, such as twilio-chat or firebase.
 
 # Adoption strategy [newbie]
-
-
+- Team members should learn about redis, the pub-sub pattern, and how to handle sticky sessions with socket-io.
 
 # How we teach this [newbie]
-
-The use of this library requires knowledge of how websockets work and how the implementation of websockets are suitable for the chat system.
-It also requires reading the documentation for handling methods of this library.
+- The use of these libraries requires knowledge of how websockets work and how the implementation of websockets are suitable for the chat system. It also requires reading the documentation for handling methods of this library.
 
 # Unresolved questions
-
-Relationship of websocket connection to external booking system notification system
+- Websocket events could in order to fit with order RFCs proposals.
+- The data structure could change to fit with any database requirement proposed in other RFCs.
+- Relationship of websocket connection to external booking system notification system
