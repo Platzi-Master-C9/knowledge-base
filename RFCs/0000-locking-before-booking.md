@@ -30,9 +30,9 @@ Dates will be locked when place is either booked or about to be booked.
 
 Since we are using React to develop this feature, the useState hook can be used using different states such as:
 
--Available: When the place isn't booked.
--Locked: When an user has selected check in and checkout dates but the booking isn't completed.
--Booked: When an user has completed the booking process and payment is verified.
++ Available: When the place isn't booked.
++ Locked: When an user has selected check in and checkout dates but the booking isn't completed.
++ Booked: When an user has completed the booking process and payment is verified.
 
 When a place is locked, the system must show to the user that is in a booking process a timer with, let's say 5 minutes, to complete the booking process,
 otherwise the place will be available and other users could try to book the place, and the user who hadn't completed the booking process 
