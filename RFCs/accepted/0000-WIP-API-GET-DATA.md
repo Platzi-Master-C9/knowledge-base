@@ -1,5 +1,5 @@
 - Start Date: 2022-03-02
-- Members: Yael Ramírez @yaelrmz 
+- Members: Yael Ramírez @yaelrmz, Saúl Regalado @Saulrega 
 - RFC PR: (leave this empty)
 
 # Summary
@@ -78,9 +78,9 @@ We can test it with:
 
 ```json
 {
-    "id_host":   {int},
-    "id_place":  {int},
-    "timestamp": {int}(seconds), //*
+    "host_id":   {int},
+    "place_id":  {int},
+    "timestamp": {int}(seconds)(fecha_creacion),
     "price":     {double},
     "latitude":  {double},
     "longitude": {double},
@@ -93,8 +93,8 @@ We can test it with:
 
 ```json
 {
-    "id_host":   23567,
-    "id_place":  345,
+    "host_id":   23567,
+    "place_id":  345,
     "timestamp": 1646237243,
     "price":     64.8,
     "latitude":  15.945484,
@@ -115,10 +115,10 @@ We can test it with:
 
 ```json
 {
-    "id_host":   {int},
-    "id_place":  {int},
-    "id_user":   {int},
-    "timestamp": {int}(seconds), //*
+    "host_id":   {int},
+    "place_id":  {int},
+    "user_id":   {int},
+    "timestamp": {int}(seconds)(fecha_creacion),
     "review":    {string},
     "rating":    {int}, //*
 }
@@ -128,9 +128,9 @@ We can test it with:
 
 ```json
 {
-    "id_host":   2343,
-    "id_place":  342,
-    "id_user":   23454,
+    "host_id":   2343,
+    "place_id":  342,
+    "user_id":   23454,
     "timestamp": 1646237243,
     "review":    "Good place....",
     "rating":    4,
@@ -148,9 +148,9 @@ We can test it with:
 
 ```json
 {
-    "id_place":  {int},
+    "place_id":  {int},
     "is_active": {bool},
-    "timestamp": {int}(seconds), //**
+    "timestamp": {int}(seconds)(fecha_creacion), //**
 }
 ```
 
@@ -158,7 +158,7 @@ We can test it with:
 
 ```json
 {
-    "id_place":  476,
+    "place_id":  476,
     "is_active": false,
     "timestamp": 1646237243,
 }
@@ -177,14 +177,15 @@ We can test it with:
 
 ```json
 {
-    "id_user":    {string},
+    "user_id":    {string},
     "email":      {string},
-    "timestamp":  {int},
+    "timestamp":  {int}(segundos)(fecha_creacion),
     "is_verifed": {bool},
     "gener":      {string},
     "state":      {string},
     "zip":        {string},
-    "is_active":  {bool}, //*
+    "country":    {string},
+    "is_active":  {bool},
     "is_host":    {bool} // trigger
 }
 ```
@@ -193,12 +194,14 @@ We can test it with:
 
 ```json
 {
-   "id_user":     657687,
+   "user_id":     657687,
     "email":      "user@example.com",
     "timestamp":  1646237243,
     "gener":      "Male",
     "state":      "Guerrero",
     "zip":        "39810",
+    "country":    "Acapulco",
+    "city":       "Costera",
     "is_active":  true
 }
 ```
@@ -214,8 +217,8 @@ We can test it with:
 
 ```json
 {
-    "id_user":    {string},
-    "timestamp":  {int},
+    "user_id":    {string},
+    "timestamp":  {int}(segundos)(fecha_creacion),
     "is_verifed": {bool},
 }
 ```
@@ -224,7 +227,7 @@ We can test it with:
 
 ```json
 {
-    "id_user":    128,
+    "user_id":    128,
     "timestamp":  1646237243,
     "is_verifed": true
 }
@@ -241,8 +244,8 @@ We can test it with:
 
 ```json
 {
-    "id_user":    {string},
-    "timestamp":  {int},
+    "user_id":    {string},
+    "timestamp":  {int}(segundos)(fecha_creacion),
     "is_active":  {bool},
 }
 ```
@@ -251,7 +254,7 @@ We can test it with:
 
 ```json
 {
-    "id_user":    1977,
+    "user_id":    1977,
     "timestamp":  1646237243,
     "is_active":  false,
 }
@@ -297,16 +300,17 @@ We can test it with:
 
 ```json
 {
-    "id_booking":     {int},
-    "id_host":        {int},
-    "id_place":       {int},
-    "id_user":        {int},
-    "timestamp":      {int},
-    "cost":           {double},
-    "users":          {int},
-    "check_out_date": {int},
-    "check_in_date":  {int},
-    "is_canceled":    {bool}
+    "booking_id":         {int},
+    "host_id":            {int},
+    "place_id":           {int},
+    "user_id":            {int},
+    "timestamp":          {int}(segundos)(fecha_creacion),
+    "cost":               {double},
+    "number_guests":      {int},
+    "check_out_date":     {int},
+    "check_in_date":      {int},
+    "commission_charged": {double},
+    "is_canceled":        {bool}
 }
 ```
 
@@ -314,16 +318,17 @@ We can test it with:
 
 ```json
 {
-    "id_booking":     8656,
-    "id_host":        6546,
-    "id_place":       6754,
-    "id_user":        8665,
-    "timestamp":      1646237243,
-    "cost":           56.9,
-    "users":          2,
-    "check_out_date": 1646287243,
-    "check_in_date":  1646482454,
-    "is_canceled":    false
+    "booking_id":         8656,
+    "host_id":            6546,
+    "place_id":           6754,
+    "user_id":            8665,
+    "timestamp":          1646237243,
+    "cost":               56.9,
+    "number_guests":      2,
+    "check_out_date":     1646287243,
+    "check_in_date":      1646482454,
+    "commission_charged": 14.9,
+    "is_canceled":        false
 }
 ```
 
@@ -336,6 +341,7 @@ We can test it with:
 # Alternatives
 
 We have other API libraries like:
+- [Express](https://expressjs.com/es/): another web framework based on JS
 - [FastAPI](https://fastapi.tiangolo.com/): web framework for building APIs with Python 3.6+
 
 # Adoption strategy
@@ -349,7 +355,7 @@ We have other API libraries like:
 - We have the necessity of learn about API REST
 
 # Unresolved questions
-- In this RFC we don't talk about **how this data will be saved** to _Data Monitorin_ team
-- Who has teh responsability of _Accountless Users_?
-- How we difference between _normal user_ an _host user_?
+- In this RFC we don't talk about **how this data will be saved** to _Data Monitoring_ team
+- Who has the responsability of _Accountless Users_?
 - _Place_ and _Booking_ has data of _Review_, whic one we should be use?
+
