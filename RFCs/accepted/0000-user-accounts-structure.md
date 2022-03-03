@@ -88,11 +88,12 @@ and incorporate use cases and new functions in each of the folders.
 *Sucess Response*
 
 - Code: `201 CREATE`
+- Instance: in case the user was created successfully
 - Example:
 
 ```json
 {
-    "id": "1",
+    "idUser": "1",
     "firstName": "Juanito",
     "secondName": "",
     "firstSurname": "Perez",
@@ -103,6 +104,7 @@ and incorporate use cases and new functions in each of the folders.
 *Error Response*
 
 - Code: `422 UNPROCESSABLE ENTITY`
+- Instance: in case one or more conditions are not met
 - Conditions:
     - `email`: "field is longer than 200 characters"
     - `email`: "field is null"
@@ -121,7 +123,8 @@ and incorporate use cases and new functions in each of the folders.
 - Example:
 ```json
 {
-  "detail": [
+    "the entity cannot be processed",
+    "detail": [
     {
       "loc": ["body", {element}],
       "msg": {Condition},
@@ -148,10 +151,11 @@ and incorporate use cases and new functions in each of the folders.
 *Sucess Response*
 
 - Code: `200 OK`
+- Instance: in case the user has been found
 - Example:
 ```json
 {
-    "id": "1",
+    "idUser": "1",
     "firstName": "",
     "secondName": "",
     "firstSurname": "",
@@ -182,7 +186,7 @@ and incorporate use cases and new functions in each of the folders.
 *Error Response*
 
 - Code: `401 UNAUTHORIZED`
-- Conditions: Invalid token.
+- Instance: in case the token used is invalid
 - Example:
 ```json
 {
@@ -234,11 +238,12 @@ and incorporate use cases and new functions in each of the folders.
 *Sucess Response*
 
 - Code: `200 OK`
+- Instance: in case the user was successfully updated
 - Example:
 
 ```json
 {
-    "id": "1",
+    "idUser": "1",
     "firstName": "",
     "secondName": "",
     "firstSurname": "",
@@ -262,6 +267,7 @@ and incorporate use cases and new functions in each of the folders.
 *Error Response*
 
 - Code: `422 UNPROCESSABLE ENTITY`
+- Instance: in case one or more conditions are not met
 - Conditions:
     - `email`: "field is longer than 200 characters"
     - `email`: "field is null"
@@ -300,7 +306,7 @@ and incorporate use cases and new functions in each of the folders.
 ```
 
 - Code: `401 UNAUTHORIZED`
-- Conditions: Invalid token.
+- Instance: in case the token used is invalid
 - Example:
 ```json
 {
@@ -315,13 +321,6 @@ and incorporate use cases and new functions in each of the folders.
     "detail": "User not found."
 }
 ```
-
-- Code: `400`
-- Example:
-
-```json
-
-```
 #### **Delete User**
 
 - URL: `/user/{user_id}`
@@ -332,17 +331,18 @@ and incorporate use cases and new functions in each of the folders.
 *Sucess Response*
 
 - Code: `200 OK`
+- Instance: in case the user was successfully deleted
 - Example:
 
 ```json
 {
-    "user has been deleted"
+    "user {idUser} has been deleted"
 }
 ```
 *Error Response*
 
 - Code: `401 UNAUTHORIZED`
-- Conditions: Invalid token.
+- Instance: in case the token used is invalid
 - Example:
 ```json
 {
@@ -350,21 +350,312 @@ and incorporate use cases and new functions in each of the folders.
 }
 ```
 
-- Code: `400`
+- Code: `404 NOT FOUND`
+- Conditions: If the provided ID doesn't exist on the database.
 - Example:
-
 ```json
-
+{
+    "detail": "User not found."
+}
 ```
 
 ### **User favorites**
 #### **Create list favorite**
+
+- URL: `/user/{user_id}/bookmark/`
+- Method: `POST`
+- Auth required: YES
+- Use: Create a new list of favorite places
+- Json structure:
+```json
+{
+    "nameFavoriteList": "varchar(100)"
+}
+```
+
+*Sucess Response*
+
+- Code: `201 CREATE`
+- Instance: in case the list of favorite places was created successfully
+- Example:
+
+```json
+{
+    "idFavoriteList": "1",
+    "nameFavoriteList": "loved places"
+    
+}
+```
+*Error Response*
+
+- Code: `422 UNPROCESSABLE ENTITY`
+- Instance: in case one or more conditions are not met
+- Conditions:
+    - `nameFavoriteList`: "field is longer than 100 characters"
+    - `nameFavoriteList`: "field is null"
+- Example:
+```json
+{
+    "the entity cannot be processed",
+    "detail": [
+    {
+      "loc": ["body", {element}],
+      "msg": {Condition},
+      "type": "value_error"
+    }
+  ]
+}
+```
+
+- Code: `401 UNAUTHORIZED`
+- Instance: in case the token used is invalid
+- Example:
+```json
+{
+  "detail": "Invalid Token."
+}
+```
+- Code: `404 NOT FOUND`
+- Conditions: If the provided user_id doesn't exist on the database.
+- Example:
+```json
+{
+  "detail": "User not found."
+}
+```
+
+
 #### **View list favorite**
+
+- URL: `/user/{user_id}/bookmark/{bookmark_id}`
+- Method: `GET`
+- Auth required: YES
+- Use: view the favorite list information
+
+*Sucess Response*
+
+- Code: `200 OK`
+- Instance: in case the favorite list has been found
+- Example:
+```json
+{
+    "idFavoriteList": "1",
+    "favorites":[
+        "idPlace1",
+        "idPlace2",
+        "idPlace3",
+        ...
+    ]
+
+}
+```
+*Error Response*
+
+- Code: `401 UNAUTHORIZED`
+- Instance: in case the token used is invalid
+- Example:
+```json
+{
+  "detail": "Invalid Token."
+}
+```
+
+- Code: `404 NOT FOUND`
+- Conditions: If the provided user_id or idFavoriteList doesn't exist on the database.
+- Example:
+```json
+{
+  "detail": "{User/favorite list} not found."
+}
+```
 #### **Update list favorite**
+
+- URL: `/user/{user_id}/bookmark/{bookmark_id}`
+- Method: `PATCH`
+- Auth required: YES
+- Use: Update list of favorite places
+- Json structure:
+```json
+{
+    "nameFavoriteList": "varchar(100)"
+}
+```
+
+*Sucess Response*
+
+- Code: `201 CREATE`
+- Instance: in case the list of favorite places was updated successfully
+- Example:
+
+```json
+{
+    "idFavoriteList": "1",
+    "nameFavoriteList": "loved places"
+    
+}
+```
+*Error Response*
+
+- Code: `422 UNPROCESSABLE ENTITY`
+- Instance: in case one or more conditions are not met
+- Conditions:
+    - `nameFavoriteList`: "field is longer than 100 characters"
+    - `nameFavoriteList`: "field is null"
+- Example:
+```json
+{
+    "the entity cannot be processed",
+    "detail": [
+    {
+      "loc": ["body", {element}],
+      "msg": {Condition},
+      "type": "value_error"
+    }
+  ]
+}
+```
+
+- Code: `401 UNAUTHORIZED`
+- Instance: in case the token used is invalid
+- Example:
+```json
+{
+  "detail": "Invalid Token."
+}
+```
+- Code: `404 NOT FOUND`
+- Conditions: If the provided user_id or idFavoritePlace doesn't exist on the database.
+- Example:
+```json
+{
+  "detail": "{User/FavoriteList} not found."
+}
+```
 #### **Delete list favorite**
+
+- URL: `/user/{user_id}/bookmark/{bookmark_id}`
+- Method: `DELETE`
+- Auth required: YES
+- Use: Delete user
+
+*Sucess Response*
+
+- Code: `200 OK`
+- Instance: in case the favorite list was successfully deleted
+- Example:
+
+```json
+{
+    "Favorite list has been deleted"
+}
+```
+*Error Response*
+
+- Code: `401 UNAUTHORIZED`
+- Instance: in case the token used is invalid
+- Example:
+```json
+{
+  "detail": "Invalid Token."
+}
+```
+
+- Code: `404 NOT FOUND`
+- Conditions: If the provided idFavorite list doesn't exist on the database.
+- Example:
+```json
+{
+    "detail": "Favorite list not found."
+}
+```
 #### **Add place a list favorite**
+
+- URL: `/user/{user_id}/bookmark/{bookmark_id}`
+- Method: `POST`
+- Auth required: YES
+- Use: Add a new place to the favorite list
+- Json structure:
+```json
+{
+    "idPlace": "1"
+}
+```
+
+*Sucess Response*
+
+- Code: `201 CREATE`
+- Instance: in case the location was added successfully
+- Example:
+
+```json
+{
+    "idFavoriteList": "1",
+    "nameFavoriteList": "loved places",
+    "favorites": [
+        "idPlace1",
+        "idPlace2",
+        ...
+    ]
+    
+}
+```
+*Error Response*
+
+- Code: `401 UNAUTHORIZED`
+- Instance: in case the token used is invalid
+- Example:
+```json
+{
+  "detail": "Invalid Token."
+}
+```
+- Code: `404 NOT FOUND`
+- Conditions: If the provided user_id, idFavoritelist or idPlace doesn't exist on the database.
+- Example:
+```json
+{
+  "detail": "{User/Favorite list/Place} not found."
+}
+```
 #### **Remove place a list favorite**
 
+- URL: `/user/{user_id}/bookmark/{bookmark_id}`
+- Params:
+    - `idPlace`
+- Method: `DELETE`
+- Auth required: YES
+- Use: Delete place of the favorite list
+
+*Sucess Response*
+
+- Code: `200 OK`
+- Instance: in case the place was successfully deleted of the favorite list
+- Example:
+
+```json
+{
+    "Place {idplace} has been deleted of the favorite list {idFavoriteList}"
+}
+```
+*Error Response*
+
+- Code: `401 UNAUTHORIZED`
+- Instance: in case the token used is invalid
+- Example:
+```json
+{
+  "detail": "Invalid Token."
+}
+```
+
+- Code: `404 NOT FOUND`
+- Conditions: If the provided idFavorite or idPlace list doesn't exist on the database.
+- Example:
+```json
+{
+    "detail": "{Favorite list/Place} not found."
+}
+```
 
 
 <!-- This is the bulk of the RFC. Explain the design in enough detail for somebody
@@ -375,7 +666,7 @@ defined here. -->
 
 # Drawbacks
 
-to be determined.
+In case of scaling the API Rest will be at a disadvantage compared to other technologies.
 
 <!-- Why should we *not* do this? Please consider:
 
@@ -389,11 +680,11 @@ There are tradeoffs to choosing any path. Attempt to identify them here. -->
 
 # Alternatives
 
-<!-- - GraphQL APIs.
+- GraphQL APIs.
 - Falcor APIs.
 - gRPC APIs.
 - JSON-Pure APIs.
-- oData APIs. -->
+- oData APIs.
 
 <!-- What other designs have been considered? What is the impact of not doing this? -->
 
@@ -405,9 +696,9 @@ To maintain the structure, the rule must be maintained that each responsibility 
 this a breaking change? Can we write a codemod? Should we coordinate with
 other projects or libraries? -->
 
-# How we teach this 
+# How we teach this
 
-I request information on how to implement a software structure, because I do not know the methods to do it.
+will be implemented through tasks in github, separating each part of the API and creating a tarae for each one of them
 
 <!-- What names and terminology work best for these concepts and why? How is this
 idea best presented? As a continuation of existing C9 projects patterns?
