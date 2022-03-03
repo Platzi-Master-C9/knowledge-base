@@ -160,7 +160,7 @@ Endpoint for the places service to notify that a new place has been created
 **(body)**: place **(Object,** **\*Required)**
 
 - **Model**
-  ```json
+  ```js
   CreatePlace{
   	placeId*	string // required
   		maxLength: 20
@@ -233,7 +233,7 @@ Endpoint for the places service that allow upte a specific place, we only allow 
 **(body)**: place **(Object,** **\*Required)**
 
 - **Model**
-  ```json
+  ```js
   UpdatePlace{
   	placeId*	string // required with id we search in data base
   		maxLength: 20
@@ -405,7 +405,7 @@ The reson we need latitude and longitude is because we made a Query with `2dsph
 
 ### E**xample value**
 
-```json
+```js
 {
   "places": [
     {
@@ -432,7 +432,7 @@ The reson we need latitude and longitude is because we made a Query with `2dsph
 
 ### **Model**
 
-```json
+```js
 GetPlaces{
 	placeId*	string // required
 		maxLength: 20
@@ -511,7 +511,7 @@ Return a specific location with their latitude and longitude
 
 ### **Model**
 
-```json
+```js
 GetLocation{
 	placeId*	string
 		maxLength: 20
@@ -609,7 +609,7 @@ Get a specific address with the provided coordinates (latitude and longitude). T
 
 ### **Model**
 
-```json
+```js
 GetAddress{
 	placeName*	string
 		maxLength: 15
