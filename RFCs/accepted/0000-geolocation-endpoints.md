@@ -318,7 +318,7 @@ Remove a specific place from database
 
 ### **Example Value**
 
-```json
+```js
 (query) /geolocation/place?placeId="asd78wadad2"
 ```
 
@@ -393,7 +393,7 @@ The reson we need latitude and longitude is because we made a Query with `2dsph
 
 ### **Example Value**
 
-```json
+```js
 (query) /geolocation/places?lat=45.16546&lon=46.14786
 ```
 
@@ -485,7 +485,7 @@ Return a specific location with their latitude and longitude
 
 ### **Example Value**
 
-```json
+```js
 (query) /geolocation/location?placeId="asd78wadad2"
 ```
 
@@ -586,7 +586,7 @@ Get a specific address with the provided coordinates (latitude and longitude). T
 
 ### **Example Value**
 
-```json
+```js
 (query) /geolocation/address?lat=45.16546&lon=46.14786
 ```
 
