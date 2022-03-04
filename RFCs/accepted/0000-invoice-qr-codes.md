@@ -12,13 +12,14 @@ Generate QR code to visualize the digital ticket from booking.
 
 This example is with JS:
 
-var qrCode = require('qrcode')
-
+```javascript
 import * as qrCode from 'qrcode'
 
 qrCode.toString('htttps//:google.com',{type:'terminal'}, function (err, url) {
   console.log(url)
 })
+
+```
 
 # Motivation
 
@@ -49,7 +50,6 @@ We can do this more easily with libraries like
 4. [react-qr-code](https://www.npmjs.com/package/react-qr-code)
 
 # Adoption strategy
-[WIP]
 
 <!-- If we implement this proposal, how will existing C9 developers adopt it? Is
 this a breaking change? Can we write a codemod? Should we coordinate with
@@ -66,7 +66,6 @@ Even when damaged, the QR Code’s structure data keys include duplications. It 
 "The anatomy of a QR Code: Positioning detection markers, Alignment markings, Timing pattern, Version information, Format information, Data and error correction keys and Quiet zone."
 
 # Unresolved questions
-[WIP]
 
 1. ¿Qué información se debería mostrar en la factura?
 2. ¿En qué formato se daría esta factura?
