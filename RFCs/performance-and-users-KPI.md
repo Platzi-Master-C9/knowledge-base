@@ -1,25 +1,26 @@
-- Start Date: (fill me in with today's date, YYYY-MM-DD)
-- Members: (fill me with the names of the RFC creators)
-- RFC PR: (leave this empty)
+- Start Date: 2022-03-03
+- Members: @raulfruiz @jacksonleon
+- RFC PR: 
 
 # Summary
 
-Brief explanation of the feature.
+This feature allows users, visitors and hosts, to see main statistics about the
+another user that maybe interested in making a deal.
+
+Further details about what kind of metrics should be displayed are given below.
 
 # Basic example
 
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
 
 # Motivation
 
-Why are we doing this? What use cases does it support? What is the expected
-outcome?
+This feature is suggested as it will offer a better UX. The user will be 
+encouraged to close a deal when seeing top metrics from another user is a
+smooth, automatic feature.
 
-Please focus on explaining the motivation so that if this RFC is not accepted,
-the motivation could be used to develop alternative solutions. In other words,
-enumerate the constraints you are trying to solve without coupling them too
-closely to the solution you have in mind.
+What is expected after implementing this feature is a higher chance of
+success when booking a place as each user will know the other part is a 
+serious and reliable person.
 
 # Detailed design
 
