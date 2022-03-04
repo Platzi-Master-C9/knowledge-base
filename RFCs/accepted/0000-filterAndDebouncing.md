@@ -10,10 +10,9 @@ In our proposal we want to create a filter system for the search bar, using axio
 
 ## Basic Example
 
-- Filter system: for users it's common to see a list in the search bar with places when they are typing the name of the place that they want to find, so the list have to show all of places that match with the words that they type.
-  when the users type any word the search bar makes a request to the API (Endpoints places) and returns all the places that match with the search.
+- Filter system: users are going to see 3 options (price, type of room, score)under the search bar, when they click on one of them, they'll see a list with options that they are able to select a range between 2 options, or type the value that they want find. the filter system has to make a request to the API and returns the data what the users are looking for in the 3 diferent options of filter.
 
-- Debouncing: sometimes in many apps, when you type in the search bar you get your pc or phone stop responding, or app become unresponsive, usually that happens when there are event listeners attached to the search bar, like onKeyup, or onChange, then we’re asking our computer to do this 7 times for the 7 keystrokes in the word “PEREIRA”. So when we type “P” in the search bar, our computer tries to find all the places that have the letter “P” in them. And while it’s still doing that, we ask it to look for all the cities with “PE” in them. Same thing for “PER”, etc., until we’re finished typing out “PEREIRA”.
+- Debouncing: sometimes in many apps, when you type in the filter options you get your pc or phone stop responding, or app become unresponsive, usually that happens when there are event listeners attached to the search bar, like onKeyup, or onChange, then we’re asking our computer to do this 7 times for the 7 keystrokes in the word “PEREIRA”. So when we type “P” in the search bar, our computer tries to find all the places that have the letter “P” in them. And while it’s still doing that, we ask it to look for all the cities with “PE” in them. Same thing for “PER”, etc., until we’re finished typing out “PEREIRA”.
   we have to decide to delay the first process for a given amount of time to see if our user wants to type something else, so that if they do, we’ll cancel the first one and then work on the second instead, that would be debouncing.
 
 ## Motivation
@@ -31,43 +30,55 @@ C2
 C3
 ![](https://github.com/carlosbritto32/RFC-FilterAndDebouncing/blob/main/img/C3.drawio.png)
 
+# debouncing example
+
 ```js
-import cities from "cities-list";
-import React from "react";
+import { useState } from "react";
+export const useFunctionDebouncer = () => {
+  //we need to keep the setTimeout timer in state so we can cancel it later if needed
+  const [timer, setTimer] = useState(null);
 
-const citiesArray = Object.keys(cities);
-
-const App = () => {
-  const [filteredCities, setFilteredCities] = React.useState([]);
-
-  const doCityFilter = (filter) => {
-    if (!filter) return setFilteredCities([]);
-
-    setFilteredCities(
-      citiesArray.filter((city) =>
-        city.toLowerCase().includes(filter.toLowerCase())
-      )
-    );
+  const debounce = (dbFunc, delay) => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    setTimer(setTimeout(() => dbFunc(), delay));
   };
 
-  return (
-    <div className="container">
-      <input
-        type="text"
-        className="px-2"
-        placeholder="search here..."
-        onChange={(event) => doCityFilter(event.target.value)}
-      />
-      <div>
-        {filteredCities?.map((city, index) => (
-          <p key={index}>{city}</p>
-        ))}
-      </div>
-    </div>
-  );
-};
+  const cancelDebounce = () => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    setTimer(timer);
+  };
 
-export { App };
+  return [debounce, cancelDebounce];
+};
+```
+
+Use it like this:
+
+```js
+const [debounce, cancelDebounce] = useFunctionDebouncer();
+```
+
+Pass a function to debounce and a time delay (in ms) to debounce it by like this:
+
+```js
+debounce(() => console.log("Debounce me!"), 1000);
+```
+
+That will run
+
+```js
+console.log(...) after 1 second (1000 ms)
+```
+
+What else can I do?
+If you'd like to cancel the function's execution during the debounce, run
+
+```js
+cancelDebounce();
 ```
 
 ## Drawbacks
