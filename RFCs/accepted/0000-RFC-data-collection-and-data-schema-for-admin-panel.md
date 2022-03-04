@@ -4,11 +4,11 @@
 
 # Summary
 
-This RFC describes the data, its schema and type, that will be necessary for administration panel, login and user management. 
+This RFC describes the data, its schema and type, for users, admins (and Superadmins), places and globalbooking list. It will be necessary in order to clarify which entities frondend can consume and what the formay of data is going to be. Our team will use databases created by Booking system, Users and Places but we will manage or own enpoints in order to format and simplify the work of the frontend (mejorar la redacción cuando no esté dormido)
 
 # Basic example
 
-N/A
+(Pending)
 
 # Motivation
 
@@ -16,20 +16,27 @@ Correctly defining the type of information that is going to be needed is the bas
 
 # Detailed design
 
-## Perfiles de administradores
+## Admin profiles
 
-There will be 2 administrator profiles:
+There will be 2 administrator profiles (admin and SuperAdmins). This allows to give the system more flexiblity. The description of this profiles are:
 
-- **Admin**: It can validate, edit, delete and ban users and places
-- **SuperAdmin**: It can validate, edit, delete and ban users and places. It can also manage profiles of admins and superadmins.
+#### Admin:
+* Can manage users, It means validate, edit, delete and ban (each one of this terms are explaned in the Glosary seccion)
+* Has access to the user table, places and global bookings table
+* Can use all the filters avalible in the Filter seccion except the ones in the admin table
 
-- The option to add admin will only be available for super admins.
-- There will be an endpoint to verify if the session belongs to an admin or a super admin and then, enable or disable the option.
+#### SuperAdmin: It can validate, edit, delete and ban users and places. It can also manage profiles of admins and superadmins.
+* Can perform all the previous actions
+* Can create Admins and SuperAdmins (through invitation or changing the user profile of a regular user)
+* Can delete Admins and SuperAdmins (Except its own profile)
+* Can Edit Admins and SuperAdmins
+* Has access to the admin table
 
+The name of the Admin profile in the database would be `admin` and the name of the profile SuperAdmin will be `super_admin`
 
 ### Ways to create admin/super admin profiles
 
-> This option is only available for **SUPERADMINS**
+> This option is only available for **SuperAdmins**
 > 
 1. Sending an invitation via email
 2. Giving admin or super admin permissions to an existing user from the users management table (option available from the users table or from the modal to edit the user)
@@ -124,9 +131,17 @@ The views have filters by:
 - admin name (for admin table only)
 - just for the admins table it is possible to filter by profile too
 
+# Glosary
+(pending)
+
 # Drawbacks
 
-N/A
+- no hay un formato definido aún para los perfiles (nombre de los perfiles), este RFC hace asunciones
+- no tengo muy claro que significa validate, es decir, que puede o no puede hacer un usuario validad
+- no se ha definido completamente el propósito de la tabla de places y booking, no hay accionables
+- los accionables para estas tablas deberían ser editar y borrar
+- los accionables para reservar deberían ser 
+- no hay una clara diferencia entre buscador y filtro 
 
 # Alternatives
 
