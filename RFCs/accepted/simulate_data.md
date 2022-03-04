@@ -1,5 +1,5 @@
 Start Date: (2022-03-03)
-Members: (Julian Restrepo Baron)
+Members: (Julian Restrepo Baron - Pepe Ibarra)
 RFC PR: ()
 
 **Summary**
