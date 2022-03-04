@@ -36,7 +36,16 @@ Implementation of websocket and its event handling to facilitate real-time commu
 
 Use of API that implements the requests corresponding to the business logic, including the visualization and creation of records.
 
-![](https://i.imgur.com/RLG0xqC.png)
+### Flow
+![flow](https://user-images.githubusercontent.com/28733681/156680962-78d27c17-df6a-4b98-ad5b-657982f3deef.png)
+
+#### Flow Description.
+- When an authenticated user starts to interact with the application, a websocket connection will be initialized providing the JWT of the current session.
+- The WebSocket server will authenticate the user with the provided JWT and once it is authenticated, it will join the user to a room with the same name as its id (We are going to get the id of the decoded token). Personal room will allow us to send events to all the devices that the user is logged in.
+- Once the WebSocket connection is ready, we subscribe the user to the chat events.
+- If the user tries to contact to another user, we are going to send a request to open a chat room, if the chat room does not exist it will be created and a WebSocket event about the new chat is going to be send to the other user involved. Otherwise, it returns the existing chat information without sending any WebSocket events.
+- If the API response with a 200 status code, we are going to request the previous messages of that conversation, and if it response with 201 we do not request the messages because is a new chat room.
+- When the user creates a message into a chat room, we are going to send a POST request to the API that will store the message in the database and will send the WebSocket notification to the other user involved.
 
 ### API REST
 The API Rest would be responsible of the CRUD operations of the messaging system.
@@ -63,6 +72,7 @@ It returns the list of chat rooms paginated to 10 elements and ordered by the mo
      id: string,
      members: string[] | number[],
      created_at: Date,
+     created_by: string,
      last_message: {
        id: string | number,
        room_id: string,
@@ -85,8 +95,8 @@ This response represents a deny of service due to invalid or missing credentials
 }
 ```
 
-###### Create chat room
-This endpoint will create a new chat room. When the user creates a new chat room, the host user will receive a notification about the new convesation.
+###### Open a chat room
+This endpoint will return the chat room between two users and if it not exists it will create it. When the user creates a new chat room, the other user involved will receive a notification about the new convesation.
 
 - **HTTP Method:** POST
 - **URL:** https://example.com/api/v1/chats
@@ -99,7 +109,7 @@ This endpoint will create a new chat room. When the user creates a new chat room
 }
 ```
 
-###### Response 201 (Created)
+###### Response 201/200 (Created/Ok)
 After creating a new chat room (if not exists) it will return registered information.
 
 **Response Example:**
@@ -107,6 +117,7 @@ After creating a new chat room (if not exists) it will return registered informa
 {
  id: string | number,
  members: string[] | number[],
+ created_by: string,
  created_at: Date,
 }
 ```
@@ -288,6 +299,7 @@ This event will notify users that a new conversation has been initialized. This 
  id: string | number,
  members: string[] | number[],
  created_at: Date,
+ created_by: string | number,
 }
 ```
 
@@ -316,4 +328,4 @@ This event will notify users that a new conversation has been initialized. This 
 - The data structure could change to fit with any database requirement proposed in other RFCs.
 - Relationship of websocket connection to external booking system notification system.
 - What is the stipulated number of active users, or monthly requests, since it is understood that in order to use an external managed database service you need to foresee the above in order to choose a plan accordingly.
-
+- We don't know how we are going to calculate the average response time of a user.
