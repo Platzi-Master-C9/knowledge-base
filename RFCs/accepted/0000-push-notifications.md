@@ -14,7 +14,8 @@ Also consider if the notifications must be sent in real time and if they should 
 
 # Basic example
 
-In this case we plan to use SEE (Server-Sent Events) to send notifications to the client.
+In this case we plan to use SSE (Server-Sent Events) to send notifications to the client.
+[Documentation](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)
 
 ```js
 const evtSource = new EventSource("API_URL");
@@ -120,7 +121,6 @@ An intelligent architecture and a correct communication will help that.
 
 **How is this idea best presented? As a continuation of existing C9 projects patterns?** The idea is to create a component which will be implemented for any squad to use.
 
-
 **Would the acceptance of this proposal mean the C9 documentation must be re-organized or altered? Does it change how C9 is taught to new developers at any level?** Yes, there are no existing documentation about which technologies will be used for the push notification system, so it's a must to add it the documentation. 
 
 **How should this feature be taught to existing C9 developers?** Recommending readings, and explaining the concepts, also creating a tutorial.
@@ -134,3 +134,17 @@ Will our team be able to implement it?
 How much will notifications affect other teams and parts of the project?
 
 What we will use to make the project safe and provide a good user experience
+
+# Feedback
+___
+1. **This requires a HTTP host?** Yes, it requires a HTTP host, but it could be added in the current API. 
+2. **To create an event listener in the front we use the same API?** Yes, we use the same API.
+3. **How we will propagate the information throughout the app?** Using the singleton pattern desing with a library to handle the state, such as Redux, redux-saga or redux-thunk.
+4. **How it will be consumed in the components that require it?** Using the current state in the redux.
+5. **How we will persist the information over the event?** Saving the information in redux state.
+6. **Why we need to use a login?** To have the concret user that is using the notification system.
+7. **Does this use a protocol to send information?** HTTP protocol.
+8. **How do we restore the connection of long polling? Do we send a token?** Yes, in case of combining long polling with SSE we will use a token.
+9. **In which part of the information flow enter nginx?** Since we open the initial connection to the server.
+10. **Why doing requests would be something bad?** Because it affects the performance of the server, and the client.
+11. **Why web sockets are not scalables?** Because they need the connection open all the time, but is almost the same as SSE.
