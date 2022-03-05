@@ -20,26 +20,48 @@ Correctly defining the type of information that is going to be needed is the bas
 
 There will be 2 administrator profiles (admin and SuperAdmins). This allows to give the system more flexiblity. The description of this profiles are:
 
-#### Admin:
+##### Admin:
 * Can manage users, It means validate, edit, delete and ban (each one of this terms are explaned in the Glosary seccion)
 * Has access to the user table, places and global bookings table
 * Can use all the filters avalible in the Filter seccion except the ones in the admin table
 
-#### SuperAdmin: It can validate, edit, delete and ban users and places. It can also manage profiles of admins and superadmins.
+##### SuperAdmin:
 * Can perform all the previous actions
 * Can create Admins and SuperAdmins (through invitation or changing the user profile of a regular user)
 * Can delete Admins and SuperAdmins (Except its own profile)
 * Can Edit Admins and SuperAdmins
-* Has access to the admin table
+* Can see the admin table
 
-The name of the Admin profile in the database would be `admin` and the name of the profile SuperAdmin will be `super_admin`
+> The name of the Admin profile in the database will be `admin` and the name of the profile SuperAdmin will be `super_admin`
 
-### Ways to create admin/super admin profiles
+### Ways to create Admins and SuperAdmin profiles
 
-> This option is only available for **SuperAdmins**
-> 
+
 1. Sending an invitation via email
 2. Giving admin or super admin permissions to an existing user from the users management table (option available from the users table or from the modal to edit the user)
+
+### Data for Admin Profiles
+* id (is necesary to perform actions like edit admin, is not visible in the interface)
+* full_name (first_name + fist_surname)
+* url_image
+* profile
+
+## User Profile
+these represent an authenticated user
+
+### Data for User Profile
+
+* id (is necesary to perform actions like validate user, is not visible in the interface)
+* full_name (first_name + fist_surname)
+* url_image
+* date_of_register
+* is_verified
+* is_active
+* is_delete
+
+
+_________________________________________________________________________________________________________________________________________________________________
+
 
 ## User profile structure 
 
@@ -74,7 +96,6 @@ The name of the Admin profile in the database would be `admin` and the name of t
 
 ![](https://rare-impala-2c3.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7f70d8cc-98d2-4221-87c7-07ddb0e26221%2FAPI_PROFILE_USER.png?table=block&id=1958fc70-7013-482b-a3e7-1f04bbdcfb4b&spaceId=e2f2a10e-d731-451c-9ab0-489a2ba13306&width=2000&userId=&cache=v2)
 
-________________________________________________________
 
 ## User validation
 
@@ -142,6 +163,7 @@ The views have filters by:
 - los accionables para estas tablas deberían ser editar y borrar
 - los accionables para reservar deberían ser 
 - no hay una clara diferencia entre buscador y filtro 
+- no hay campos para banear, eliminar o verificar usuarios en la db de users
 
 # Alternatives
 
