@@ -27,7 +27,7 @@ Search Engine data schema and ElasticSearch implementation.
 
 Elasticsearch is a distributed open source search and analysis engine for all types of data, including textual, numeric, geospatial, structured and unstructured, this makes it ideal for our project, it will allow us to have an optimized and searchable database fast and accurate.
 
-### Ventajas de usar Elasticsearch
+### Advantages of using Elasticsearch
 
 - **Many search options**. We have many different types of search options that will allow us to get the most out of this tool. Search types available include whole words, snippets, custom stemming searches, faceted searches, full text searches, instant and autocomplete searches.
 - **Saving analysis time and higher speed**. Elasticsearch can run complex queries extremely fast. It also stores almost all the commonly used structured queries as a filter for the result set and executes them only once.
@@ -48,11 +48,7 @@ Elasticsearch is a distributed open source search and analysis engine for all ty
 	rooms: BOOKING_ROOMS,
 	beds: BOOKING_BED,
 	toilets_ BOOKING_TOILETS,
-	location: {
-		city: BOOKING_CITY,
-		deparment: BOOKING_DEPARMENT,
-		country: BOOKING_COUNTRY	
-	},
+	location: LOCATION_ID,
 	reviews: [
 		{
 			user: 'COMMENT_BY',
@@ -65,16 +61,7 @@ Elasticsearch is a distributed open source search and analysis engine for all ty
 			dateCreated: DATE 	
 		}
 	],
-	host: {
-		name: TEXT,
-		description: TEXT,
-		registration_date: DATE,
-		number_evaluations: NUMBER,
-		isVerified: BOOLEAN,
-		languages: [LANGUAGE1, LANGUAGE2, LANGUAGE3],
-		responseRate: NUMBER,
-		averageResponseTime: NUMBER, 
-	},
+	host: HOST_ID,
 	images: [URL_IMAGE_1, URL_IMAGE_2, URL_IMAGE_3],
 	benefitsPlace: [
 		{
@@ -106,10 +93,63 @@ Elasticsearch is a distributed open source search and analysis engine for all ty
 		{
 			title: TEXT,
 			rulesList: [RULE_1, RULE_2, RULE_3, RULE_4]
-		},
+		}
 	]
 }
+
 ```
+
+```json
+{
+	//location
+	id: LOCATION_ID
+	city: TEXT,
+	deparment: TEXT,
+	country: TEXT	
+},
+
+```
+
+```json
+{
+	// HOST
+	id: HOST_ID,
+	name: TEXT,
+	description: TEXT,
+	registration_date: DATE,
+	number_evaluations: NUMBER,
+	isVerified: BOOLEAN,
+	languages: [LANGUAGE1, LANGUAGE2, LANGUAGE3],
+	responseRate: NUMBER,
+	averageResponseTime: NUMBER, 
+}
+```
+
+### Index to search for places in the booking system
+
+We need to create an index for elastic search to store all of our hosts and be able to search them.
+
+### Ingest data with Node.js on ElasticSearch
+
+We must install elasticsearch in our project, then we can configure the connection with it through a client provided by them. It will look something like this:
+
+```jsx
+const { Client } = require('@elastic/elasticsearch')
+const config = require('config');
+const elasticConfig = config.get('elastic');
+
+const client = new Client({
+  cloud: {
+    id: elasticConfig.cloudID
+  },
+  auth: {
+    username: elasticConfig.username,
+    password: elasticConfig.password
+  }
+})
+```
+
+Elasticsearch has a [guide](https://www.elastic.co/guide/en/cloud/current/ec-getting-started-node-js.html#ec-getting-started-node-js) on this point.
 
 # **Drawbacks**
 
