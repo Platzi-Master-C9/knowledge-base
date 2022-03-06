@@ -4,7 +4,11 @@
 
 # Summary
 
-This feature allows users, visitors and hosts, to see main statistics about the
+The aim is to gather data to analyze how well is the website performing in terms of
+engagement and conversion rate basically. To do so, traffic will be analyzed in order 
+to get the information needed to meassure the performance of the website.
+
+Also, this feature allows users, visitors and hosts, to see main statistics about the
 another user that maybe interested in making a deal.
 
 Further details about what kind of metrics should be displayed are given below.
@@ -14,13 +18,21 @@ Further details about what kind of metrics should be displayed are given below.
 
 # Motivation
 
+"What is not meassured can't be improved"
+
+Taking this quote as starting point and taking into account that data-driven
+culture offers a big chance to enhance processes and profits in a company, the
+data monitoring team wants to take care of some metrics that will give a detailed
+view about the website performance and allow a better understanding of the user behaviour 
+in order to make better choices that will make the business grow.
+
 This feature is suggested as it will offer a better UX. The user will be 
 encouraged to close a deal when seeing top metrics from another user is a
 smooth, automatic feature.
 
 What is expected after implementing this feature is a higher chance of
 success when booking a place as each user will know the other part is a 
-serious and reliable person.
+reliable person.
 
 # Detailed design
 
@@ -34,23 +46,25 @@ defined here.
 
 Why should we *not* do this? Please consider:
 
-- implementation cost, both in term of code size and complexity
-- whether the proposed feature can be implemented in user space
-- the impact on teaching people React
-- integration of this feature with other existing and planned features
-- cost of migrating existing React applications (is it a breaking change?)
+- Availability of other free options such as frameworks or libraries intended to do so
+- Usage of a third party tool that may concern user's data privacy
+- 
+
 
 There are tradeoffs to choosing any path. Attempt to identify them here.
 
 # Alternatives
 
-What other designs have been considered? What is the impact of not doing this?
+Frameworks such as ---
 
 # Adoption strategy
 
-If we implement this proposal, how will existing C9 developers adopt it? Is
-this a breaking change? Can we write a codemod? Should we coordinate with
-other projects or libraries?
+
+As Google Analytics is a free, ready-to-use tool intended to analyze a website 
+traffic, its implementation shouldn't be a major challenge, neither its
+mainteinance or integration when other C9 teams may require our performance
+metrics.
+
 
 # How we teach this
 
