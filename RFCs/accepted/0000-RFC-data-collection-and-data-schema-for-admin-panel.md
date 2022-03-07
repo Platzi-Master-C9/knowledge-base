@@ -47,7 +47,7 @@ There will be 2 administrator profiles (admin and SuperAdmins). This allows to g
 * profile
 
 ## User Profile
-these represent an authenticated user
+represent an authenticated user
 
 ### Data for User Profile
 
@@ -58,6 +58,28 @@ these represent an authenticated user
 * is_verified
 * is_active
 * is_delete
+
+## Places
+represent the places created by users (read only,)
+
+### data for Places
+* name
+* is_active
+* host name
+
+## global booking
+represent a list of all bookings (read only)
+
+###data for Bookings
+* date of book
+* place
+* user name
+* is_active
+* from date
+* end date
+
+## End points
+thi seccion details the required end points for the admin panel:
 
 
 _________________________________________________________________________________________________________________________________________________________________
@@ -164,6 +186,8 @@ The views have filters by:
 - los accionables para reservar deberían ser 
 - no hay una clara diferencia entre buscador y filtro 
 - no hay campos para banear, eliminar o verificar usuarios en la db de users
+- solo los usuarios autheticados pueden crear usuarios?
+- la comnunicación con el equipo de autenticación
 
 # Alternatives
 
