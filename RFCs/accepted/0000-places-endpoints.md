@@ -11,7 +11,7 @@ We need to define and implement the API endpoints for the places application in 
 - `/places/` **GET** - list of all places
 - `/places/` **POST** - create a place
 - `/places/{place_id}/` **GET** - get place
-- `/places/{place_id}/` **PUT** - update place
+- `/places/{place_id}/` **PATCH** - update place
 - `/places/{place_id}/` **DELETE** - delete place
 
 # **Motivation**
@@ -19,6 +19,12 @@ We need to define and implement the API endpoints for the places application in 
 We are building the main structure of the places app behavior. In order to acomplish this in the best way, we need to plan the nearest possible the real use of the application. Better to overplan than overfix.
 
 # **Detailed design**
+
+The REST standard is suggested for these contracts, due to the Resources efficiency, the simplicity and the better scalability that we find in this method. REST is a set of architectural constraints, not a protocol or a standard. API developers can implement REST in a variety of ways.
+
+When a client request is made via a RESTful API, it transfers a representation of the state of the resource to the requester or endpoint. This information, or representation, is delivered in one of several formats via HTTP: JSON (Javascript Object Notation), HTML, XLT, Python, PHP, or plain text. JSON is the most generally popular file format to use because, despite its name, it’s language-agnostic, as well as readable by both humans and machines. 
+
+Something else to keep in mind: Headers and parameters are also important in the HTTP methods of a RESTful API HTTP request, as they contain important identifier information as to the request's metadata, authorization, uniform resource identifier (URI), caching, cookies, and more. There are request headers and response headers, each with their own HTTP connection information and status codes.
 
 ## **Read All**
 
@@ -35,16 +41,21 @@ We are building the main structure of the places app behavior. In order to acomp
 
 ```json
 {
-    {"id": "13918333-0a7a-4835-ab76-6685127d7d3b",
-    "name": "Yellow House",
-    "description": "Beautiful house near to the beach and 3 blocks away of the center of the town",
-    "rooms": 4,
-    "bathrooms": 3,
-    "pets": True,
-    "smoke": True,
-    "free_cancelation": False,
-    },
-    ...
+  {"id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "name": "Yellow House",
+  "description": "Beautiful house near to the beach and 3 blocks away of the center of the town",
+  "price": 4000,
+  "currency": "USD",
+  "is_active": True,
+  "rating": 4.8,
+  "host_id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "rooms": 4,
+  "bathrooms": 3,
+  "pets": True,
+  "smoke": True,
+  "free_cancelation": False,
+  },
+  ...
 }
 ```
 
@@ -65,14 +76,19 @@ We are building the main structure of the places app behavior. In order to acomp
 
 ```json
 {
-    "id": "13918333-0a7a-4835-ab76-6685127d7d3b",
-    "name": "Yellow House",
-    "description": "Beautiful house near to the beach and 3 blocks away of the center of the town.",
-    "rooms": 4,
-    "bathrooms": 3,
-    "pets": True,
-    "smoke": True,
-    "free_cancelation": False,
+  "id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "name": "Yellow House",
+  "description": "Beautiful house near to the beach and 3 blocks away of the center of the town",
+  "price": 4000,
+  "currency": "USD",
+  "is_active": True,
+  "rating": 4.8,
+  "host_id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "rooms": 4,
+  "bathrooms": 3,
+  "pets": True,
+  "smoke": True,
+  "free_cancelation": False,
 }
 ```
 
@@ -91,7 +107,7 @@ We are building the main structure of the places app behavior. In order to acomp
 ## **Update**
 
 - URL: `/places/{place_id}`
-- Method: `PUT`
+- Method: `PATCH`
 - Auth required: YES
 - Use: update a specific place.
 
@@ -101,25 +117,35 @@ We are building the main structure of the places app behavior. In order to acomp
 {
   "name": "[Place name (Max 50 characters)]",
   "description": "[Place brief description (Max 100 characters)]",
+  "price":"[Price(Not Negative Numbers)]",
+  "currency":"Currency (Choose a valid currency)",
+  "is_active": "[Check avaliabilty (No Null)]",
+  "rating":"[Decimal no negative (No more than 5)]",
+  "host_id": "[User ID (Valid and existing ID)]",
   "rooms": "[Number or rooms (No Null)]",
   "bathrooms": "[Number of bathrooms (No Null)]",
   "pets": "[Boolean of pets allowed (No Null)]",
   "smoke": "[Boolean of smoke allowed (No Null)]",
-  "free_cancelation": "[Boolean of free cancelation (No Null)]"
-  
+  "free_cancelation": "[Boolean of free cancelation (No Null)]",
+}  
 ```
 ### Data example
 
 ```json
 {
-    "id": "13918333-0a7a-4835-ab76-6685127d7d3b",
-    "name": "Yellow House2",
-    "description": "Beautiful house near to the beach and 3 blocks away of the center of the town.",
-    "rooms": 4,
-    "bathrooms": 3,
-    "pets": True,
-    "smoke": True,
-    "free_cancelation": False,
+  "id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "name": "Yellow House",
+  "description": "Beautiful house near to the beach and 3 blocks away of the center of the town",
+  "price": 4000,
+  "currency": "USD",
+  "is_active": True,
+  "rating": 4.8,
+  "host_id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "rooms": 4,
+  "bathrooms": 3,
+  "pets": True,
+  "smoke": True,
+  "free_cancelation": False,
 }
 ```
 ### Success Response
@@ -237,25 +263,36 @@ We are building the main structure of the places app behavior. In order to acomp
 {
   "name": "[Place name (Max 50 characters)]",
   "description": "[Place brief description (Max 100 characters)]",
+  "price":"[Price(Not Negative Numbers)]",
+  "currency":"Currency (Choose a valid currency)",
+  "is_active": "[Check avaliabilty (No Null)]",
+  "rating":"[Decimal no negative (No more than 5)]",
+  "host_id": "[User ID (Valid and existing ID)]",
   "rooms": "[Number or rooms (No Null)]",
   "bathrooms": "[Number of bathrooms (No Null)]",
   "pets": "[Boolean of pets allowed (No Null)]",
   "smoke": "[Boolean of smoke allowed (No Null)]",
-  "free_cancelation": "[Boolean of free cancelation (No Null)]"
+  "free_cancelation": "[Boolean of free cancelation (No Null)]",
+}  
   
 ```
 ### Data example
 
 ```json
 {
-    "id": "13918333-0a7a-4835-ab76-6685127d7d3b",
-    "name": "Yellow House",
-    "description": "Beautiful house near to the beach and 3 blocks away of the center of the town.",
-    "rooms": 4,
-    "bathrooms": 3,
-    "pets": True,
-    "smoke": True,
-    "free_cancelation": False,
+  "id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "name": "Yellow House",
+  "description": "Beautiful house near to the beach and 3 blocks away of the center of the town",
+  "price": 4000,
+  "currency": "USD",
+  "is_active": True,
+  "rating": 4.8,
+  "host_id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "rooms": 4,
+  "bathrooms": 3,
+  "pets": True,
+  "smoke": True,
+  "free_cancelation": False,
 }
 ```
 ### Success Response
@@ -265,14 +302,18 @@ We are building the main structure of the places app behavior. In order to acomp
 
 ```json
 {
-    "id": "13918333-0a7a-4835-ab76-6685127d7d3b",
-    "name": "Yellow House",
-    "description": "Beautiful house near to the beach and 3 blocks away of the center of the town.",
-    "rooms": 4,
-    "bathrooms": 3,
-    "pets": True,
-    "smoke": True,
-    "free_cancelation": False,
+  "name": "Yellow House",
+  "description": "Beautiful house near to the beach and 3 blocks away of the center of the town",
+  "price": 4000,
+  "currency": "USD",
+  "is_active": True,
+  "rating": 4.8,
+  "host_id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "rooms": 4,
+  "bathrooms": 3,
+  "pets": True,
+  "smoke": True,
+  "free_cancelation": False,
 }
 ```
 ### Error Response
@@ -356,7 +397,8 @@ We are building the main structure of the places app behavior. In order to acomp
 - URL: `/places/{place_id}`
 - Method: `DELETE`
 - Auth required: YES
-- Use: delete a registered place.
+- Use: soft delete a registered place.
+
 
 ### Success Response
 
@@ -365,14 +407,19 @@ We are building the main structure of the places app behavior. In order to acomp
 
 ```json
 {
-    "id": "13918333-0a7a-4835-ab76-6685127d7d3b",
-    "name": "Yellow House2",
-    "description": "Beautiful house near to the beach and 3 blocks away of the center of the town.",
-    "rooms": 4,
-    "bathrooms": 3,
-    "pets": True,
-    "smoke": True,
-    "free_cancelation": False,
+  "id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "name": "Yellow House",
+  "description": "Beautiful house near to the beach and 3 blocks away of the center of the town",
+  "price": 4000,
+  "currency": "USD",
+  "is_active": True,
+  "rating": 4.8,
+  "host_id": "13918333-0a7a-4835-ab76-6685127d7d3b",
+  "rooms": 4,
+  "bathrooms": 3,
+  "pets": True,
+  "smoke": True,
+  "free_cancelation": False,
 }
 ```
 ### Error Response
