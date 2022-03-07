@@ -77,9 +77,12 @@ represent a list of all bookings (read only)
 * is_active
 * from date
 * end date
-
+_____________________________
 ## End points
-thi seccion details the required end points for the admin panel:
+thi seccion details the required end points for the admin panel
+
+### admins read:
+
 
 
 _________________________________________________________________________________________________________________________________________________________________
