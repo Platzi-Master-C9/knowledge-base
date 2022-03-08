@@ -1,15 +1,23 @@
 - Start Date: (2022-02-23)
 - Members: (Francisco Rojas - Marlon Ramirez)
-- RFC PR: (leave this empty)
-
+- RFC PR: https://github.com/Platzi-Master-C9/knowledge-base/pull/65/commits
 # Summary
 
-Aruitecture Database Design for Account User process
+Architecture Database Design for Account User and selection of what Database we should use.
+
+# Basic example
+
+In the following image is displayed the basic information that must be in our Database at least, more information will be added.
+
+![image](https://user-images.githubusercontent.com/4333910/157151928-dfab5252-8954-49fe-b6e0-c66e61378336.png)
 
 # Motivation
 
 ## Why are we doing this? 
-We are doing a schema because users from our Booking need to fill in their basic information and our booking system can storage that information.
+
+One of the main objectives of making a DB scheme is to be able to create endpoint structures so that users can later interact with the application.
+
+![image](https://user-images.githubusercontent.com/4333910/157153239-742341d9-4db1-4918-bd21-df3bf64b9dc4.png)
 
 ## What use cases does it support? 
 Huge and success systems have had a well organized schema and applied the CAP theorem to select what Database is necessary for their project.
@@ -19,17 +27,47 @@ Having users personal information organized in a schema will help us to build a 
 
 # Detailed design
 
-![image](https://user-images.githubusercontent.com/4333910/156262140-4d3c777c-f9ba-4d16-b767-f0629e89b769.png)
+![image](https://user-images.githubusercontent.com/4333910/157153476-0376bfaa-bbb8-401a-bccb-e20150781729.png)
+
+Since there's now a schema to follow. It's necessary to choose which Database is the most useful and efficient for our project. This's why we need the CAP Theorem to help us choose depending on which characteristics are needed in the user account (profile).
 
 We decided our database should be CA (Consistensy and Availability) . First, Consistensy our users have to be able to see the same data no matter which node they connect to on the system. Second, Availability because our users have to see their data whenever thay woudl like to.
 
 We decide to follow a relational BD due to we have identifiers in the previous schema that we allows to do a relation between tables, and we can use the SQL language for manipulating data.
 
+## Why a relational Database was chosen?
+
+### Non-relational databases: 
+They are preferable to choose when the nature of our development’s structure would vary in the database.
+
+### Relational databases: 
+
+When there’s a clarity of the structure and relationship of the data, without the need for change
+
 We bet on PostgreSQL as the relational database management system (RDBMS) in our project considering the following table of comparisons between the three most popular MySQL, PostgreSQL and SQL Server.
 
 ![image](https://user-images.githubusercontent.com/4333910/155855217-de363fe7-cbe9-43a0-a8d5-ada7e8cb7387.png)
 
-Our goal is to prioritize flexibility, cost-effectiveness and innovation, so our choice is an open source solution like PostgresSQL or MYSQL, but PostgreSQL excels at data querying and offers clear organization and temporary tables if we want to have a complex process, it also supports JSON. files which, being able to index these files, allows us to communicate with external data sources
+Here they are the main PostgreSQL's characteristics:
+
+High concurrence: It is capable of dealing with many clients at the same time and delivering the same information from its tables, without blocking.
+
+Support for multiple data types natively. It offers the usual data types in management systems, but also many others that aren’t available in other competitors, such as IP addresses, MAC addresses, Arrays, decimal numbers with configurable precision, geometric figures, etc.
+
+### Trigger support. 
+It allows defining events and generating actions when they are triggers.
+
+### Working with views.
+This means that they can query the data in a different way than the way it is stored.
+
+###  Object-relational. 
+Another of its main features, allows you to work with your data as if they were objects and offers object-oriented mechanisms, such as table inheritance.
+
+### Support for distributed databases.
+Where working with transactions ensures that these will be successful when they have been able to be carried out in all the systems involved.
+
+###  Support for a large number of languages.
+PostgreSQL is capable of working with internal functions, which are executed on the server, written in various languages such as C, C++, Java, PHP, or Python. In addition, it offers interfaces for ODBC and JDBC, as well as programming interfaces for many programming languages.
 
 
 # Drawbacks
@@ -38,7 +76,11 @@ Our goal is to prioritize flexibility, cost-effectiveness and innovation, so our
 
 - Official Support
 
-- PostgreSQL is not good when it comes to performance in compairisión with the another ones.
+- PostgreSQL is not good when it comes to performance in comparison with the other Databases. PostgreSQL is often criticized for being slow and unsuitable for large-scale enterprise applications.
+
+- Increasing horizontal scaling is complex, but PostgreSQL may have a solution for all replicas to accept operations.
+
+- No column re-ordering and better data compression are required.
 
 # Alternatives
 
@@ -59,6 +101,9 @@ CAP theorem = The best proven way to select databases for projects. It gives you
 ## How is this idea best presented? 
 It could be present in a short meeting. One of us could explain it.
 
+## How should this feature be taught to existing C9 developers? 
+It has two topics to explain. Topic # 1 (Schema of DB) and topic #2 (Why did we choose PostgreSQL?)
+
 # Unresolved questions
 
-This document doesn't include what Management Tools we are goint to use with PostgreSQL 
+This document doesn't include what Management Tools we are going to use with PostgreSQL 
