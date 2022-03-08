@@ -81,8 +81,63 @@ _____________________________
 ## End points
 thi seccion details the required end points for the admin panel
 
-### admins read:
+###url
+the recommended url for all services is `admin_panel/api/**endpint**`
 
+### admins:
+
+#### get list of admins
+without filters, this enpoint will fetch a full list o admins and super admins
+
+* URL: `/admins/`
+* Method: `GET`
+* headers: `Authorization` example `Authorization: B`
+* Auth required: yes
+* filter **query** paramater: `profile` (**values:** `admin` or `super_admin` ) 
+* search ***query** parameter : `full_name`
+* Json response structure:
+```js
+   [
+    {
+        "id": "BIGINT UNSIGNED NOT NULL UNIQUE",
+        "full_name": "varchar NOT NULL",
+        "url_image": "varchar",
+        "profile": "varchar NOT NULL"
+    },
+    ...
+   ]
+```
+
+example of request
+```
+GET /admin_panel/api/admins?profile=admin&full_name=jhon
+```
+
+#### get an admin
+get just one admin by Id
+
+* URL: `/admins/:admin`
+* Method: `GET`
+* Auth required: yes
+* filter **query** paramater: `profile` (**values:** `admin` or `super_admin` ) 
+* search ***query** parameter : `full_name`
+* Json response structure:
+```js
+   [
+    {
+        "id": "BIGINT UNSIGNED NOT NULL UNIQUE",
+        "full_name": "varchar NOT NULL",
+        "url_image": "varchar",
+        "profile": "varchar NOT NULL"
+    },
+    ...
+   ]
+```
+
+example of request
+```
+GET /admin_panel/api/admins?profile=admin&full_name=jhon
+```
 
 
 _________________________________________________________________________________________________________________________________________________________________
@@ -92,23 +147,6 @@ ________________________________________________________________________________
 
 ### Profile User:
 
-- ID = int (Primary key - Required)
-- Name, Last Na : String
-- Gender = (famele,masculine)
-- Email :  only mail format @
-- IDentification: Dni, Passport = str
-- Cellphone : Int (Optional)
-- Rol: (Admin, SuperAdmin)
-- Country :  str (optional)
-- Password: 8 character
-- Check : Boolean (True or False)
-- Validate : Boolean(True or False)
-- Type : (guest or host)
-- Birthday : date (optional)
-
-### ERD - User_Profile
-
-![](https://rare-impala-2c3.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F168b4952-a2b4-49d0-955d-de6f18b6290a%2FUntitled.png?table=block&id=d635e84b-a38d-4bd0-95ff-60e6c556c3a2&spaceId=e2f2a10e-d731-451c-9ab0-489a2ba13306&width=2000&userId=&cache=v2)
 
 
 ### API
