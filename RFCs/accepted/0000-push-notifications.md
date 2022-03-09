@@ -14,49 +14,86 @@ Also consider if the notifications must be sent in real time and if they should 
 
 # Basic example
 
-In this case we plan to use SSE (Server-Sent Events) to send notifications to the client.
-[Documentation](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)
+In this case we plan to use WebSockets to send notifications to the clients.
+[Documentation](https://developer.mozilla.org/es/docs/Web/API/WebSocket), [Configuration](https://admantium.medium.com/javascript-how-to-implement-a-websocket-backend-784ac8a56dac)
 
 ```js
-const evtSource = new EventSource("API_URL");
+// Create WebSocket connection.
+//*  connect.js (Frontend) *//
+import io from 'socket.io-client'
+export default io(API, { cookie: false })
 
-// Once the instance of the event source is created, we can listen to the events.
-evtSource.onmessage = function(e) {
-    // Do something with the event.
+import websocket from './globals/connect.js'
+function init () {
+  websocket.emit('system:healthcheck', 'ok?')
+  websocket.on('system:healthcheck', msg => {
+    console.log(msg)
+  })
 }
+init()
 
-// We also should notify if there is an error.
-evtSource.onerror = function(e) {
-  alert("EventSource failed.");
-};
+import websocket from '../globals/connect.js'
+export default class SearchApiAction extends Action {
+  action (cb) {
+    websocket.emit('app:api-search-action', 'dummy')
+    websocket.on('app:api-search-action', json => {
+      cb(json)
+    })
+  }
+}
 ```	
 
 ```js
 /* Server example */
-date_default_timezone_set("America/New_York");
-header("Content-Type: text/event-stream\n\n");
 
-$counter = rand(1, 10);
-while (1) {
-  // Every second, sent a "ping" event.
+//*  index.js *//
+const express = require('express')
+const websocketConnection = require('./connect.js')
+app = express()
+const httpServer = app.listen(3000, () => {
+  console.log(`BOOTING | api-blaze-backend v0.0.1`)
+})
+websocketConnection(httpServer)
 
-  echo "event: ping\n";
-  $curDate = date(DATE_ISO8601);
-  echo 'data: {"time": "' . $curDate . '"}';
-  echo "\n\n";
+//*  connect.js *//
+const websocket = require('socket.io')
+const handleConnection = require('./handler.js')
+function websocketConnection (httpServer) {
+  const io = websocket(httpServer, {
+    serveClient: false
+  })
+  io.on('connection', socket => handleConnection(socket))
+}
+module.exports = websocketConnection
 
-  // Send a simple message at random intervals.
+//*  handler.js *//
+const { apiSearchAction } = require('./actions')
+const clients = {}
+function handleConnection (socket) {
+  console.log(`+ client ${socket.id} has connected`)
+  clients[socket.id] = { connected: true }
+  socket.on('system:healthcheck', msg => {
+    console.log(msg)
+    socket.emit('system:healthcheck', 'healthy')
+  })
+  socket.on('app:api-search-action', keyword => {
+    console.log('app:api-search-action', keyword)
+    socket.emit('app:api-search-action', apiSearchAction(keyword))
+  })
+}
+module.exports = handleConnection
 
-  $counter--;
-
-  if (!$counter) {
-    echo 'data: This is a message at time ' . $curDate . "\n\n";
-    $counter = rand(1, 10);
+//*  action.js *//
+const apiInventory = require('./spec/inventory.json')
+function apiSearchAction (keyword) {
+  const regex = new RegExp(keyword, 'ig')
+  var res = []
+  for (let [name, definition] of Object.entries(apiInventory)) {
+    const occurences = JSON.stringify(definition).match(regex)
+    const score = (occurences && occurences.length) || 0
+    res.push({ name, score, definition })
   }
-
-  ob_flush();
-  flush();
-  sleep(1);
+  return res.sort((a, b) => b.score - a.score)
 }
 ```
 
@@ -69,28 +106,26 @@ What use cases does it support? When the user is in the booking system and the b
 What is the expected outcome? The client will receive a notification with that information.
 
 # Detailed design
-
+### In progress...
 Model C4 Placement Diagram
 
 ![C4 Model Places](https://raw.githubusercontent.com/BrandonArgel/knowledge-base/main/c4-notificationsTeam.png)
 
 To implement this tool, we need the user to have an active login, later the implementation of the notifications will be done automatically depending on what the user is looking for and what is of interest to them.
 
-I think that in order to carry out the project we can use Server sent event (SSE) although we debate among ourselves that there is a disadvantage. [Server sent event (SSE)](https://javascript.info/server-sent-events)
+I think that in order to carry out the project we can use Web Sockets although.
 
 # Drawbacks
 
 ### **Why should we not do this?**
 
-- **implementation cost, both in term of code size and complexity:** In code we have to implement the logic, which is not very complex, about the cost, the more customers we have, more ports we need to keep open, unless we combine with this with the polling technique, or even using a server like nginx, which handles multiple connections.
-[More about this topic](https://stackoverflow.com/questions/14225501/server-sent-events-costs-at-server-side)
+- **Implementation cost, both in term of code size and complexity:** With web sockets we can have a lot of clients connected to the server and we can have a lot of notifications to send to the clients, since they do not consume much resources.
 
-- **cost of migrating existing React applications (is it a breaking change?):** No, because SSE is a native technology, it works with JavaScript.
+- **Cost of migrating existing React applications (is it a breaking change)?:** It depends on the type of implementation, we can use the native implementation of the browser or we can use a library such as [Socket.io](https://socket.io/).
 
 **Others considerations:**
-* SSE is limited to UTF-8, and does not support binary data.
-* SSE is subject to limitation with regards to the maximum number of open connections. This can be especially painful when opening various tabs as the limit is per browser and set to a very low number (6).
-* SSE is mono-directional
+* WebSockets don’t automatically recover when connections are terminated – this is something you need to implement yourself, and is part of the reason why there are many client-side libraries in existence.
+* Browsers older than 2011 aren’t able to support WebSocket connections - but this is increasingly less relevant.
 
 # Alternatives
 ### **What other designs have been considered?**
@@ -98,13 +133,13 @@ I think that in order to carry out the project we can use Server sent event (SSE
 
 - **Long polling:** It is not the best practice, but this technique always has a connection with the server, listening to the changes.
 
-- **Web Sockets:** This technique is one of the best, but it is not scalable, and also it creates a bidirectional connection with the server, which is not necessary whit push notifications.
+- **Server sent event (SSE):** This is one of the best techniques and it's a recent technology. In comparison with web sockets, this technology is unidirectional, so the servers are just sending the new information to the client.
 
-- **Server sent event (SSE):** This is also one of the best and it's a recent technology. In comparison with web sockets, this technology is unidirectional, so the servers are just sending the new information to the client.
+- **Web Sockets:** This technique is one of the best, but it is not scalable, and also it creates a bidirectional connection with the server.
 
 ### **What is the impact of not doing this?**
 
-If we don't use this technique, we will have to implement a new logic using web sockets, or long polling.
+If we don't use this technique, we will have to implement a new logic using SSE, or long polling.
 
 # Adoption strategy
 
@@ -137,14 +172,13 @@ What we will use to make the project safe and provide a good user experience
 
 # Feedback
 ___
-1. **This requires a HTTP host?** Yes, it requires a HTTP host, but it could be added in the current API. 
+1. **This requires a HTTP host?** Yes, it requires a HTTP host, but it could be added in the current API.
 2. **To create an event listener in the front we use the same API?** Yes, we use the same API.
-3. **How we will propagate the information throughout the app?** Using the singleton pattern desing with a library to handle the state, such as Redux, redux-saga or redux-thunk.
-4. **How it will be consumed in the components that require it?** Using the current state in the redux.
-5. **How we will persist the information over the event?** Saving the information in redux state.
+3. **How we will propagate the information throughout the app?** We will be using react context.
+4. **How it will be consumed in the components that require it?** Using the current state in the context.
+5. **How we will persist the information over the event?** Saving the information in the context, and also in the REST API.
 6. **Why we need to use a login?** To have the concret user that is using the notification system.
 7. **Does this use a protocol to send information?** HTTP protocol.
-8. **How do we restore the connection of long polling? Do we send a token?** Yes, in case of combining long polling with SSE we will use a token.
-9. **In which part of the information flow enter nginx?** Since we open the initial connection to the server.
-10. **Why doing requests would be something bad?** Because it affects the performance of the server, and the client.
-11. **Why web sockets are not scalables?** Because they need the connection open all the time, but is almost the same as SSE.
+8. **How do we restore the connection of long polling? Do we send a token?** We can use a library, or create or own logic.
+10. **Why doing requests would be something bad?** It is not bad to do requests, but if we saturate the server with a technique like short polling, it will be a problem.
+11. **Why web sockets are not scalables?** Researching a little bit, they are very scalable if the server is properly configured. [Blog Post](http://goroutines.com/10m), [StackOverflow](https://stackoverflow.com/questions/47268038/websockets-and-scalability/47269221#47269221)
