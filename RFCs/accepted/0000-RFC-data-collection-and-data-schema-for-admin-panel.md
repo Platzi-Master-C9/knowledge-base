@@ -34,11 +34,15 @@ There will be 2 administrator profiles (admin and SuperAdmins). This allows to g
 
 > The name of the Admin profile in the database will be `admin` and the name of the profile SuperAdmin will be `super_admin`
 
-### Ways to create Admins and SuperAdmin profiles
-
-
-1. Sending an invitation via email
-2. Giving admin or super admin permissions to an existing user from the users management table (option available from the users table or from the modal to edit the user)
+### Way to create Admins and SuperAdmin profiles
+super admin can create admin through a modal view with the fields:
+* first name (required)
+* second name
+* first surname (required)
+* second surname
+* email (required)
+* phone number (required)
+* profile (`admin` or `super_admin`)
 
 ### Data for Admin Profiles
 * id (is necesary to perform actions like edit admin, is not visible in the interface)
@@ -70,13 +74,14 @@ represent the places created by users (read only,)
 ## global booking
 represent a list of all bookings (read only)
 
-###data for Bookings
+### data for Bookings
 * date of book
 * place
 * user name
 * is_active
 * from date
 * end date
+
 _____________________________
 ## End points
 thi seccion details the required end points for the admin panel
@@ -86,16 +91,25 @@ the recommended url for all services is `admin_panel/api/**endpint**`
 
 ### admins:
 
-#### get list of admins
+#### list of admins
 without filters, this enpoint will fetch a full list o admins and super admins
 
 * URL: `/admins/`
 * Method: `GET`
-* headers: `Authorization` example `Authorization: B`
+* Content-type: `Json`
+* headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
 * Auth required: yes
 * filter **query** paramater: `profile` (**values:** `admin` or `super_admin` ) 
-* search ***query** parameter : `full_name`
-* Json response structure:
+* search **query** parameter : `full_name`
+
+request example:
+```
+GET /admin_panel/api/admins?profile=admin&full_name=jhon
+```
+
+**Responses:**
+
+> Code 200 ok
 ```js
    [
     {
@@ -107,21 +121,129 @@ without filters, this enpoint will fetch a full list o admins and super admins
     ...
    ]
 ```
+> `Code 401 Unauthorized`
+   It means that Auth token was not provided
+   
+> `Code 500 Internal Server Error`
+   Unhandled error
+   
+> `Code 502 Bad Gateway`
+   Any of the service we are connected with is no avaliable
+   
+> `Code 503 Service Unavailable`
+   Our service is not avaliable
+   
 
-example of request
-```
-GET /admin_panel/api/admins?profile=admin&full_name=jhon
-```
 
-#### get an admin
-get just one admin by Id
 
-* URL: `/admins/:admin`
+#### get an admin data
+
+* URL: `/admins/:id_admin`
 * Method: `GET`
+* Content-type: `Json`
+* headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
+* Auth required: yes
+
+request example:
+```
+GET /admin_panel/api/admins/123
+```
+
+**Responses:**
+
+> Code 200 ok
+```js
+    {
+        "id": "BIGINT UNSIGNED NOT NULL UNIQUE",
+        "full_name": "varchar NOT NULL",
+        "url_image": "varchar",
+        "profile": "varchar NOT NULL"
+    }
+```
+> `Code 401 Unauthorized`
+   It means that Auth token was not provided
+   
+> `Code 404 Not Found`
+   Not admin found
+   
+> `Code 500 Internal Server Error`
+   Unhandled error
+   
+> `Code 502 Bad Gateway`
+   Any of the service we are connected with is no avaliable
+   
+> `Code 503 Service Unavailable`
+   Our service is not avaliable
+   
+
+#### created an admin
+
+* URL: `/admins`
+* Method: `POST`
+* Content-type: `Json`
+* headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
+* Auth required: yes
+* Body form-data format:
+```js
+    {
+        "first name": "varchar(100) NOT NULL",
+        "second name": "varchar(100)",
+        "first surname": "varchar(100) NOT NULL",
+        "second surname": "varchar(100)",
+        "profile": "varchar(11) NOT NULL"
+    }
+```
+
+request example:
+```
+POST /admin_panel/api/admins/
+```
+
+**Responses:**
+
+> `Code 201 ok`
+   The user admin was created
+   
+> `Code 400 Bad Request`
+   The user with email already exist
+   
+> `Code 401 Unauthorized`
+   It means that Auth token was not provided
+ 
+> `403 Forbidden`
+   the user is not allowed to create admins/super admins
+   
+> `Code 500 Internal Server Error`
+   Unhandled error
+   
+> `Code 502 Bad Gateway`
+   Any of the service we are connected with is no avaliable
+   
+> `Code 503 Service Unavailable`
+   Our service is not avaliable
+   
+
+### Users:
+
+#### list of Users
+without filters, this enpoint will fetch a full list o admins and super admins
+
+* URL: `/admins/`
+* Method: `GET`
+* Content-type: `Json`
+* headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
 * Auth required: yes
 * filter **query** paramater: `profile` (**values:** `admin` or `super_admin` ) 
-* search ***query** parameter : `full_name`
-* Json response structure:
+* search **query** parameter : `full_name`
+
+request example:
+```
+GET /admin_panel/api/admins?profile=admin&full_name=jhon
+```
+
+**Responses:**
+
+> Code 200 ok
 ```js
    [
     {
@@ -133,13 +255,17 @@ get just one admin by Id
     ...
    ]
 ```
-
-example of request
-```
-GET /admin_panel/api/admins?profile=admin&full_name=jhon
-```
-
-
+> `Code 401 Unauthorized`
+   It means that Auth token was not provided
+   
+> `Code 500 Internal Server Error`
+   Unhandled error
+   
+> `Code 502 Bad Gateway`
+   Any of the service we are connected with is no avaliable
+   
+> `Code 503 Service Unavailable`
+   Our service is not avaliable
 _________________________________________________________________________________________________________________________________________________________________
 
 
@@ -156,15 +282,6 @@ ________________________________________________________________________________
 - to view profile information / GET
 - to create Profile: / POST
 - to update profile / PUT
-
-![](https://rare-impala-2c3.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7f70d8cc-98d2-4221-87c7-07ddb0e26221%2FAPI_PROFILE_USER.png?table=block&id=1958fc70-7013-482b-a3e7-1f04bbdcfb4b&spaceId=e2f2a10e-d731-451c-9ab0-489a2ba13306&width=2000&userId=&cache=v2)
-
-
-## User validation
-
-- There will be an administrator by geographical region who will be in charge of validating users corresponding to that region.
-- It will be used the notification via Email system
-- It will be used the notification via text message system
 
 - If the user is not validated, an alert icon will be displayed in the table view next to their user picture
 - non-validated users will have relevance in the order of the users table (they will appear first)
@@ -229,6 +346,7 @@ The views have filters by:
 - no hay campos para banear, eliminar o verificar usuarios en la db de users
 - solo los usuarios autheticados pueden crear usuarios?
 - la comnunicación con el equipo de autenticación
+- en el rfc del equipo encargado de autorización habla de un header Authorization pero los requerimientos dicen que este se debe hacer a tarvez de cookies
 
 # Alternatives
 
