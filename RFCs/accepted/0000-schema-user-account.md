@@ -27,7 +27,7 @@ Having users personal information organized in a schema will help us to build a 
 
 # Detailed design
 
-![image](https://user-images.githubusercontent.com/4333910/157153476-0376bfaa-bbb8-401a-bccb-e20150781729.png)
+![image](https://user-images.githubusercontent.com/4333910/157556557-16626bda-0d5b-4d95-9f9b-a60fab6c37f8.png)
 
 Since there's now a schema to follow. It's necessary to choose which Database is the most useful and efficient for our project. This's why we need the CAP Theorem to help us choose depending on which characteristics are needed in the user account (profile).
 
