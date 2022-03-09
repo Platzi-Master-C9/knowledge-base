@@ -63,7 +63,7 @@ represent the places created by users (read only,)
 
 ### data for Places
 * name
-* is_active
+* status
 * host name
 
 ## global booking
@@ -73,7 +73,7 @@ represent a list of all bookings (read only)
 * date of book
 * place
 * user name
-* is_active
+* status
 * from date
 * end date
 
@@ -332,17 +332,54 @@ PATCH /admin_panel/api/users/
 
 **Responses:**
 
-> `Code 201 ok`
-   The user admin was created
+> `Code 200 ok`
+   The user was updated
    
 > `Code 400 Bad Request`
-   The user with email already exist
+   You have to include all required fields
    
 > `Code 401 Unauthorized`
    It means that Auth token was not provided
- 
-> `403 Forbidden`
-   the user is not allowed to create admins/super admins
+   
+> `Code 500 Internal Server Error`
+   Unhandled error
+   
+> `Code 502 Bad Gateway`
+   Any of the service we are connected with is no avaliable
+   
+> `Code 503 Service Unavailable`
+   Our service is not avaliable
+   
+   
+ #### Change User status
+
+* URL: `/user_status`
+* Method: `PATCH`
+* Content-type: `Json`
+* headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
+* Auth required: yes
+* Body form-data format:
+```js
+    {
+        "status": "ENUM",
+    }
+```
+
+request example:
+```
+PATCH /admin_panel/api/user_status/
+```
+
+**Responses:**
+
+> `Code 200 ok`
+   The user was updated
+   
+> `Code 400 Bad Request`
+   You have to include all required fields
+   
+> `Code 401 Unauthorized`
+   It means that Auth token was not provided
    
 > `Code 500 Internal Server Error`
    Unhandled error
@@ -353,7 +390,98 @@ PATCH /admin_panel/api/users/
 > `Code 503 Service Unavailable`
    Our service is not avaliable
 
-_________________________________________________________________________________________________________________________________________________________________
+### Places:
+
+#### list of Places
+
+
+* URL: `/places/`
+* Method: `GET`
+* Content-type: `Json`
+* headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
+* Auth required: yes
+* filter **query** paramater: `status` (**values:** `active` or `inactive` )
+* search **query** parameter : `name`, `host_name`
+
+request example:
+```
+GET /admin_panel/api/places/?status=active&name=fake hotel
+```
+
+**Responses:**
+
+> Code 200 ok
+```js
+   [
+    {
+     "name": "varchar",
+     "status": "ENUM",
+     "host_name": "varchar"
+    },
+    ...
+   ]
+```
+
+> `Code 401 Unauthorized`
+   It means that Auth token was not provided
+   
+> `Code 500 Internal Server Error`
+   Unhandled error
+   
+> `Code 502 Bad Gateway`
+   Any of the service we are connected with is no avaliable
+   
+> `Code 503 Service Unavailable`
+   Our service is not avaliable
+   
+
+### Booking:
+
+#### list of Booking
+
+
+* URL: `/bookings/`
+* Method: `GET`
+* Content-type: `Json`
+* headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
+* Auth required: yes
+* filter **query** paramater: `date_of_book`,`status` 
+* search **query** parameter : `place`, `user_name`
+
+request example:
+```
+GET /admin_panel/api/bookings/?status=active&place=fake hotel
+```
+
+**Responses:**
+
+> Code 200 ok
+```js
+   [
+    {
+     "date_of_book": "varchar",
+     "user_name": "varchar",
+     "status": "ENUM",
+     "from_date":"varchar"
+     "end_date":"varchar"
+    },
+    ...
+   ]
+```
+
+> `Code 401 Unauthorized`
+   It means that Auth token was not provided
+   
+> `Code 500 Internal Server Error`
+   Unhandled error
+   
+> `Code 502 Bad Gateway`
+   Any of the service we are connected with is no avaliable
+   
+> `Code 503 Service Unavailable`
+   Our service is not avaliable
+
+__________________________________
 
 
 # Glosary
