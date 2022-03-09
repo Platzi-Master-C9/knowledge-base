@@ -6,9 +6,6 @@
 
 This RFC describes the data, its schema and type, for users, admins (and Superadmins), places and globalbooking list. It will be necessary in order to clarify which entities frondend can consume and what the formay of data is going to be. Our team will use databases created by Booking system, Users and Places but we will manage or own enpoints in order to format and simplify the work of the frontend (mejorar la redacción cuando no esté dormido)
 
-# Basic example
-
-(Pending)
 
 # Motivation
 
@@ -59,9 +56,7 @@ represent an authenticated user
 * full_name (first_name + fist_surname)
 * url_image
 * date_of_register
-* is_verified
-* is_active
-* is_delete
+* status (verified, active, deleted or banned)
 
 ## Places
 represent the places created by users (read only,)
@@ -186,10 +181,10 @@ GET /admin_panel/api/admins/123
 * Body form-data format:
 ```js
     {
-        "first name": "varchar(100) NOT NULL",
-        "second name": "varchar(100)",
-        "first surname": "varchar(100) NOT NULL",
-        "second surname": "varchar(100)",
+        "first_name": "varchar(100) NOT NULL",
+        "second_name": "varchar(100)",
+        "first_surname": "varchar(100) NOT NULL",
+        "second_surname": "varchar(100)",
         "profile": "varchar(11) NOT NULL"
     }
 ```
@@ -226,19 +221,19 @@ POST /admin_panel/api/admins/
 ### Users:
 
 #### list of Users
-without filters, this enpoint will fetch a full list o admins and super admins
+without filters, this endpoint will fetch a full list of users
 
-* URL: `/admins/`
+* URL: `/users/`
 * Method: `GET`
 * Content-type: `Json`
 * headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
 * Auth required: yes
-* filter **query** paramater: `profile` (**values:** `admin` or `super_admin` ) 
+* filter **query** paramater: `status` (**values:** `verified`, `active`, `deleted` or `banned` ) 
 * search **query** parameter : `full_name`
 
 request example:
 ```
-GET /admin_panel/api/admins?profile=admin&full_name=jhon
+GET /admin_panel/api/users/?status=active&full_name=jhon
 ```
 
 **Responses:**
@@ -250,11 +245,13 @@ GET /admin_panel/api/admins?profile=admin&full_name=jhon
         "id": "BIGINT UNSIGNED NOT NULL UNIQUE",
         "full_name": "varchar NOT NULL",
         "url_image": "varchar",
-        "profile": "varchar NOT NULL"
+        "date_of_register": "varchar"
+        "status": "ENUM"
     },
     ...
    ]
 ```
+
 > `Code 401 Unauthorized`
    It means that Auth token was not provided
    
@@ -266,74 +263,108 @@ GET /admin_panel/api/admins?profile=admin&full_name=jhon
    
 > `Code 503 Service Unavailable`
    Our service is not avaliable
+
+
+#### get an user data
+
+* URL: `/users/:id_user`
+* Method: `GET`
+* Content-type: `Json`
+* headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
+* Auth required: yes
+
+request example:
+```
+GET /admin_panel/api/users/123
+```
+
+**Responses:**
+
+> Code 200 ok
+```js
+    {
+        "id": "BIGINT UNSIGNED NOT NULL UNIQUE",
+        "full_name": "varchar NOT NULL",
+        "url_image": "varchar",
+        "date_of_register": "varchar"
+        "status": "ENUM"
+    }
+```
+> `Code 401 Unauthorized`
+   It means that Auth token was not provided
+   
+> `Code 404 Not Found`
+   Not user found
+   
+> `Code 500 Internal Server Error`
+   Unhandled error
+   
+> `Code 502 Bad Gateway`
+   Any of the service we are connected with is no avaliable
+   
+> `Code 503 Service Unavailable`
+   Our service is not avaliable
+
+#### Edit an User
+
+* URL: `/users`
+* Method: `PATCH`
+* Content-type: `Json`
+* headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
+* Auth required: yes
+* Body form-data format:
+```js
+    {
+        "first_name": "varchar(100) NOT NULL",
+        "second_name": "varchar(100)",
+        "first_surname": "varchar(100) NOT NULL",
+        "second_surname": "varchar(100)",
+        "email": "varchar(100) NOT NULL"
+        "phone":"varchar(12) NOT NULL"
+        "url_image": "varchar(200)"
+    }
+```
+
+request example:
+```
+PATCH /admin_panel/api/users/
+```
+
+**Responses:**
+
+> `Code 201 ok`
+   The user admin was created
+   
+> `Code 400 Bad Request`
+   The user with email already exist
+   
+> `Code 401 Unauthorized`
+   It means that Auth token was not provided
+ 
+> `403 Forbidden`
+   the user is not allowed to create admins/super admins
+   
+> `Code 500 Internal Server Error`
+   Unhandled error
+   
+> `Code 502 Bad Gateway`
+   Any of the service we are connected with is no avaliable
+   
+> `Code 503 Service Unavailable`
+   Our service is not avaliable
+
 _________________________________________________________________________________________________________________________________________________________________
 
 
-## User profile structure 
-
-### Profile User:
-
-
-
-### API
-
-**Endpoints:** 
-
-- to view profile information / GET
-- to create Profile: / POST
-- to update profile / PUT
-
-- If the user is not validated, an alert icon will be displayed in the table view next to their user picture
-- non-validated users will have relevance in the order of the users table (they will appear first)
-
-## User Management
-
-**Data**
-- Valid user/User to be validated
-- User name
-- User picture
-- Date of registration and last modification (only show last modification in the table)
-
-**Actions**
+# Glosary
+(pending)
+status de los usuarios
+**users**
 - ban
 - edit
 - delete
 - validate (if applicable)
 
-## Administrator login
-
-- It will have a unique login view for both types of administrators. For instance: → [bookingsystem.com/admin](http://bookingsystem.com/admin)
-- It is recommended that it can only be accessed through the url so that other users have no way of seeing it. (not links to it)
-
-**Data for login**
-- email
-- password
-- **Nice to have** ✨ → 2factor Authentication
-
-## Admins and Super Admins Management
-
-**Data**
-- type of profile (admin/superadmin)
-- name
-- user picture
-- date of registration and last modification (only show last modification in the table)
-
-**Actions**
-- edit
-- delete
-- **Nice to have** ✨ → an addicional table to manage admins and super admins pending invitations
-
-## Filter Options
-
-The views have filters by:
-- date of creation
-- last modification
-- user name (for user table only)
-- admin name (for admin table only)
-- just for the admins table it is possible to filter by profile too
-
-# Glosary
-(pending)
 
 # Drawbacks
 
