@@ -50,6 +50,9 @@ super admin can create admin through a modal view with the fields:
 ## User Profile
 represent an authenticated user
 
+### Verify Accounts
+Once an admin call the endpoint to validate a user, from the backend, we will update user information an then, we will comunicate with notification team in order to send the message to user 
+
 ### Data for User Profile
 
 * id (is necesary to perform actions like validate user, is not visible in the interface)
@@ -485,14 +488,14 @@ __________________________________
 
 
 # Glosary
-(pending)
-status de los usuarios
-**users**
-- ban
-- edit
-- delete
-- validate (if applicable)
+## user actions:
 
+ban:  Prohibit a user from accessing the platform for having performed an action that is not permitted
+edit: update user information
+delete: update user status to `deleted`. it will denied  
+validate: 
+
+status de los usuarios
 
 # Drawbacks
 
