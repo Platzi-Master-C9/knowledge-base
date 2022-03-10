@@ -53,6 +53,10 @@ represent an authenticated user
 ### Verify Accounts
 Once an admin call the endpoint to validate a user, from the backend, we will update user information an then, we will comunicate with notification team in order to send the message to user 
 
+### User life-cycle
+-> active -> verified -> banned/deleted
+besides, an User can pass from active to banned/deleted directly
+
 ### Data for User Profile
 
 * id (is necesary to perform actions like validate user, is not visible in the interface)
@@ -365,6 +369,7 @@ PATCH /admin_panel/api/users/
 ```js
     {
         "status": "ENUM",
+        "reason": "varchar(300)"
     }
 ```
 
@@ -488,36 +493,13 @@ __________________________________
 
 
 # Glosary
+
 ## user actions:
 
-ban:  Prohibit a user from accessing the platform for having performed an action that is not permitted
-edit: update user information
-delete: update user status to `deleted`. it will denied  
-validate: 
+- **ban:**  Prohibit a user from accessing the platform for having performed an action that is not permitted. 
+The process is as follow: an admin perform the action of ban an user through the admin panel and the user recives a notification
+with the information why.
 
-status de los usuarios
-
-# Drawbacks
-
-- no hay un formato definido aún para los perfiles (nombre de los perfiles), este RFC hace asunciones
-- no tengo muy claro que significa validate, es decir, que puede o no puede hacer un usuario validad
-- no se ha definido completamente el propósito de la tabla de places y booking, no hay accionables
-- los accionables para estas tablas deberían ser editar y borrar
-- los accionables para reservar deberían ser 
-- no hay una clara diferencia entre buscador y filtro 
-- no hay campos para banear, eliminar o verificar usuarios en la db de users
-- solo los usuarios autheticados pueden crear usuarios?
-- la comnunicación con el equipo de autenticación
-- en el rfc del equipo encargado de autorización habla de un header Authorization pero los requerimientos dicen que este se debe hacer a tarvez de cookies
-
-# Alternatives
-
-N/A
-
-# Adoption strategy
-
-N/A
-
-# How we teach this
-
-N/A
+- **edit:** update user information
+- **delete:** update user status to `deleted`. it will denied user access to the platform
+- **validate:** change status of user From active to validate. to validata a user and admin must be sure the user accomplish all the conditions.
