@@ -55,6 +55,7 @@ Once an admin call the endpoint to validate a user, from the backend, we will up
 
 ### User life-cycle
 -> active -> verified -> banned/deleted
+
 besides, an User can pass from active to banned/deleted directly
 
 ### Data for User Profile
