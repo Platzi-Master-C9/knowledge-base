@@ -86,15 +86,15 @@ represent a list of all bookings (read only)
 
 _____________________________
 ## End points
-thi seccion details the required end points for the admin panel
+This seccion details the required end points for the admin panel
 
-###url
-the recommended url for all services is `admin_panel/api/**endpint**`
+### URL
+The recommended url for all services is `admin_panel/api/**endpint**`
 
 ### admins:
 
 #### list of admins
-without filters, this enpoint will fetch a full list o admins and super admins
+Without filters, this enpoint will fetch a full list o admins and super admins
 
 * URL: `/admins/`
 * Method: `GET`
