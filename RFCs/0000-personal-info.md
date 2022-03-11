@@ -1,15 +1,14 @@
-- Start Date: (fill me in with today's date, YYYY-MM-DD)
-- Members: (fill me with the names of the RFC creators)
-- RFC PR: (leave this empty)
+- Start Date: 2022-03-10
+- Members: Mauricio Perera
+- RFC PR:
 
 # Summary
 
-Brief explanation of the feature.
+This feature generate a view of personal info of the current user where the user can see and edit her.
 
 # Basic example
 
-If the proposal involves a new or changed API, include a basic code example.
-Omit this section if it's not applicable.
+![The image show the user profile view and the personal data](/img/exmple.png "Example of the form").
 
 # Motivation
 
