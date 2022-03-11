@@ -8,7 +8,7 @@ This feature generate a view of personal info of the current user where the user
 
 # Basic example
 
-![The image show the user profile view and the personal data](/img/exmple.png "Example of the form").
+![image](https://user-images.githubusercontent.com/4333910/157151928-dfab5252-8954-49fe-b6e0-c66e61378336.png)
 
 # Motivation
 
