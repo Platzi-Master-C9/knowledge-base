@@ -75,6 +75,7 @@ We have a lot of possibilities to visualizations. In this [link](https://observa
 
 # Adoption strategy
 
+At the initial sprints, we are going to work with stremlit.io so in the future sprints we can go over D3.js libraries.
 The frontend teams will have to work with this d3 and react components in their views for the respective user. For a correct adoption of this feature we will have to give them not only the general purpose graph but the customized viz for the view, including the respective group of tests. 
 The backend team will have to give us recommendations for embedding the viz without affecting the app performance.
 
