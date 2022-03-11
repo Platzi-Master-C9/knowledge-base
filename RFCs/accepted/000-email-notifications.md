@@ -18,33 +18,33 @@ Use the nodemailer module for the purpose of sending email notifications.
 
 ## Usage
 
-Trought a POST request the service receives a JSON with the necessary data to send the email:
+An method of our notifications system receives an object with the necessary data to send the email:
 
-```json
+```js
 {
     // Required
-    "to": ["bar@example.com", "baz@example.com"],
-    "subject": "Hello ✔",
-    "text": "Hello world?",
+    to: ["bar@example.com", "baz@example.com"],
+    subject: "Hello ✔",
+    text: "Hello world?",
     // Opionals
-    "html": "<b>Hello world?</b>",
-    "cc": ["ccreceiver@example.com" "ccreceivertwo@example.com"],
-    "bcc": ["bccreceiver@example.com" "bccreceivertwo@example.com"],
-    "attachments": [
+    html: "<b>Hello world?</b>",
+    cc: ["ccreceiver@example.com" "ccreceivertwo@example.com"],
+    bcc: ["bccreceiver@example.com" "bccreceivertwo@example.com"],
+    attachments: [
         {   // use URL as an attachment
-            "filename": "license.txt",
-            "path": "https://raw.github.com/nodemailer/nodemailer/master/LICENSE"
+            filename: "license.txt",
+            path: "https://raw.github.com/nodemailer/nodemailer/master/LICENSE"
         },
         {   // encoded string as an attachment
-            "filename": "text1.txt",
-            "content": "aGVsbG8gd29ybGQh",
-            "encoding": "base64"
+            filename: "text1.txt",
+            content: "aGVsbG8gd29ybGQh",
+            encoding: "base64"
         }]
     ...
 }
 ```
 
-If everything was correct, the API will respond with a "200 OK" code and the received JSON data.
+If everything was correct, the returned response will be a boolean with the "true" value, else "false".
 
 There are yet more options in the email sending that we can use, but for now these are the basics, and we would also need to learn how to use the other options.
 
@@ -62,7 +62,7 @@ You can find a more detailed description about the meaning of each parameter in 
 
 ## Why we are doing this?
 
-Some teams of our Booking System need to communicate information to clients through emails, our intention is to optimize this task by simply making a request to our REST API with the information that they want to communicate to one or more clients. These notifications could vary from booking updates, newsletter or even discounts of some places of interest for the user. It could be used in everything the user finds interesting.
+Some teams of our Booking System need to communicate information to clients through emails, our intention is to optimize this task by simply making calling a method and giving as parameter the information that they want to communicate to one or more clients. These notifications could vary from booking updates, newsletter or even discounts of some places of interest for the user. It could be used in everything the user finds interesting.
 
 Thus, we can also send emails from a specialized email address from which it will not be necessary to distribute credentials, since doing so could be unsafe.
 
@@ -77,17 +77,19 @@ Thus, we can also send emails from a specialized email address from which it wil
 
 Offer a functional component/module and independent of other services that can be a part of the booking system.
 
+We think that we can use a range of components that are useful to send emails, we should not stay only with one tool, because it limit us in different ways. But also, we need to see the best tools that solve our needs for our system, so if the implementation of the project needs a different tool, we should be able to add it.
+
 ---
 
 # Detailed design
 
-An email notification may be required at any time, so we need the service to be constantly available, a solution to this may be to create a REST API with the endpoint "/notifications/send-email" that listens for POST requests (only from the booking system teams), receiving in the body of the request a JSON with the necessary data to send the email.
+An email notification may be required at any time, so we need the service to be constantly available, we will give a method that receives the JS object with the necessary data to send the email.
 
-The data will be processed by the service and then it will sent the email to the list of users especified in the JSON. We're not sure about if we need to use the message broker of our notification system, if so, we are not clear how this will be integrated. For now we think this could be an approximation of the process flow:
+The data will be processed by the module and then it will sent the email to the list of users especified in the JSON/JSobject. For now we think this could be an approximation of the process flow:
 
-![Process flow of the email notification service](https://i.ibb.co/YhCsnWy/image.png "Process flow of the email notification")
+![Process flow of the email notification service](https://i.ibb.co/YjSWhYH/image.png "Process flow of the email notification")
 
-Email notifications will be stored in the notification system database, which according to what has been mentioned in some project workshops, will probably be MongoDB.
+Email notifications, or its metadata, will be stored in the notification system database, which according to what has been mentioned in some project workshops, will probably be MongoDB.
 
 ---
 
@@ -111,11 +113,21 @@ Email notifications will be stored in the notification system database, which ac
 
 - **EmailJS:** It allows sending emails directly from JavaScript without the need of a backend development. The developers creato one or more email templates and then trigger an email using the JavaScript SDK, specifying the template and the parameters for rendering the email.
 
+We could opt for a pay service using the free tier option, but it depends on the amount of emails that we need to send. If the amount is relatively small, we can use one of these services on the free tier option.
+
 ---
 
 # Adoption strategy
 
-- To use this service, teams don't need to change anything, however they need to learn how to communicate with the REST API
+In order to use the component successfully, we need to implement templates, these templates can vary, depending on the purpose of the notification. For example, a template for a booking confirmation, a newsletter email, a promotion email, etc. It depends on the use cases. We need to assign these as tasks for the email notification team for the simple reason that we need to define exactly how these templates should be used.
+
+To use styles on the emails, we could use [Styliner](http://styliner.slaks.net/), that is a node.js component that allows us to use CSS in the emails. We think that the email, besides being informative, it needs to be attractive to the user, because plain text emails are very vague and a lot of users could ignore them for this particular reason.
+
+The template itself will have functionality, because it will be used with diverse data, and it can be used for different purposes; every squad is allowed to use this component.
+
+We think that is not necessary to save any data of the email notifications, because it can be overflooded with meaningless information, that we don't really need for anything. The data, for example, of the booking confirmation, will be stored in another database, using the data generated by the booking function. We don't need to store any email information in the database, because we actually have the data.
+
+- To use this service, teams don't need to change anything, however they need to learn how to create a correct object for giving it to our send email method.
 
 - This is not a breaking change, as said, teams don't have to change their code. What's more, this service will work as a help for the other teams and it won't need other systems than the notification system itself.
 
@@ -133,9 +145,9 @@ Email notifications will be stored in the notification system database, which ac
 
 ## Considerations and resources
 
-- This is a new component for the Booking System, that allows us to send emails to the users (clients and owners of properties).
+- This is a new component for the Booking System, that allows us to send emails to the users (clients and owners of lodgings).
 
-- We will include a README file with the explanation and documentation of the service, with some examples, because we need to make sure that the squads of the booking system that could use this module know how to, for example, build a JSON object with the structured data of the email to be sent.
+- There will be a README file with the explanation and documentation of the service, with some examples, because we need to make sure that the squads of the booking system that could use this module know how to, for example, build a JSON object with the structured data of the email to be sent.
 
 - In any case, if someone has a question about the use of the service, those in charge will be available through the Slack channels. Currently, we are Diego Sánchez and Efrén Ruíz, from the C9, but have in mind that in the future we may not be responsible for this service.
 
@@ -145,5 +157,4 @@ Email notifications will be stored in the notification system database, which ac
 
 # Unsolved questions
 
-- How about using a paid service on its free tier?
 - Should the service be built focusing only on sending emails?
