@@ -1,5 +1,5 @@
 - Start Date: 2022-03-03
-- Members: @raulfruiz @jacksonleon
+- Members: Raúl Fernando Ruiz Ruiz @raulfruiz Jackson León @jackdanieldev
 - RFC PR: 
 
 # Summary
