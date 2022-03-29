@@ -361,7 +361,7 @@ PATCH /admin_panel/api/users/
    
  #### Change User status
 
-* URL: `/user_status`
+* URL: `/user_status/:id_user`
 * Method: `PATCH`
 * Content-type: `Json`
 * headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
@@ -389,6 +389,9 @@ PATCH /admin_panel/api/user_status/
    
 > `Code 401 Unauthorized`
    It means that Auth token was not provided
+
+> `Code 404 Bad Request`
+   User not found
    
 > `Code 500 Internal Server Error`
    Unhandled error
