@@ -19,6 +19,7 @@ Separating business logic as services, adapters and framworks and database as fo
 - `/user/{user_id}` **GET** - user info
 - `/user/{user_id}` **PATCH** - update user info
 - `/user/{user_id}` **DELETE** - dalete user
+- `/user/{user_id}/validate` **POST** - validate user
 - `/user/{user_id}/bookmark/` **POST** - Create list favorite places
 - `/user/{user_id}/bookmarks/` **GET** - list user favorite places
 - `/user/{user_id}/bookmark/{bookmark_id}` **GET** - favorite places details
@@ -50,15 +51,21 @@ My proposal for this project is to work with the following dependencies:
 - @hapi/boom (error handler)
 
 separating each folder for each job to be done for example:
-```
-main
+```bash
+user-account
+├── configs
+│   ├── environmet.js
+│   └── postgresql.js
 ├── db
-├── routes
-│   ├── userRoute.js
+│   ├── migrations
+│   └── models
+├── drivers
+│   └── postgresql
+│       └── connection.js
 ├── schemas
-│   ├── userSchema.js
-├── services
-│   ├── userService.js
+│   └── userSchema.js
+└── services
+    └── userService.js
 ```
 
 and incorporate use cases and new functions in each of the folders.
@@ -359,6 +366,98 @@ and incorporate use cases and new functions in each of the folders.
 }
 ```
 
+#### **Validate User**
+
+- URL: `/user/{user_id}`
+- Method: `POST`
+- Auth required: YES
+- Use: Validate user
+- Json structure:
+```json
+{
+    "firstName": "varchar(50) NOT NULL",
+    "secondName": "varchar(50)",
+    "firstSurname": "varchar(50) NOT NULL",
+    "seconsName": "varchar(50)",
+    "birthDate": "date() NOT NULL",
+    "nationality": "ISO 3166-1 alfa-3() NOT NULL",
+    "dniId": "varchar(20) NOT NULL",
+    "dniFrontImg": "url() NOT NULL",
+    "dniBackImg": "url() NOT NULL",
+    "gender": "enum('male', 'famele', 'not difined') NOT NULL",
+    "phoneNumbre": "varchar(20)",
+    "emergencyNumber": "varchar(20)",
+    "passport": "varchar(50)",
+    "address": {
+      "country": "varchar(ISO 3166-1 alfa-3) NOT NULL",
+      "city": "varchar(50) NOT NULL",
+      "state": "varchar(50) NOT NULL",
+      "address": "varchar(50) NOT NULL",
+      "zip": "varchar(20) NOT NULL"
+    },
+}
+```
+
+*Sucess Response*
+
+- Code: `200 OK`
+- Instance: in case the user was verifide successfully
+- Example:
+
+```json
+{
+    "user {user_id} was verifide successfully"
+}
+```
+*Error Response*
+
+- Code: `422 UNPROCESSABLE ENTITY`
+- Instance: in case one or more conditions are not met
+- Conditions:
+    - `firstName`: "field is loger than 50 characters"
+    - `firstName`: "field is null"
+    - `secondName`: "field is loger than 50 characters"
+    - `firstSurname`: "field is loger than 50 characters"
+    - `firstSurname`: "field is null"
+    - `secondSurname`: "field is loger than 50 characters"
+    - `birthDate`: "field is not a date format"
+    - `birthDate`: "field is null"
+    - `nationality`: "field is not a ISO 3166-1 alfa-3 format"
+    - `nationality`: "field is null"
+    - `dniId`: "field is loger than 20 characters"
+    - `dniId`: "field is null"
+    - `dniFrontImg`: "field is not a url format"
+    - `dniFrontImg`: "field is null"
+    - `dniBacktImg`: "field is not a url format"
+    - `dniBacktImg`: "field is null"
+    - `gender`: "field is not a ('male', 'famele', 'not difined') options",
+    - `gender`: "field is null"
+    - `phoneNumber`: "field is loger than 20 characters"
+    - `emergencyNumber`: "field is loger than 20 characters"
+    - `passport`: "field is loger than 50 characters"
+    - `country`: "field is not a ISO 3166-1 alfa-3 format",
+    - `city`: "field is loger than 50 characters",
+    - `city`: "field is null",
+    - `state`: "field is loger than 50 characters",
+    - `state`: "field is null",
+    - `address`: "field is loger than 50 characters",
+    - `address`: "field is null",
+    - `zip`: "field is loger than 20 characters",
+    - `zip`: "field is null",
+
+- Example:
+```json
+{
+    "the entity cannot be processed",
+    "detail": [
+    {
+      "loc": ["body", {element}],
+      "msg": {Condition},
+      "type": "value_error"
+    }
+  ]
+}
+```
 ### **User favorites**
 #### **Create list favorite**
 
