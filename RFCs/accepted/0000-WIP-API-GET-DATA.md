@@ -104,38 +104,6 @@ We can test it with:
 }
 ```
 
-### Trigger: _New review added_
-
-- URL: `/places/new_review`
-- Method: `POST`
-- Auth required: NO
-- Use: send data about the new review
-
-#### Data constraints
-
-```json
-{
-    "host_id":   {int},
-    "place_id":  {int},
-    "user_id":   {int},
-    "timestamp": {int}(seconds)(fecha_creacion),
-    "review":    {string},
-    "rating":    {int}, //*
-}
-```
-
-#### Data example
-
-```json
-{
-    "host_id":   2343,
-    "place_id":  342,
-    "user_id":   23454,
-    "timestamp": 1646237243,
-    "review":    "Good place....",
-    "rating":    4,
-}
-```
 
 ### Trigger: _Deactivation/Activation of place_
 
@@ -194,7 +162,7 @@ We can test it with:
 
 ```json
 {
-   "user_id":     657687,
+    "user_id":    657687,
     "email":      "user@example.com",
     "timestamp":  1646237243,
     "gener":      "Male",
@@ -203,6 +171,68 @@ We can test it with:
     "country":    "Acapulco",
     "city":       "Costera",
     "is_active":  true
+}
+```
+
+### Trigger: _New favorite place_
+
+- URL: `/users/favorite_places`
+- Method: `PUT`
+- Auth required: NO
+- Use: send data about the new favorite place
+
+#### Data constraints
+
+```json
+{
+    "list_id":    {int},
+    "is_active":  {bool},
+    "user_id":    {string},
+    "place_id":   {string},
+    "timestamp":  {int}(segundos)(fecha_creacion)
+}
+```
+
+#### Data example
+
+```json
+{
+    "list_id":    51438
+    "is_active":  true
+    "user_id":    657687,
+    "place_id":   "user@example.com",
+    "timestamp":  1646237243
+}
+```
+
+### Trigger: _Delete favorite place_
+
+- URL: `/users/favorite_places`
+- Method: `DELETE`
+- Auth required: NO
+- Use: send data about the new favorite place
+
+#### Data constraints
+
+```json
+{
+    "list_id":    {int},
+    "is_active":  {bool},
+    "user_id":    {string},
+    "place_id":   {string},
+    "timestamp":  {int}(segundos)(fecha_creacion)
+}
+```
+
+#### Data example
+
+```json
+{
+    "list_id":    51438
+    "is_active":    false
+    "user_id":    657687,
+    "place_id":   "user@example.com",
+    "timestamp":  1646237243
 }
 ```
 
@@ -329,6 +359,39 @@ We can test it with:
     "check_in_date":      1646482454,
     "commission_charged": 14.9,
     "is_canceled":        false
+}
+```
+
+### Trigger: _New review added_
+
+- URL: `/booking/new_review`
+- Method: `POST`
+- Auth required: NO
+- Use: send data about the new review
+
+#### Data constraints
+
+```json
+{
+    "host_id":   {int},
+    "place_id":  {int},
+    "user_id":   {int},
+    "timestamp": {int}(seconds)(fecha_creacion),
+    "review":    {string},
+    "rating":    {int}, //*
+}
+```
+
+#### Data example
+
+```json
+{
+    "host_id":   2343,
+    "place_id":  342,
+    "user_id":   23454,
+    "timestamp": 1646237243,
+    "review":    "Good place....",
+    "rating":    4,
 }
 ```
 
