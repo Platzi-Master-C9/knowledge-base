@@ -381,8 +381,12 @@ PATCH /admin_panel/api/user_status/
 
 **Responses:**
 
-> `Code 200 ok`
-   The user was updated
+> Code 200 ok
+   ```js
+   {
+	"result": "ok"
+   }
+   ```
    
 > `Code 400 Bad Request`
    You have to include all required fields
