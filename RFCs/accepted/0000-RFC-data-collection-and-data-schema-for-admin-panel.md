@@ -236,8 +236,8 @@ without filters, this endpoint will fetch a full list of users
 * Content-type: `Json`
 * headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
 * Auth required: yes
-* filter **query** paramater: `status` (**values:** `verified`, `active`, `deleted` or `banned` ) 
-* search **query** parameter : `full_name`
+* filter **query** paramater: `status` (**values:** `VERIFIED`, `ACTIVE`, `DELETED` or `BANNED` ) 
+* search **query** parameter : `fullName`
 
 request example:
 ```
@@ -251,9 +251,9 @@ GET /admin_panel/api/users/?status=active&full_name=jhon
    [
     {
         "id": "BIGINT UNSIGNED NOT NULL UNIQUE",
-        "full_name": "varchar NOT NULL",
-        "url_image": "varchar",
-        "date_of_register": "varchar"
+        "fullName": "varchar NOT NULL",
+        "urlImage": "varchar",
+        "dateOfRegister": "varchar"
         "status": "ENUM"
     },
     ...
