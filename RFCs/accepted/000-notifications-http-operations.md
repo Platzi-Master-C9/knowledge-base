@@ -19,7 +19,7 @@ Users are obtained through their autentication information
 ```json
 {
   "user": "oneMoreUser",
-  "notifications": [
+  "data": [
     {
       "id": "123abcd",
       "textContent": "Invita a un amigo y consigue $50.000 COP",
@@ -69,8 +69,7 @@ We need to expose some specific behaviors of notifications to process informatio
 
   ```json
   {
-    "user": "oneMoreUser",
-    "notifications": [
+    "data": [
       {
         "id": "123abcd",
         "textContent": "Invita a un amigo y consigue $50.000 COP",
@@ -111,8 +110,7 @@ We need to expose some specific behaviors of notifications to process informatio
 
 ```json
 {
-  "user": "oneMoreUser",
-  "notifications": [
+  "data": [
     {
       "id": "123abcd",
       "textContent": "Invita a un amigo y consigue $50.000 COP",
@@ -167,20 +165,19 @@ We need to expose some specific behaviors of notifications to process informatio
 
 ## Mark a notification as read
 
-- **Endpoint:** `[POST] /notifications/:notification/mark_read`
+- **Endpoint:** `[PATCH] /notifications/mark-read`
 - **Requires authentication:** YES
 - **Description:** Set the "read" property of a notification to true.
 
 ### Success response
 
 - **Code:** 200 OK
-**Content example:** If we pass "123abcd" as notification id:
- If we pass "123abcd" as notification id:
+**Content example:** If we pass "123abcd" as notification id, in the request body:
 
 ```json
 {
   "user": "oneMoreUser",
-  "notifications":
+  "data":
     {
       "id": "123abcd",
       ...
@@ -192,7 +189,7 @@ We need to expose some specific behaviors of notifications to process informatio
 
 ## Set all notifications as read
 
-- **Endpoint:** `[POST] /notifications/all_read`
+- **Endpoint:** `[PATCH] /notifications/all-read`
 - **Requires authentication:** YES
 - **Description:** Set the "read" property of all notifications to true.
 
@@ -203,8 +200,7 @@ We need to expose some specific behaviors of notifications to process informatio
 
 ```json
 {
-  "user": "oneMoreUser",
-  "notifications": [
+  "data": [
     {
       "id": "123abcd",
       ...
