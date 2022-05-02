@@ -421,7 +421,7 @@ PATCH /admin_panel/api/user_status/
 
 request example:
 ```
-GET /admin_panel/api/places/?status=active&name=fake hotel
+GET /admin_panel/api/places/?status=active&placeName=fake hotel
 ```
 
 **Responses:**
@@ -430,9 +430,10 @@ GET /admin_panel/api/places/?status=active&name=fake hotel
 ```js
    [
     {
-     "name": "varchar",
-     "status": "ENUM",
-     "host_name": "varchar"
+    	"id":"varchar"
+	"placeName": "varchar",
+	"status": "ENUM",
+	"hostName": "varchar"
     },
     ...
    ]
