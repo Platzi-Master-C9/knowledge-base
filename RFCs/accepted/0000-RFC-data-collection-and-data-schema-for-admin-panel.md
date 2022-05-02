@@ -416,8 +416,8 @@ PATCH /admin_panel/api/user_status/
 * Content-type: `Json`
 * headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
 * Auth required: yes
-* filter **query** paramater: `status_place` (**values:** `active` or `inactive` )
-* search **query** parameter : `place_name`, `host_name`
+* filter **query** paramater: `status` (**values:** `active` or `inactive` )
+* search **query** parameter : `placeName`, `hostName`
 
 request example:
 ```
