@@ -67,39 +67,48 @@ We need to expose some specific behaviors of notifications to process informatio
 - **Code:** 200 OK
 - **Content example:**
 
-  ```json
-  {
-    "data": [
-      {
-        "id": "123abcd",
-        "textContent": "Invita a un amigo y consigue $50.000 COP",
-        "date": "2022-04-02T15:00:00.000Z",
-        "read": false,
-        "action": {}
-      },
-      {
-        "id": "124abce",
-        "textContent": "Reservaste una habitación en Cartagena",
-        "date": "2022-04-01T20:15:00.000Z",
-        "read": true,
-        "action": {}
-      },
-      {
-        "id": "125abcf",
-        "textContent": "¡Rápido que te lo quitan! Termina de reservar tu habitación en Cartagena",
-        "date": "2022-04-01T17:50:00.000Z",
-        "read": false,
-        "action": {}
-      }
-      // All the remaining notifications...
-      ...
-    ]
-  }
-  ```
+  #### Request body
+
+    ```json
+    {
+      "token": "theuserauthtoken"
+    }
+    ```
+  #### Response body
+
+    ```json
+    {
+      "data": [
+        {
+          "id": "123abcd",
+          "textContent": "Invita a un amigo y consigue $50.000 COP",
+          "date": "2022-04-02T15:00:00.000Z",
+          "read": false,
+          "action": {}
+        },
+        {
+          "id": "124abce",
+          "textContent": "Reservaste una habitación en Cartagena",
+          "date": "2022-04-01T20:15:00.000Z",
+          "read": true,
+          "action": {}
+        },
+        {
+          "id": "125abcf",
+          "textContent": "¡Rápido que te lo quitan! Termina de reservar tu habitación en Cartagena",
+          "date": "2022-04-01T17:50:00.000Z",
+          "read": false,
+          "action": {}
+        }
+        // All the remaining notifications...
+        ...
+      ]
+    }
+    ```
 
 ## Get the lasts notifications, with pagination
 
-- **Endpoint:** `[GET] /notifications#page=:num`
+- **Endpoint:** `[GET] /notifications&page=:num`
 - **Requires authentication:** YES
 - **Description:** A page refers to a limited number of notifications, for example, page 1 gets the latest notifications, up to number 10, that is, each page will be made up of 10 notifications, and consulting a higher page number will retrieve older notifications. if no page number is received, the response will be the page 1.
 
@@ -108,39 +117,49 @@ We need to expose some specific behaviors of notifications to process informatio
 - **Code:** 200 OK
 - **Content example:**
 
-```json
-{
-  "data": [
+  #### Request body
+
+    ```json
     {
-      "id": "123abcd",
-      "textContent": "Invita a un amigo y consigue $50.000 COP",
-      "date": "2022-04-02T15:00:00.000Z",
-      "read": false,
-      "action": {}
-    },
-    {
-      "id": "124abce",
-      "textContent": "Reservaste una habitación en Cartagena",
-      "date": "2022-04-01T20:15:00.000Z",
-      "read": true,
-      "action": {}
-    },
-    {
-      "id": "125abcf",
-      "textContent": "¡Rápido que te lo quitan! Termina de reservar tu habitación en Cartagena",
-      "date": "2022-04-01T17:50:00.000Z",
-      "read": false,
-      "action": {}
+      "token:": "theusertauthtoken"
     }
-    // Until completing the amount of notifications that we consider a page, it could be 10 or 20
-  ]
-  ...
-}
-```
+    ```
+
+  #### Response body
+
+    ```json
+    {
+      "data": [
+        {
+          "id": "123abcd",
+          "textContent": "Invita a un amigo y consigue $50.000 COP",
+          "date": "2022-04-02T15:00:00.000Z",
+          "read": false,
+          "action": {}
+        },
+        {
+          "id": "124abce",
+          "textContent": "Reservaste una habitación en Cartagena",
+          "date": "2022-04-01T20:15:00.000Z",
+          "read": true,
+          "action": {}
+        },
+        {
+          "id": "125abcf",
+          "textContent": "¡Rápido que te lo quitan! Termina de reservar tu habitación en Cartagena",
+          "date": "2022-04-01T17:50:00.000Z",
+          "read": false,
+          "action": {}
+        }
+        // Until completing the amount of notifications that we consider a page, it could be 10 or 20
+      ]
+      ...
+    }
+    ```
 
 ## Get only one notification by its ID
 
-- **Endpoint:** `[GET] /notfications/:notification`
+- **Endpoint:** `[GET] /notifications/:notification`
 - **Requires authentication:** YES
 - **Description:** Get the information about only one notification by its ID.
 
@@ -150,18 +169,28 @@ We need to expose some specific behaviors of notifications to process informatio
 
 - **Content example:** If we pass "124abce" as notification id:
 
-```json
-{
-  "user": "oneMoreUser"
-  {
-    "id": "124abce",
-    "textContent": "Reservaste una habitación en Cartagena",
-    "date": "2022-04-02T15:00:00.000Z",
-    "read": true,
-    "action": {}
-  }
-}
-```
+  #### Request body
+
+    ```json
+    {
+      "token:": "theusertauthtoken"
+    }
+    ```
+
+  #### Response body
+
+    ```json
+    {
+      "data":
+        {
+          "id": "124abce",
+          "textContent": "Reservaste una habitación en Cartagena",
+          "date": "2022-04-02T15:00:00.000Z",
+          "read": true,
+          "action": {}
+        }
+    }
+    ```
 
 ## Mark a notification as read
 
@@ -172,20 +201,30 @@ We need to expose some specific behaviors of notifications to process informatio
 ### Success response
 
 - **Code:** 200 OK
-**Content example:** If we pass "123abcd" as notification id, in the request body:
+- **Content example:** If we pass "123abcd" as notification id:
 
-```json
-{
-  "user": "oneMoreUser",
-  "data":
+  #### Request body
+
+    ```json
     {
-      "id": "123abcd",
-      ...
-      "read": true,
-      ...
+      "token:": "theusertauthtoken",
+      "id": "123abcd"
     }
-}
-```
+    ```
+
+  #### Response body
+
+    ```json
+    {
+      "data":
+        {
+          "id": "123abcd",
+          ...
+          "read": true,
+          ...
+        }
+    }
+    ```
 
 ## Set all notifications as read
 
@@ -198,31 +237,41 @@ We need to expose some specific behaviors of notifications to process informatio
 - **Code:** 200 OK
 - **Content example:**
 
-```json
-{
-  "data": [
+  #### Request body
+
+    ```json
     {
-      "id": "123abcd",
-      ...
-      "read": true,
-      ...
-    },
-    {
-      "id": "124abce",
-      ...
-      "read": true,
-      ...
+      "token:": "theusertauthtoken"
     }
+    ```
+
+  #### Response body
+
+    ```json
     {
-      "id": "125abcf",
-      ...
-      "read": true,
-      ...
+      "data": [
+        {
+          "id": "123abcd",
+          ...
+          "read": true,
+          ...
+        },
+        {
+          "id": "124abce",
+          ...
+          "read": true,
+          ...
+        }
+        {
+          "id": "125abcf",
+          ...
+          "read": true,
+          ...
+        }
+        ...
+      ]
     }
-    ...
-  ]
-}
-```
+    ```
 
 ---
 
