@@ -462,8 +462,8 @@ GET /admin_panel/api/places/?status=active&placeName=fake hotel
 * Content-type: `Json`
 * headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
 * Auth required: yes
-* filter **query** paramater: `date_of_book`,`status` 
-* search **query** parameter : `place`, `user_name`
+* filter **query** paramater: `dateOfBook`,`status` 
+* search **query** parameter : `place`, `userName`
 
 request example:
 ```
@@ -476,11 +476,11 @@ GET /admin_panel/api/bookings/?status=active&place=fake hotel
 ```js
    [
     {
-     "date_of_book": "varchar",
-     "user_name": "varchar",
+     "dateOfBook": "varchar",
+     "userName": "varchar",
      "status": "ENUM",
-     "from_date":"varchar"
-     "end_date":"varchar"
+     "fromDate":"varchar"
+     "endDate":"varchar"
     },
     ...
    ]
