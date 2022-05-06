@@ -476,6 +476,7 @@ GET /admin_panel/api/bookings/?status=active&place=fake hotel
 ```js
    [
     {
+     "id": "varchar",
      "dateOfBook": "varchar",
      "userName": "varchar",
      "status": "ENUM",
