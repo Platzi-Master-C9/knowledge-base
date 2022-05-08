@@ -369,7 +369,7 @@ PATCH /admin_panel/api/users/
 * Body form-data format:
 ```js
     {
-        "status": "ENUM",
+        "status": "ENUM" (values: VERIFIED, ACTIVE, DELETED or BANNED),
         "reason": "varchar(300)"
     }
 ```
