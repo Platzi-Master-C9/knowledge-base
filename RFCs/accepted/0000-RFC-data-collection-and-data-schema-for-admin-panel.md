@@ -462,7 +462,7 @@ GET /admin_panel/api/places/?status=active&placeName=fake hotel
 * Content-type: `Json`
 * headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
 * Auth required: yes
-* filter **query** paramater: `dateOfBook`,`status` 
+* filter **query** paramater: `dateOfBook`,`status` (pending for defined: at this moment justs `ACTIVE`) 
 * search **query** parameter : `place`, `userName`
 
 request example:
