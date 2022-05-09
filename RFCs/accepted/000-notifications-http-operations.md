@@ -56,6 +56,20 @@ We need to expose some specific behaviors of notifications to process informatio
 
 # Detailed design
 
+## Before continuing, please note
+
+- The requests with "**Requires authentication: YES**" need an auth token in their header. Something like:
+
+    ```json
+      {
+        "Authorization:": "Bearer theusertauthtoken"
+      }
+    ```
+
+- If a request description doesn't a have "**Request body**" section means that a body is not required for that request.
+
+- If a request description doesn't a have "**Request response**" section means that a body is not returned as response, however the success code determines the result of the request.
+
 ## Get all notifications
 
 - **Endpoint:** `[GET] /notifications/`
@@ -67,13 +81,6 @@ We need to expose some specific behaviors of notifications to process informatio
 - **Code:** 200 OK
 - **Content example:**
 
-  #### Request body
-
-    ```json
-    {
-      "token": "theuserauthtoken"
-    }
-    ```
   #### Response body
 
     ```json
@@ -116,14 +123,6 @@ We need to expose some specific behaviors of notifications to process informatio
 
 - **Code:** 200 OK
 - **Content example:**
-
-  #### Request body
-
-    ```json
-    {
-      "token:": "theusertauthtoken"
-    }
-    ```
 
   #### Response body
 
@@ -169,14 +168,6 @@ We need to expose some specific behaviors of notifications to process informatio
 
 - **Content example:** If we pass "124abce" as notification id:
 
-  #### Request body
-
-    ```json
-    {
-      "token:": "theusertauthtoken"
-    }
-    ```
-
   #### Response body
 
     ```json
@@ -200,14 +191,13 @@ We need to expose some specific behaviors of notifications to process informatio
 
 ### Success response
 
-- **Code:** 200 OK
+- **Code:** 204 No Content
 - **Content example:** If we pass "123abcd" as notification id:
 
   #### Request body
 
     ```json
     {
-      "token:": "theusertauthtoken",
       "id": "123abcd"
     }
     ```
@@ -234,42 +224,14 @@ We need to expose some specific behaviors of notifications to process informatio
 
 ### Success response
 
-- **Code:** 200 OK
+- **Code:** 204 No Content
 - **Content example:**
 
-  #### Request body
+  #### Request header
 
     ```json
     {
       "token:": "theusertauthtoken"
-    }
-    ```
-
-  #### Response body
-
-    ```json
-    {
-      "data": [
-        {
-          "id": "123abcd",
-          ...
-          "read": true,
-          ...
-        },
-        {
-          "id": "124abce",
-          ...
-          "read": true,
-          ...
-        }
-        {
-          "id": "125abcf",
-          ...
-          "read": true,
-          ...
-        }
-        ...
-      ]
     }
     ```
 
