@@ -236,7 +236,7 @@ without filters, this endpoint will fetch a full list of users
 * Content-type: `Json`
 * headers: `Authorization` (example `Authorization: Bearer a5sdf544s5df44f4sd...`)
 * Auth required: yes
-* filter **query** paramater: `status` (**values:** `VERIFIED`, `ACTIVE`, `DELETED` or `BANNED` ) 
+* filter **query** paramater: `status` (**values:** `ACTIVE`, `DELETED` or `BANNED` ), `userType` (`1`: guest, `2`: host ), `validated`(`true`,`false`) 
 * search **query** parameter : `fullName`
 
 request example:
@@ -254,6 +254,8 @@ GET /admin_panel/api/users/?status=active&full_name=jhon
         "fullName": "varchar NOT NULL",
         "urlImage": "varchar",
         "dateOfRegister": "varchar"
+	"userType" : "integer"
+	"validate" : boolean
         "status": "ENUM"
     },
     ...
@@ -283,7 +285,7 @@ GET /admin_panel/api/users/?status=active&full_name=jhon
 
 request example:
 ```
-GET /admin_panel/api/users/123
+GET /admin_panel/api/users/:id_user
 ```
 
 **Responses:**
@@ -292,9 +294,11 @@ GET /admin_panel/api/users/123
 ```js
     {
         "id": "BIGINT UNSIGNED NOT NULL UNIQUE",
-        "full_name": "varchar NOT NULL",
-        "url_image": "varchar",
-        "date_of_register": "varchar"
+        "fullName": "varchar NOT NULL",
+        "urlImage": "varchar",
+        "dateOfRegister": "varchar"
+	"userType" : "integer"
+	"validate" : boolean
         "status": "ENUM"
     }
 ```
