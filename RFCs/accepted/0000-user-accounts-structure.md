@@ -17,13 +17,13 @@ Separating business logic as services, adapters and framworks and database as fo
 
 - `/user/` **POST** - create user
 - `/user/{user_id}` **GET** - user info
-- `/user/{user_id}` **PATCH** - update user info
+- `/user/{user_id}` **PUT** - update user info
 - `/user/{user_id}` **DELETE** - dalete user
 - `/user/{user_id}/validate` **POST** - validate user
 - `/user/{user_id}/bookmark/` **POST** - Create list favorite places
 - `/user/{user_id}/bookmarks/` **GET** - list user favorite places
 - `/user/{user_id}/bookmark/{bookmark_id}` **GET** - favorite places details
-- `/user/{user_id}/bookmark/{bookmark_id}` **PATCH** - update favorite places
+- `/user/{user_id}/bookmark/{bookmark_id}` **PUT** - update favorite places
 - `/user/{user_id}/bookmark/{bookmark_id}` **DELETE** - Delete list favorite places
 
 
@@ -162,32 +162,30 @@ and incorporate use cases and new functions in each of the folders.
 - Example:
 ```json
 {
-    "idUser": "1",
-    "firstName": "",
-    "secondName": "",
-    "firstSurname": "",
-    "secondSurname": "",
-    "gender": "",
-    "email": "123@email.com",
-    "avatar": "url(image)",
-    "phoneNumber": "",
-    "addres":{
-        "country":"",
-        "citie":"",
-        "addres":"",
-    },
-    "identification": {
-        "nationality": "",
-        "idOfNationality":""
-    },
-    "passport":"",
-    "favorites": {
-        "idFavorite1": "1",
-        "idFavorite2": "2",
-        "idFavorite3": "3",
-        ...
+  "userId": "1",
+  "email": "email@email.com",
+  "avatar": "https://fakeimg.pl/250x100/",
+  "firstName": "Nombre",
+  "secondName": "",
+  "firstSurname": "Apellido",
+  "secondSurname": "Bazaes",
+  "birthDate": "1990-01-01",
+  "nationality": "CHL",
+  "dniId": "12345678-k",
+  "dniFrontImg": "https://fakeimg.pl/250x100/",
+  "dniBackImg": "https://fakeimg.pl/250x100/",
+  "gender": "Male",
+  "status": "validate",
+  "phoneNumber": "1234567890",
+  "emergencyNumber": "1234567890",
+  "passport": "12345679890",
+  "address": { 
+      "country": "CHL",
+      "city": "Santiago",
+      "state": "Renca",
+      "address": "calle",
+      "zip": "1234"
     }
-
 }
 ```
 *Error Response*
@@ -213,31 +211,34 @@ and incorporate use cases and new functions in each of the folders.
 #### **Update User**
 
 - URL: `/user/{user_id}`
-- Method: `PATCH`
+- Method: `PUT`
 - Auth required: YES
 - Use: Update the user information
 - Json structure:
 ```json
 {
-    "email": "varchar(200) NOT NULL UNIQUE",
-    "firstName": "varchar(50) NOT NULL",
-    "secondName": "varchar(50)",
-    "firstSurname": "varchar(50) NOT NULL",
-    "seconsName": "varchar(50)",
-    "gender": "enum('male', 'famele', 'not difined') NOT NULL",
-    "phoneNumber": "varchar() NOT NULL",
-    "avatar": "url(image)",
-    "phoneNumber": "varchar(20)",
-    "addres":{
-        "country":"varchar(50)",
-        "citie":"varchar(50)",
-        "addres":"varchar(200)",
-    },
-    "identification": {
-        "nationality": "varchar(50)",
-        "idOfNationality":"varchar(50)"
-    },
-    "passport":"varchar(50)",
+  "email": "varchar(200) NOT NULL UNIQUE",
+  "avatar": "url(img)",
+  "firstName": "varchar(50) NOT NULL",
+  "secondName": "varchar(50)",
+  "firstSurname": "varchar(50) NOT NULL",
+  "seconsName": "varchar(50)",
+  "birthDate": "date(yyyy-mm-dd)",
+  "nationality": "varchar(ISO 3166-1 alfa-3)",
+  "dniId": "varchar()",
+  "dniFrontImg": "url(image)",
+  "dniBackImg": "url(image)",
+  "gender": "enum('male', 'famele', 'not difined')",
+  "phoneNumber": "varchar(20)",
+  "phoneNumber": "varchar(20)",
+  "passport":"varchar(50)",
+  "addres":{
+      "country":"varchar(ISO 3166-1 alfa-3)",
+      "city":"varchar(50)",
+      "state":"varchar(50)",
+      "addres":"varchar(200)",
+      "zip":"varchar(10)",
+  },
 }
 ```
 
@@ -250,25 +251,29 @@ and incorporate use cases and new functions in each of the folders.
 
 ```json
 {
-    "idUser": "1",
-    "firstName": "",
-    "secondName": "",
-    "firstSurname": "",
-    "secondSurname": "",
-    "gender": "",
-    "email": "123@email.com",
-    "avatar": "url(image)",
-    "phoneNumber": "",
-    "addres":{
-        "country":"",
-        "citie":"",
-        "addres":"",
-    },
-    "identification": {
-        "nationality": "",
-        "idOfNationality":""
-    },
-    "passport":"",
+  "idUser": "1",
+  "email": "email@email.com",
+  "avatar": "https://fakeimg.pl/250x100/",
+  "firstName": "Nombre",
+  "secondName": "Nombre2",
+  "firstSurname": "Apellido",
+  "secondSurname": "Apellido2",
+  "birthDate": "1990-01-01",
+  "nationality": "CHL",
+  "dniId": "12345678-k",
+  "dniFrontImg": "https://fakeimg.pl/250x100/",
+  "dniBackImg": "https://fakeimg.pl/250x100/",
+  "gender": "Male",
+  "phoneNumber": "1234567890",
+  "emergencyNumber": "1234567890",
+  "passport": "12345679890",
+  "address": { 
+      "country": "CHL",
+      "city": "Santiago",
+      "state": "Renca",
+      "address": "calle",
+      "zip": "1234"
+    }
 }
 ```
 *Error Response*
@@ -616,7 +621,7 @@ and incorporate use cases and new functions in each of the folders.
 #### **Update list favorite**
 
 - URL: `/user/{user_id}/bookmark/{bookmark_id}`
-- Method: `PATCH`
+- Method: `PUT`
 - Auth required: YES
 - Use: Update list of favorite places
 - Json structure:
