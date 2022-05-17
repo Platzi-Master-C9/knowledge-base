@@ -524,6 +524,52 @@ and incorporate use cases and new functions in each of the folders.
 ```
 
 
+#### **view all lists favorites**
+
+- URL: `/user/{user_id}/bookmarks/`
+- Method: `GET`
+- Auth required: YES
+- Use: Create a new list of favorite places
+
+
+*Sucess Response*
+
+- Code: `200`
+- Instance: in case the list of favorite places was created successfully
+- Example:
+
+```json
+{
+  {
+    "idFavoriteList": "1",
+    "nameFavoriteList": "loved places"
+  },
+  {
+    "idFavoriteList": "2",
+    "nameFavoriteList": "loved places 2"
+  },
+  ...
+}
+```
+*Error Response*
+
+- Code: `401 UNAUTHORIZED`
+- Instance: in case the token used is invalid
+- Example:
+```json
+{
+  "detail": "Invalid Token."
+}
+```
+- Code: `404 NOT FOUND`
+- Conditions: If the provided user_id doesn't exist on the database.
+- Example:
+```json
+{
+  "detail": "User not found."
+}
+```
+
 #### **View list favorite**
 
 - URL: `/user/{user_id}/bookmark/{bookmark_id}`
